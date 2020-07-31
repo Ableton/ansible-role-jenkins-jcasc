@@ -1,0 +1,25 @@
+---
+galaxy_info:
+  author: Nik Reiman
+  description: Installs the Jenkins CI service with JCasC
+  company: Ableton AG
+
+  license: MIT
+
+  min_ansible_version: 2.9
+
+  github_branch: master
+
+  platforms:
+    - name: Debian
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - all
+
+  galaxy_tags:
+    - jenkins
+    - jcasc
+
+  dependencies: []

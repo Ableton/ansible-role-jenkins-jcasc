@@ -1,0 +1,18 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: instance
+    image: ubuntu:18.04
+    privileged: true
+    exposed_ports:
+      - 8100/tcp
+    published_ports:
+      - 0.0.0.0:8100:8100/tcp
+provisioner:
+  name: ansible
+  log: true
+verifier:
+  name: testinfra

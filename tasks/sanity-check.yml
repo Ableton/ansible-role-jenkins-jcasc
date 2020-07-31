@@ -1,0 +1,23 @@
+---
+- name: Ensure that required role variables are defined
+  fail:
+    msg: "Undefined required role variable (s)"
+  when: required_variable == ""
+  loop_control:
+    loop_var: required_variable
+  with_items:
+    - "{{ jenkins_group }}"
+    - "{{ jenkins_home }}"
+    - "{{ jenkins_jcasc_config_file }}"
+    - "{{ jenkins_jcasc_version }}"
+    - "{{ jenkins_pimt_version }}"
+    - "{{ jenkins_plugins_file }}"
+    - "{{ jenkins_port }}"
+    - "{{ jenkins_root }}"
+    - "{{ jenkins_user }}"
+    - "{{ jenkins_version }}"
+
+- name: Ensure that jobs directory is defined if necessary
+  fail:
+    msg: "jenkins_jobs is not empty, but jenkins_jobs_dir is undefined"
+  when: (jenkins_jobs | length > 0) and jenkins_jobs_dir == ""

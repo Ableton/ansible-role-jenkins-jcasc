@@ -1,0 +1,13 @@
+---
+- name: Create Jenkins group
+  group:
+    name: "{{ jenkins_group }}"
+    state: present
+
+- name: Create Jenkins user
+  user:
+    name: "{{ jenkins_user }}"
+    group: "{{ jenkins_group }}"
+    home: "{{ jenkins_root }}"
+    shell: "/bin/false"
+    state: present

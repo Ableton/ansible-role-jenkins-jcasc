@@ -1,0 +1,6 @@
+ansible
+docker-py
+molecule
+pytest-socket
+python-jenkins
+testinfra

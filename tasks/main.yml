@@ -1,0 +1,24 @@
+---
+- include: "sanity-check.yml"
+
+- include: "stop-service.yml"
+
+- include: "configure-user.yml"
+
+- include: "configure-dirs.yml"
+
+- include: "install-java-{{ ansible_pkg_mgr }}.yml"
+
+- include: "install-jenkins.yml"
+
+- include: "configure-service-{{ ansible_service_mgr }}.yml"
+
+- include: "stop-service.yml"
+
+- include: "install-plugins.yml"
+
+- include: "configure-files.yml"
+
+- include: "configure-jobs.yml"
+
+- include: "start-service.yml"

@@ -1,0 +1,19 @@
+plugins {
+  id 'java'
+}
+
+repositories {
+  maven {
+    url = uri('https://repo.jenkins-ci.org/public/')
+  }
+}
+
+dependencies {
+  implementation 'io.jenkins:configuration-as-code:1.42'
+  implementation 'io.jenkins.plugins:snakeyaml-api:1.26.4'
+}
+
+task getDeps(type: Copy) {
+  from sourceSets.main.runtimeClasspath
+  into 'target/'
+}

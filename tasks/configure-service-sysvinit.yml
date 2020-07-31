@@ -1,0 +1,13 @@
+---
+- name: Generate Jenkins launcher script
+  template:
+    src: "jenkins-sysvinit.sh.j2"
+    dest: "/etc/init.d/jenkins"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+
+- name: Install Jenkins service
+  service:
+    name: "jenkins"
+    enabled: true

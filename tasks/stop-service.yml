@@ -1,0 +1,18 @@
+---
+- name: Ensure Jenkins service is stopped
+  become: true
+  service:
+    name: "jenkins"
+    state: stopped
+  register: jenkins_service_stop
+  # There are many normal reasons why this task may fail, such as Jenkins not actually
+  # being installed yet.
+  ignore_errors: true
+  # This is required or else molecule's idempotency test will fail. See:
+  # https://github.com/ansible-community/molecule/issues/2765
+  changed_when: false
+
+- name: Wait for Jenkins to stop
+  wait_for:
+    timeout: 5
+  when: jenkins_service_stop is changed

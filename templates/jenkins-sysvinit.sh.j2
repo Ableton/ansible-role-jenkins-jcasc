@@ -1,0 +1,47 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          jenkins
+# Required-Start:    $all
+# Required-Stop:
+# Default-Start:     2 3 4 5
+# Default-Stop:
+# Short-Description: Jenkins CI Service
+### END INIT INFO
+
+RETVAL=0
+
+start() {
+  /usr/bin/daemon --name=jenkins --inherit --output=/var/log/jenkins.log \
+    --env=CASC_JENKINS_CONFIG={{ jenkins_config_dir }}/jenkins.yaml \
+    --env=JENKINS_HOME={{ jenkins_home }} --pidfile={{ jenkins_pid_file }} -- \
+    {{ jenkins_command }}
+  RETVAL=$?
+}
+
+stop() {
+  if [ -f {{ jenkins_pid_file }} ]; then
+    /usr/bin/pkill -F {{ jenkins_pid_file }}
+    RETVAL=$?
+  fi
+}
+
+case "$1" in
+  start)
+    start
+    ;;
+  stop)
+    stop
+    ;;
+  status)
+    [ -f {{ jenkins_pid_file }} ]
+    RETVAL=$?
+    ;;
+  restart)
+    stop && start
+    ;;
+  *)
+    echo "Usage: {start|stop|restart|status}"
+    exit 1
+esac
+
+exit $RETVAL

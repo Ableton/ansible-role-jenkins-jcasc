@@ -1,0 +1,101 @@
+---
+- name: Set fact for Jenkins Plugin Installation Manager Tool JAR name
+  set_fact:
+    jenkins_pimt_jar: "jenkins-plugin-manager-{{ jenkins_pimt_version }}.jar"
+
+- name: Ensure that Jenkins Plugin Installation Manager Tool is installed
+  get_url:
+    url: "https://github.com/jenkinsci/plugin-installation-manager-tool/releases/download\
+      /plugin-management-parent-pom-{{ jenkins_pimt_version }}/{{ jenkins_pimt_jar }}"
+    dest: "{{ jenkins_lib_dir }}/{{ jenkins_pimt_jar }}"
+
+- name: Copy plugins file
+  template:
+    src: "{{ jenkins_plugins_file }}"
+    dest: "{{ jenkins_config_dir }}/plugins.yaml"
+    owner: "{{ jenkins_user }}"
+    group: "{{ jenkins_group }}"
+
+# Plugins are installed to a temporary directory because otherwise the permissions on the
+# real plugin directory get screwed up, and adding another task to fix that would be
+# idempotent. Also, if the plugins are copied to the real directory after downloading,
+# we'll get useful information in the Ansible logs about which ones have changed.
+- name: Install plugins to temporary directory
+  become: true
+  become_user: "{{ jenkins_user }}"
+  command: >
+    java -jar
+      {{ jenkins_lib_dir }}/{{ jenkins_pimt_jar }}
+      --plugin-download-directory /tmp/plugins
+      --plugin-file {{ jenkins_config_dir }}/plugins.yaml
+      --war {{ jenkins_war }}
+      --verbose
+  environment:
+    CACHE_DIR: "{{ jenkins_caches_dir }}"
+  # We don't have a good way to know when this command changed anything on the system, so
+  # we take the coward's way out and just define changed_when to false. The next task will
+  # report an accurate changed status, however.
+  changed_when: false
+
+- name: Find all plugins downloaded by Plugin Installation Manager Tool
+  find:
+    paths:
+      - "/tmp/plugins"
+    patterns:
+      - "*.hpi"
+      - "*.jpi"
+  register: downloaded_plugins
+
+# We could copy the entire directory where we downloaded the plugins by setting the src to
+# be "/tmp/plugins/", but then we miss out on seeing which plugins were actually changed.
+# The cost of this is a bit of extra runtime, but it's worth it to see which plugins have
+# been updated.
+- name: Copy plugins to Jenkins plugin directory
+  copy:
+    src: "{{ plugin_file }}"
+    dest: "{{ jenkins_plugins_dir }}"
+    remote_src: true
+    owner: "{{ jenkins_user }}"
+    group: "{{ jenkins_group }}"
+    mode: "0644"
+  with_items: "{{ downloaded_plugins.files | map(attribute='path') | list }}"
+  loop_control:
+    loop_var: plugin_file
+
+- name: Fetch plugin dependencies with Gradle
+  become: false
+  delegate_to: localhost
+  command: "./gradlew getDeps"
+  args:
+    chdir: "{{ role_path }}/plugins"
+  changed_when: false
+
+- name: Find all plugins downloaded by Gradle
+  become: false
+  delegate_to: localhost
+  find:
+    paths:
+      - "{{ role_path }}/plugins/target"
+    patterns:
+      - "*.hpi"
+      - "*.jpi"
+  register: role_custom_plugins
+
+- name: Append JCasC plugins to jenkins_custom_plugins list
+  set_fact:
+    jenkins_custom_plugins: >
+      {{ role_custom_plugins.files | map(attribute='path') | list }}
+
+# We install custom plugins AFTER installing everything else with the plugin installation
+# manager tool. This allows us to ensure that these plugins are not overridden by a
+# different and possibly conflicting version.
+- name: Install custom Jenkins plugins
+  copy:
+    src: "{{ plugin_file }}"
+    dest: "{{ jenkins_plugins_dir }}"
+    owner: "{{ jenkins_user }}"
+    group: "{{ jenkins_group }}"
+    mode: "0644"
+  with_items: "{{ jenkins_custom_plugins }}"
+  loop_control:
+    loop_var: plugin_file

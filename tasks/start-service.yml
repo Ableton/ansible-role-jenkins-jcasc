@@ -1,0 +1,31 @@
+---
+- name: Start Jenkins service
+  service:
+    name: jenkins
+    state: started
+  # This is required or else molecule's idempotency test will fail. See:
+  # https://github.com/ansible-community/molecule/issues/2765
+  changed_when: false
+
+- name: Initialize jenkins_web_force_basic_auth parameter
+  set_fact:
+    jenkins_web_force_basic_auth: false
+
+- name: Set jenkins_web_force_basic_auth parameter
+  set_fact:
+    jenkins_web_force_basic_auth: true
+  when: jenkins_web_user != "" and jenkins_web_password != ""
+
+- name: Wait for Jenkins to start
+  uri:
+    url: "http://localhost:{{ jenkins_port }}"
+    url_username: "{{ jenkins_web_user | default(omit) }}"
+    url_password: "{{ jenkins_web_password | default(omit) }}"
+    force_basic_auth: "{{ jenkins_web_force_basic_auth }}"
+  become: false
+  register: jenkins_home_content
+  # Jenkins will return 503 (service unavailable) on the home page while
+  # starting (the "Please wait while Jenkins is getting ready to work" page)
+  until: jenkins_home_content is success and jenkins_home_content.status == 200
+  retries: 30
+  delay: 5

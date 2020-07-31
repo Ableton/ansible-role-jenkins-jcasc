@@ -1,0 +1,10 @@
+---
+- name: Download Jenkins WAR file
+  get_url:
+    url: "http://mirrors.jenkins.io/war-stable/{{ jenkins_version }}/jenkins.war"
+    checksum: "sha256:\
+      http://mirrors.jenkins.io/war-stable/{{ jenkins_version }}/jenkins.war.sha256"
+    dest: "{{ jenkins_war }}"
+    # Sometimes the main Jenkins repository has network stability issues
+    timeout: 30
+  retries: 3

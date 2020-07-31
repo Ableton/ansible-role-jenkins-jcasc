@@ -1,0 +1,19 @@
+---
+- name: Ensure that Jenkins directories exist
+  file:
+    path: "{{ jenkins_dir }}"
+    owner: "{{ jenkins_user }}"
+    group: "{{ jenkins_group }}"
+    mode: 0755
+    state: directory
+  with_items:
+    # The jenkins_root directory should be created first
+    - "{{ jenkins_root }}"
+    - "{{ jenkins_caches_dir }}"
+    - "{{ jenkins_config_dir }}"
+    - "{{ jenkins_home }}"
+    - "{{ jenkins_lib_dir }}"
+    - "{{ jenkins_plugins_dir }}"
+    - "{{ jenkins_userContent_dir }}"
+  loop_control:
+    loop_var: jenkins_dir

@@ -1,0 +1,18 @@
+[Unit]
+Description=Jenkins CI Service
+After=network.target
+
+[Service]
+Environment="CASC_JENKINS_CONFIG={{ jenkins_config_dir }}/jenkins.yaml"
+Environment="JENKINS_HOME={{ jenkins_home }}"
+ExecStart={{ jenkins_command }}
+ExecStop=/usr/bin/pkill -F {{ jenkins_pid_file }}
+PIDFile={{ jenkins_pid_file }}
+Restart=on-failure
+Type=simple
+User={{ jenkins_user }}
+Group={{ jenkins_group }}
+WorkingDirectory={{ jenkins_home }}
+
+[Install]
+WantedBy=multi-user.target

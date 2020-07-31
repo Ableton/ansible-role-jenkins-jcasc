@@ -1,0 +1,22 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    jenkins_custom_files:
+      - src: "{{ playbook_dir }}/files/sidebar-link.xml"
+        dest: "sidebar-link.xml"
+    jenkins_extra_args: "--sessionTimeout=1"
+    jenkins_group: "jgroup"
+    jenkins_java_args: "-server"
+    jenkins_jcasc_config_file: "{{ playbook_dir }}/configs/jenkins.yaml"
+    jenkins_jobs:
+      - "test_job"
+    jenkins_jobs_dir: "{{ playbook_dir }}/jobs"
+    jenkins_plugins_file: "{{ playbook_dir }}/configs/plugins.yaml"
+    jenkins_port: "8100"
+    jenkins_root: "/jenkins"
+    jenkins_user: "juser"
+    jenkins_user_content: "{{ playbook_dir }}/files/userContent"
+    jenkins_version: "2.235.2"
+  roles:
+    - ableton.jenkins-jcasc

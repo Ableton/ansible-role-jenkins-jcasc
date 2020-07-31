@@ -1,0 +1,10 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<hudson.plugins.sidebar__link.SidebarLinkPlugin plugin="sidebar-link@1.11.0">
+  <links>
+    <hudson.plugins.sidebar__link.LinkAction>
+      <url>https://jenkins.io</url>
+      <text>Jenkins Homepage</text>
+      <icon>/userContent/jenkins.png</icon>
+    </hudson.plugins.sidebar__link.LinkAction>
+  </links>
+</hudson.plugins.sidebar__link.SidebarLinkPlugin>

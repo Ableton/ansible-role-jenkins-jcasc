@@ -1,0 +1,88 @@
+---
+# List of custom files to install on Jenkins. Usually this is necessary for configuration
+# files which do not yet support JCasC. Each list item should be a dict with keys for
+# `src` and `dest`, which correspond to the location of the file on the Ansible controller
+# and the destination relative to `JENKINS_HOME` where the file should be installed,
+# respectively. For example:
+#
+# jenkins_custom_files:
+#   - src: {{ playbook_dir }}/files/jenkins/example.xml
+#     dest: example.xml
+#
+# Any intermediate directories for the destination file will be created if necessary. If
+# you need to install files on Jenkins for static web hosting, please refer to the
+# jenkins_user_content variable below, which can copy an entire userContent directory to
+# Jenkins and is more efficient than iterating over this list.
+jenkins_custom_files: []
+
+# List of custom plugins to copy and install on Jenkins during provisioning.
+jenkins_custom_plugins: []
+
+# Extra arguments to use when starting the Jenkins service.
+jenkins_extra_args: ""
+
+# Group to run the Jenkins service as. This group will be created if it does not exist.
+# NOTE: This variable must be defined!
+jenkins_group: "jenkins"
+
+# Java arguments to use when starting the Jenkins service.
+# NOTE: The `-Djenkins.install.runSetupWizard=false` argument is always passed when
+# starting Jenkins, it is not necessary to add this option to `jenkins_java_args`.
+jenkins_java_args: ""
+
+# Location of the JCasC configuration file. Please see the README or JCasC homepage for
+# information about how to generate this file.
+# NOTE: This variable must be defined!
+jenkins_jcasc_config_file: ""
+
+# Version of the JCasC plugin to use. Your `jenkins.yaml` file must be compatible with
+# this version of the JCasC plugin.
+# NOTE: This variable must be defined!
+jenkins_jcasc_version: "1.42"
+
+# List of Jenkins jobs to copy to the server. Each item in this list must contain a
+# relative path under the `jenkins_jobs_dir` directory which contains the job's
+# `config.xml` file.
+jenkins_jobs: []
+
+# Location on the Ansible controller machine where jobs listed in the `jenkins_jobs`
+# variable can be found.
+# NOTE: This variable must be defined if you want to use `jenkins_jobs`!
+jenkins_jobs_dir: ""
+
+# File containing the list of plugins to install. Please refer to the README or to the
+# Jenkins Plugin Installation Manager Tool homepage for information about this file
+# format. The `plugins.yaml` file may also be used if it contains a `plugins` section. If
+# no plugins are to be installed, then you should assign this variable the same value as
+# `jenkins_jcasc_config_file`.
+# NOTE: This variable must be defined!
+jenkins_plugins_file: ""
+
+# HTTP port which Jenkins will listen on.
+# NOTE: This variable must be defined!
+jenkins_port: "8080"
+
+# Root directory to install Jenkins content underneath. See vars/main.yml to customize
+# specific locations for various Jenkins directories.
+# NOTE: This variable must be defined!
+jenkins_root: "/opt/jenkins"
+
+# User to run the Jenkins service as. This user will be created if it does not exist.
+# NOTE: This variable must be defined!
+jenkins_user: "jenkins"
+
+# Directory containing static web content to be served by Jenkins.
+jenkins_user_content: ""
+
+# Version of Jenkins to install.
+# NOTE: This variable must be defined!
+jenkins_version: "2.235.2"
+
+# If the Jenkins instance requires authentication, then this variable should contain a
+# username which has permission to view the Jenkins homepage. This is used to determine
+# when Jenkins has finished starting up and is ready for requests.
+jenkins_web_user: ""
+
+# If the Jenkins instance requires authentication, then this variable should contain the
+# password for the `jenkins_web_user`.
+jenkins_web_password: ""

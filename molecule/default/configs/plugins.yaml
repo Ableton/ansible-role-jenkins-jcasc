@@ -1,0 +1,5 @@
+---
+plugins:
+  - artifactId: sidebar-link
+    source:
+      version: 1.11.0

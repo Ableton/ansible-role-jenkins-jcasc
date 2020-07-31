@@ -1,0 +1,12 @@
+---
+- name: Ensure Java is installed
+  apt:
+    name: "openjdk-11-jre-headless"
+    state: present
+    update_cache: true
+
+- name: Ensure daemon is installed
+  apt:
+    name: "daemon"
+    state: present
+  when: ansible_service_mgr == "sysvinit"
