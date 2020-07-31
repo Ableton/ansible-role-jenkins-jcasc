@@ -19,4 +19,4 @@
     jenkins_user_content: "{{ playbook_dir }}/files/userContent"
     jenkins_version: "2.235.2"
   roles:
-    - ableton.jenkins-jcasc
+    - ansible-role-jenkins-jcasc
