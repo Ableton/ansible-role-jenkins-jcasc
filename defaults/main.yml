@@ -67,6 +67,10 @@ jenkins_port: "8080"
 # NOTE: This variable must be defined!
 jenkins_root: "/opt/jenkins"
 
+# List of files to copy to the secrets directory. These files will only be readable by the
+# Jenkins user.
+jenkins_secret_files: []
+
 # User to run the Jenkins service as. This user will be created if it does not exist.
 # NOTE: This variable must be defined!
 jenkins_user: "jenkins"

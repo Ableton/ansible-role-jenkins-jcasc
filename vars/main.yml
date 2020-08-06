@@ -29,6 +29,9 @@ jenkins_pimt_version: "1.2.0"
 # Directory for Jenkins plugins
 jenkins_plugins_dir: "{{ jenkins_home }}/plugins"
 
+# Directory for secret files (credentials, etc)
+jenkins_secrets_dir: "{{ jenkins_root }}/secrets"
+
 # Directory for Jenkins static web content
 jenkins_userContent_dir: "{{ jenkins_home }}/userContent"
 
