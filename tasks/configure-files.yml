@@ -26,6 +26,17 @@
   loop_control:
     loop_var: custom_file
 
+- name: Copy secrets
+  copy:
+    src: "{{ secret_file }}"
+    dest: "{{ jenkins_secrets_dir }}"
+    owner: "{{ jenkins_user }}"
+    group: "{{ jenkins_group }}"
+    mode: "0600"
+  with_items: "{{ jenkins_secret_files }}"
+  loop_control:
+    loop_var: secret_file
+
 - name: Copy userContent
   copy:
     src: "{{ jenkins_user_content }}/"

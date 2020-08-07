@@ -15,6 +15,8 @@
     jenkins_plugins_file: "{{ playbook_dir }}/configs/plugins.yaml"
     jenkins_port: "8100"
     jenkins_root: "/jenkins"
+    jenkins_secret_files:
+      - "{{ playbook_dir }}/files/secret.txt"
     jenkins_user: "juser"
     jenkins_user_content: "{{ playbook_dir }}/files/userContent"
     jenkins_version: "2.235.2"

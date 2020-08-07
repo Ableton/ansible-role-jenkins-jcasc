@@ -94,3 +94,17 @@ def test_jenkins_jobs():
 
     assert test_job['name'] == 'test_job'
     assert test_job['buildable']
+
+
+def test_secret_files(host):
+    test_secrets_dir = host.file('/jenkins/secrets')
+    test_secrets_file = host.file('/jenkins/secrets/secret.txt')
+
+    assert test_secrets_dir.is_directory
+    assert test_secrets_dir.user == 'juser'
+    assert test_secrets_dir.group == 'jgroup'
+    assert test_secrets_dir.mode == 0o0700
+    assert test_secrets_file.is_file
+    assert test_secrets_file.user == 'juser'
+    assert test_secrets_file.group == 'jgroup'
+    assert test_secrets_file.content_string == 'super secret stuff\n'
