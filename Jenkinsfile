@@ -19,6 +19,11 @@ devToolsProject.run(
       },
     )
   },
+  deployWhen: { runTheBuilds.isPushTo(['develop']) && script.env.PRODUCTION == 'true' },
+  deploy: { data ->
+    String versionNumber = readFile('VERSION').trim()
+    version.tag(versionNumber)
+  },
   cleanup: { data ->
     data.venv?.cleanup()
   },
