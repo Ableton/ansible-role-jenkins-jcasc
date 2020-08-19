@@ -15,7 +15,7 @@ devToolsProject.run(
       molecule: { data.venv.run('molecule --debug test') },
     )
   },
-  deployWhen: { runTheBuilds.isPushTo(['develop']) && script.env.PRODUCTION == 'true' },
+  deployWhen: { runTheBuilds.isPushTo(['develop']) && env.PRODUCTION == 'true' },
   deploy: { data ->
     String versionNumber = readFile('VERSION').trim()
     version.tag(versionNumber)
