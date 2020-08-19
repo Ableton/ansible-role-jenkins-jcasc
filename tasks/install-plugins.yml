@@ -8,6 +8,7 @@
     url: "https://github.com/jenkinsci/plugin-installation-manager-tool/releases/download\
       /plugin-management-parent-pom-{{ jenkins_pimt_version }}/{{ jenkins_pimt_jar }}"
     dest: "{{ jenkins_lib_dir }}/{{ jenkins_pimt_jar }}"
+    mode: "0644"
 
 - name: Copy plugins file
   template:
@@ -15,6 +16,7 @@
     dest: "{{ jenkins_config_dir }}/plugins.yaml"
     owner: "{{ jenkins_user }}"
     group: "{{ jenkins_group }}"
+    mode: "0644"
 
 # Plugins are installed to a temporary directory because otherwise the permissions on the
 # real plugin directory get screwed up, and adding another task to fix that would be
