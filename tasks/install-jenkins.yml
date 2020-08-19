@@ -7,4 +7,5 @@
     dest: "{{ jenkins_war }}"
     # Sometimes the main Jenkins repository has network stability issues
     timeout: 30
+    mode: "0644"
   retries: 3

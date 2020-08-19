@@ -3,6 +3,7 @@
   template:
     src: "{{ jenkins_jcasc_config_file }}"
     dest: "{{ jenkins_config_dir }}/jenkins.yaml"
+    mode: "0644"
 
 - name: Create intermediate dirs for custom files
   file:
@@ -43,4 +44,5 @@
     dest: "{{ jenkins_userContent_dir }}/"
     owner: "{{ jenkins_user }}"
     group: "{{ jenkins_group }}"
+    mode: "0644"
   when: jenkins_user_content != ""
