@@ -11,12 +11,8 @@ devToolsProject.run(
   },
   test: { data ->
     parallel(failFast: false,
-      groovylint: {
-        groovylint.check('./Jenkinsfile')
-      },
-      molecule: {
-        data.venv.run('molecule --debug test')
-      },
+      groovylint: { groovylint.check('./Jenkinsfile') },
+      molecule: { data.venv.run('molecule --debug test') },
     )
   },
   deployWhen: { runTheBuilds.isPushTo(['develop']) && script.env.PRODUCTION == 'true' },
@@ -24,7 +20,5 @@ devToolsProject.run(
     String versionNumber = readFile('VERSION').trim()
     version.tag(versionNumber)
   },
-  cleanup: { data ->
-    data.venv?.cleanup()
-  },
+  cleanup: { data -> data.venv?.cleanup() },
 )
