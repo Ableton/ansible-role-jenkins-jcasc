@@ -11,6 +11,7 @@ devToolsProject.run(
   },
   test: { data ->
     parallel(failFast: false,
+      'ansible-lint': { data.venv.run('ansible-lint -c .ansible-lint.yml') },
       groovylint: { groovylint.check('./Jenkinsfile') },
       molecule: { data.venv.run('molecule --debug test') },
     )
