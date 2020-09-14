@@ -24,7 +24,7 @@ jenkins_pid_file: "{{ jenkins_caches_dir }}/jenkins.pid"
 # Version of the Jenkins Plugin Installation Manager Tool to use.
 # WARNING: Changing the version of this tool may cause failures in install-plugins.yml if
 # API of this tool has changed.
-jenkins_pimt_version: "2.0.0"
+jenkins_pimt_version: "2.0.1"
 
 # Directory for Jenkins plugins
 jenkins_plugins_dir: "{{ jenkins_home }}/plugins"
