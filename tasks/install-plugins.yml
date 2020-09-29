@@ -6,7 +6,7 @@
 - name: Ensure that Jenkins Plugin Installation Manager Tool is installed
   get_url:
     url: "https://github.com/jenkinsci/plugin-installation-manager-tool/releases/download\
-      /plugin-management-parent-pom-{{ jenkins_pimt_version }}/{{ jenkins_pimt_jar }}"
+      /{{ jenkins_pimt_version }}/{{ jenkins_pimt_jar }}"
     dest: "{{ jenkins_lib_dir }}/{{ jenkins_pimt_jar }}"
     mode: "0644"
 
