@@ -11,3 +11,8 @@
     home: "{{ jenkins_root }}"
     shell: "/bin/false"
     state: present
+  # If the Jenkins user is the same as the Ansible user, we should NOT run this task.
+  # First, we do not want to alter the user's home directory, primary group, and shell in
+  # that case. Second, this task will likely fail since user attributes can't be altered
+  # if the user is logged in.
+  when: not (ansible_user is defined and jenkins_user == ansible_user)
