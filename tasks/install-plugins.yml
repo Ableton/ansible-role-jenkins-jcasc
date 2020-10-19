@@ -38,6 +38,7 @@
   # we take the coward's way out and just define changed_when to false. The next task will
   # report an accurate changed status, however.
   changed_when: false
+  retries: 3
 
 - name: Find all plugins downloaded by Plugin Installation Manager Tool
   find:
