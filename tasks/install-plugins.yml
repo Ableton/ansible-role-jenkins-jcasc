@@ -1,8 +1,4 @@
 ---
-- name: Set fact for Jenkins Plugin Installation Manager Tool JAR name
-  set_fact:
-    jenkins_pimt_jar: "jenkins-plugin-manager-{{ jenkins_pimt_version }}.jar"
-
 - name: Ensure that Jenkins Plugin Installation Manager Tool is installed
   get_url:
     url: "{{ jenkins_pimt_url }}"

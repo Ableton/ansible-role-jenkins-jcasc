@@ -21,6 +21,8 @@ jenkins_lib_dir: "{{ jenkins_root }}/lib"
 # PID (process identifier) file used for Jenkins service
 jenkins_pid_file: "{{ jenkins_caches_dir }}/jenkins.pid"
 
+jenkins_pimt_jar: "jenkins-plugin-manager-{{ jenkins_pimt_version }}.jar"
+
 # URL to download PIMT from
 jenkins_pimt_url: "https://github.com/jenkinsci/plugin-installation-manager-tool/releases\
   /download/{{ jenkins_pimt_version }}/{{ jenkins_pimt_jar }}"
