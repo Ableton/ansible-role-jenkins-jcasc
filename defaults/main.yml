@@ -38,7 +38,7 @@ jenkins_jcasc_config_file: ""
 # Version of the JCasC plugin to use. Your `jenkins.yaml` file must be compatible with
 # this version of the JCasC plugin.
 # NOTE: This variable must be defined!
-jenkins_jcasc_version: "1.44"
+jenkins_jcasc_version: "1.45"
 
 # List of Jenkins jobs to copy to the server. Each item in this list must contain a
 # relative path under the `jenkins_jobs_dir` directory which contains the job's
