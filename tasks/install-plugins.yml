@@ -83,9 +83,9 @@
       - "*.jpi"
   register: role_custom_plugins
 
-- name: Append JCasC plugins to jenkins_custom_plugins list
+- name: Collect JCasC plugins in jenkins_jcasc_plugins list
   set_fact:
-    jenkins_custom_plugins: >
+    jenkins_jcasc_plugins: >
       {{ role_custom_plugins.files | map(attribute='path') | list }}
 
 # We install custom plugins AFTER installing everything else with the plugin installation
@@ -98,6 +98,6 @@
     owner: "{{ jenkins_user }}"
     group: "{{ jenkins_group }}"
     mode: "0644"
-  with_items: "{{ jenkins_custom_plugins }}"
+  with_items: "{{ jenkins_jcasc_plugins + jenkins_custom_plugins }}"
   loop_control:
     loop_var: plugin_file

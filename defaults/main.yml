@@ -15,7 +15,13 @@
 # Jenkins and is more efficient than iterating over this list.
 jenkins_custom_files: []
 
-# List of custom plugins to copy and install on Jenkins during provisioning.
+# List of custom plugins to copy and install on Jenkins during provisioning. For example:
+#
+# jenkins_custom_plugins:
+#   - "{{ playbook_dir }}/files/jenkins/plugins/customplugin.hpi"
+#
+# Any custom plugins will be installed after and take precedence over the plugins
+# specified in jenkins_plugins_file.
 jenkins_custom_plugins: []
 
 # Extra arguments to use when starting the Jenkins service.
