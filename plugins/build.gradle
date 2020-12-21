@@ -9,8 +9,8 @@ repositories {
 }
 
 dependencies {
-  implementation 'io.jenkins:configuration-as-code:1.42'
-  implementation 'io.jenkins.plugins:snakeyaml-api:1.26.4'
+  implementation 'io.jenkins:configuration-as-code:1.46'
+  implementation 'io.jenkins.plugins:snakeyaml-api:1.27.0'
 }
 
 task getDeps(type: Copy) {
