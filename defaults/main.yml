@@ -44,7 +44,7 @@ jenkins_jcasc_config_file: ""
 # Version of the JCasC plugin to use. Your `jenkins.yaml` file must be compatible with
 # this version of the JCasC plugin.
 # NOTE: This variable must be defined!
-jenkins_jcasc_version: "1.46"
+jenkins_jcasc_version: "1.47"
 
 # List of Jenkins jobs to copy to the server. Each item in this list must contain a
 # relative path under the `jenkins_jobs_dir` directory which contains the job's
@@ -86,7 +86,7 @@ jenkins_user_content: ""
 
 # Version of Jenkins to install.
 # NOTE: This variable must be defined!
-jenkins_version: "2.235.3"
+jenkins_version: "2.263.3"
 
 # If the Jenkins instance requires authentication, then this variable should contain a
 # username which has permission to view the Jenkins homepage. This is used to determine
