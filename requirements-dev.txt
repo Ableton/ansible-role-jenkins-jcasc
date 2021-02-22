@@ -4,69 +4,182 @@
 #
 #    pip-compile --output-file=requirements-dev.txt requirements-dev.in
 #
-ansible-lint==4.3.0       # via -r requirements-dev.in
-ansible==2.9.11           # via -r requirements-dev.in, ansible-lint, molecule
-arrow==0.15.8             # via jinja2-time
-attrs==19.3.0             # via pytest
-bcrypt==3.1.7             # via paramiko
-binaryornot==0.4.4        # via cookiecutter
-cerberus==1.3.2           # via molecule
-certifi==2020.6.20        # via requests
-cffi==1.14.1              # via bcrypt, cryptography, pynacl
-chardet==3.0.4            # via binaryornot, requests
-click-completion==0.5.2   # via molecule
-click-help-colors==0.8    # via molecule
-click==7.1.2              # via click-completion, click-help-colors, cookiecutter, molecule, python-gilt
-colorama==0.4.3           # via molecule, python-gilt
-cookiecutter==1.7.2       # via molecule
-cryptography==3.0         # via ansible, paramiko
-distro==1.5.0             # via selinux
-docker-py==1.10.6         # via -r requirements-dev.in
-docker-pycreds==0.4.0     # via docker-py
-fasteners==0.15           # via python-gilt
-idna==2.10                # via requests
-iniconfig==1.0.0          # via pytest
-jinja2-time==0.2.0        # via cookiecutter
-jinja2==2.11.2            # via ansible, click-completion, cookiecutter, jinja2-time, molecule
-markupsafe==1.1.1         # via cookiecutter, jinja2
-molecule==3.0.6           # via -r requirements-dev.in
-monotonic==1.5            # via fasteners
-more-itertools==8.4.0     # via pytest
-multi-key-dict==2.0.3     # via python-jenkins
-packaging==20.4           # via pytest
-paramiko==2.7.1           # via molecule
-pathspec==0.8.0           # via yamllint
-pbr==5.4.5                # via python-jenkins
-pexpect==4.8.0            # via molecule
-pluggy==0.13.1            # via molecule, pytest
-poyo==0.5.0               # via cookiecutter
-ptyprocess==0.6.0         # via pexpect
-py==1.9.0                 # via pytest
-pycparser==2.20           # via cffi
-pynacl==1.4.0             # via paramiko
-pyparsing==2.4.7          # via packaging
-pytest-socket==0.3.5      # via -r requirements-dev.in
-pytest==6.0.1             # via pytest-socket, testinfra
-python-dateutil==2.8.1    # via arrow
-python-gilt==1.2.3        # via molecule
-python-jenkins==1.7.0     # via -r requirements-dev.in
-python-slugify==4.0.1     # via cookiecutter
-pyyaml==5.3.1             # via ansible, ansible-lint, molecule, python-gilt, yamllint
-requests==2.24.0          # via cookiecutter, docker-py, python-jenkins
-ruamel.yaml.clib==0.2.0   # via ruamel.yaml
-ruamel.yaml==0.16.10      # via ansible-lint
-selinux==0.2.1            # via molecule
-sh==1.13.1                # via molecule, python-gilt
-shellingham==1.3.2        # via click-completion
-six==1.15.0               # via bcrypt, click-completion, cookiecutter, cryptography, docker-py, docker-pycreds, fasteners, packaging, pynacl, python-dateutil, python-jenkins, websocket-client
-tabulate==0.8.7           # via molecule
-testinfra==5.2.2          # via -r requirements-dev.in
-text-unidecode==1.3       # via python-slugify
-toml==0.10.1              # via pytest
-tree-format==0.1.2        # via molecule
-urllib3==1.25.10          # via requests
-websocket-client==0.57.0  # via docker-py
-yamllint==1.24.2          # via molecule
+ansible-lint==4.3.0
+    # via -r requirements-dev.in
+ansible==2.9.11
+    # via
+    #   -r requirements-dev.in
+    #   ansible-lint
+    #   molecule
+arrow==0.15.8
+    # via jinja2-time
+attrs==19.3.0
+    # via pytest
+bcrypt==3.1.7
+    # via paramiko
+binaryornot==0.4.4
+    # via cookiecutter
+cerberus==1.3.2
+    # via molecule
+certifi==2020.6.20
+    # via requests
+cffi==1.14.1
+    # via
+    #   bcrypt
+    #   cryptography
+    #   pynacl
+chardet==3.0.4
+    # via
+    #   binaryornot
+    #   requests
+click-completion==0.5.2
+    # via molecule
+click-help-colors==0.8
+    # via molecule
+click==7.1.2
+    # via
+    #   click-completion
+    #   click-help-colors
+    #   cookiecutter
+    #   molecule
+    #   python-gilt
+colorama==0.4.3
+    # via
+    #   molecule
+    #   python-gilt
+cookiecutter==1.7.2
+    # via molecule
+cryptography==3.0
+    # via
+    #   ansible
+    #   paramiko
+distro==1.5.0
+    # via selinux
+docker-py==1.10.6
+    # via -r requirements-dev.in
+docker-pycreds==0.4.0
+    # via docker-py
+fasteners==0.15
+    # via python-gilt
+idna==2.10
+    # via requests
+iniconfig==1.0.0
+    # via pytest
+jinja2-time==0.2.0
+    # via cookiecutter
+jinja2==2.11.2
+    # via
+    #   ansible
+    #   click-completion
+    #   cookiecutter
+    #   jinja2-time
+    #   molecule
+markupsafe==1.1.1
+    # via
+    #   cookiecutter
+    #   jinja2
+molecule==3.0.6
+    # via -r requirements-dev.in
+monotonic==1.5
+    # via fasteners
+more-itertools==8.4.0
+    # via pytest
+multi-key-dict==2.0.3
+    # via python-jenkins
+packaging==20.4
+    # via pytest
+paramiko==2.7.1
+    # via molecule
+pathspec==0.8.0
+    # via yamllint
+pbr==5.4.5
+    # via python-jenkins
+pexpect==4.8.0
+    # via molecule
+pluggy==0.13.1
+    # via
+    #   molecule
+    #   pytest
+poyo==0.5.0
+    # via cookiecutter
+ptyprocess==0.6.0
+    # via pexpect
+py==1.9.0
+    # via pytest
+pycparser==2.20
+    # via cffi
+pynacl==1.4.0
+    # via paramiko
+pyparsing==2.4.7
+    # via packaging
+pytest-socket==0.3.5
+    # via -r requirements-dev.in
+pytest-testinfra==6.1.0
+    # via testinfra
+pytest==6.0.1
+    # via
+    #   pytest-socket
+    #   pytest-testinfra
+python-dateutil==2.8.1
+    # via arrow
+python-gilt==1.2.3
+    # via molecule
+python-jenkins==1.7.0
+    # via -r requirements-dev.in
+python-slugify==4.0.1
+    # via cookiecutter
+pyyaml==5.3.1
+    # via
+    #   ansible
+    #   ansible-lint
+    #   molecule
+    #   python-gilt
+    #   yamllint
+requests==2.24.0
+    # via
+    #   cookiecutter
+    #   docker-py
+    #   python-jenkins
+ruamel.yaml==0.16.10
+    # via ansible-lint
+selinux==0.2.1
+    # via molecule
+sh==1.13.1
+    # via
+    #   molecule
+    #   python-gilt
+shellingham==1.3.2
+    # via click-completion
+six==1.15.0
+    # via
+    #   bcrypt
+    #   click-completion
+    #   cookiecutter
+    #   cryptography
+    #   docker-py
+    #   docker-pycreds
+    #   fasteners
+    #   packaging
+    #   pynacl
+    #   python-dateutil
+    #   python-jenkins
+    #   websocket-client
+tabulate==0.8.7
+    # via molecule
+testinfra==6.0.0
+    # via -r requirements-dev.in
+text-unidecode==1.3
+    # via python-slugify
+toml==0.10.1
+    # via pytest
+tree-format==0.1.2
+    # via molecule
+urllib3==1.25.10
+    # via requests
+websocket-client==0.57.0
+    # via docker-py
+yamllint==1.24.2
+    # via molecule
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
