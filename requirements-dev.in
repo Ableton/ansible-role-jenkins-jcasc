@@ -1,7 +1,7 @@
 ansible
 ansible-lint
-docker-py
 molecule
+molecule-docker
 pytest-socket
 pytest-testinfra
 python-jenkins
