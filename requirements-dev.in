@@ -3,5 +3,5 @@ ansible-lint
 docker-py
 molecule
 pytest-socket
+pytest-testinfra
 python-jenkins
-testinfra
