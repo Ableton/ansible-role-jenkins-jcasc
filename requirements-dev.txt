@@ -4,9 +4,11 @@
 #
 #    pip-compile --output-file=requirements-dev.txt requirements-dev.in
 #
+ansible-base==2.10.6
+    # via ansible
 ansible-lint==4.3.0
     # via -r requirements-dev.in
-ansible==2.9.11
+ansible==3.0.0
     # via
     #   -r requirements-dev.in
     #   ansible-lint
@@ -49,7 +51,7 @@ cookiecutter==1.7.2
     # via molecule
 cryptography==3.0
     # via
-    #   ansible
+    #   ansible-base
     #   paramiko
 distro==1.5.0
     # via selinux
@@ -65,7 +67,7 @@ jinja2-time==0.2.0
     # via cookiecutter
 jinja2==2.11.2
     # via
-    #   ansible
+    #   ansible-base
     #   click-completion
     #   cookiecutter
     #   jinja2-time
@@ -86,6 +88,7 @@ multi-key-dict==2.0.3
     # via python-jenkins
 packaging==20.4
     # via
+    #   ansible-base
     #   molecule
     #   pytest
 paramiko==2.7.1
@@ -126,7 +129,7 @@ python-slugify==4.0.1
     # via cookiecutter
 pyyaml==5.3.1
     # via
-    #   ansible
+    #   ansible-base
     #   ansible-lint
     #   molecule
     #   yamllint
@@ -139,8 +142,6 @@ rich==9.11.1
     # via
     #   enrich
     #   molecule
-ruamel.yaml.clib==0.2.2
-    # via ruamel.yaml
 ruamel.yaml==0.16.10
     # via ansible-lint
 selinux==0.2.1
