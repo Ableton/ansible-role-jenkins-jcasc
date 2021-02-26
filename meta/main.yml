@@ -1,11 +1,12 @@
 ---
 galaxy_info:
-  author: Nik Reiman
+  author: ableton
   description: Installs the Jenkins CI service with JCasC
   company: Ableton AG
   github_branch: master
   license: MIT
   min_ansible_version: 2.9
+  role_name: jenkins-jcasc
 
   platforms:
     - name: Debian
