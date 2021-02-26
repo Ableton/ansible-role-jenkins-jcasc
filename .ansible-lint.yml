@@ -1,4 +1,6 @@
 ---
+exclude_paths:
+  - molecule
 parseable: true
 quiet: true
 skip_list:
