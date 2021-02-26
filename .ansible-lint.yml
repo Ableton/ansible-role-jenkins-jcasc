@@ -1,5 +1,8 @@
 ---
+exclude_paths:
+  - meta
+  - molecule
 parseable: true
 quiet: true
 skip_list:
-  - '602'  # Don't compare to empty string
+  - 'empty-string-compare'
