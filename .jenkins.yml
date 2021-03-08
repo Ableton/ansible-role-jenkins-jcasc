@@ -1,5 +1,5 @@
 pull_requests:
-  - develop
+  - main
 
 pushes:
-  - develop
+  - main
