@@ -20,4 +20,4 @@ galaxy_info:
     - jenkins
     - jcasc
 
-  dependencies: []
+dependencies: []
