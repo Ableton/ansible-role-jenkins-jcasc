@@ -8,6 +8,10 @@ galaxy_info:
   min_ansible_version: 2.9
   role_name: jenkins-jcasc
 
+  galaxy_tags:
+    - jenkins
+    - jcasc
+
   platforms:
     - name: Debian
       versions:
@@ -15,9 +19,5 @@ galaxy_info:
     - name: Ubuntu
       versions:
         - all
-
-  galaxy_tags:
-    - jenkins
-    - jcasc
 
 dependencies: []
