@@ -12,7 +12,7 @@
   # https://github.com/ansible-community/molecule/issues/2765
   changed_when: false
 
-- name: Wait for Jenkins to stop
+- name: Wait for Jenkins to stop  # noqa: no-handler
   wait_for:
     timeout: 5
   when: jenkins_service_stop is changed
