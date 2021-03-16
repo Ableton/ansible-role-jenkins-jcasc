@@ -1,4 +1,4 @@
-ableton.jenkins-jcasc
+ableton.jenkins_jcasc
 =====================
 
 This role provisions the [Jenkins CI Service][jenkins] on a Unix host. It uses [JCasC
@@ -69,7 +69,7 @@ either to the playbook, or to the individual role (as shown below).
     jenkins_jobs_dir: "{{ playbook_dir }}/files/jenkins/jobs"
 
   roles:
-    - {role: ableton.jenkins-jcasc, become: true}
+    - {role: ableton.jenkins_jcasc, become: true}
 ```
 
 HTTPS

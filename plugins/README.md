@@ -1,4 +1,4 @@
-ableton.jenkins-jcasc plugins
+ableton.jenkins_jcasc plugins
 =============================
 
 This directory contains a Gradle project, which is used to download dependencies for the

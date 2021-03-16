@@ -6,7 +6,7 @@ galaxy_info:
   github_branch: main
   license: MIT
   min_ansible_version: 2.9
-  role_name: jenkins-jcasc
+  role_name: jenkins_jcasc
 
   galaxy_tags:
     - jenkins
