@@ -118,7 +118,7 @@ pyparsing==2.4.7
     # via packaging
 pytest-socket==0.3.5
     # via -r requirements-dev.in
-pytest-testinfra==6.1.0
+pytest-testinfra==6.2.0
     # via -r requirements-dev.in
 pytest==6.0.1
     # via
