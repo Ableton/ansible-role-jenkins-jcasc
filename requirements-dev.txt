@@ -6,8 +6,10 @@
 #
 ansible-base==2.10.6
     # via ansible
-ansible-lint==5.0.4
-    # via -r requirements-dev.in
+ansible-lint==5.0.5
+    # via
+    #   -r requirements-dev.in
+    #   molecule
 ansible==3.1.0
     # via -r requirements-dev.in
 arrow==0.15.8
@@ -80,7 +82,7 @@ markupsafe==1.1.1
     #   jinja2
 molecule-docker==0.2.4
     # via -r requirements-dev.in
-molecule==3.2.3
+molecule==3.3.0
     # via
     #   -r requirements-dev.in
     #   molecule-docker
@@ -96,8 +98,6 @@ packaging==20.4
     #   pytest
 paramiko==2.7.1
     # via molecule
-pathspec==0.8.0
-    # via yamllint
 pbr==5.4.5
     # via python-jenkins
 pluggy==0.13.1
@@ -135,7 +135,6 @@ pyyaml==5.3.1
     #   ansible-base
     #   ansible-lint
     #   molecule
-    #   yamllint
 requests==2.24.0
     # via
     #   cookiecutter
@@ -180,8 +179,6 @@ wcmatch==8.1.1
     # via ansible-lint
 websocket-client==0.57.0
     # via docker
-yamllint==1.24.2
-    # via molecule
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
