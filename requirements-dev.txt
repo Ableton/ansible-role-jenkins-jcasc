@@ -6,7 +6,7 @@
 #
 ansible-base==2.10.6
     # via ansible
-ansible-lint==5.0.5
+ansible-lint==5.0.6
     # via
     #   -r requirements-dev.in
     #   molecule
