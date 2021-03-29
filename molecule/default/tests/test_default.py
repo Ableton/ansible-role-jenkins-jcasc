@@ -69,15 +69,15 @@ def test_jenkins_java_process(host):
 
 
 def test_jenkins_version():
-    master = Jenkins('http://localhost:8100')
-    version = master.get_version()
+    controller = Jenkins('http://localhost:8100')
+    version = controller.get_version()
 
     assert version == '2.235.2'
 
 
 def test_jenkins_plugins():
-    master = Jenkins('http://localhost:8100')
-    plugins = master.get_plugins()
+    controller = Jenkins('http://localhost:8100')
+    plugins = controller.get_plugins()
 
     assert plugins['sidebar-link']['active']
     assert plugins['sidebar-link']['enabled']
@@ -89,8 +89,8 @@ def test_jenkins_plugins():
 
 
 def test_jenkins_jobs():
-    master = Jenkins('http://localhost:8100')
-    test_job = master.get_job_info('test_job')
+    controller = Jenkins('http://localhost:8100')
+    test_job = controller.get_job_info('test_job')
 
     assert test_job['name'] == 'test_job'
     assert test_job['buildable']
