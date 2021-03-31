@@ -116,7 +116,7 @@ pynacl==1.4.0
     # via paramiko
 pyparsing==2.4.7
     # via packaging
-pytest-socket==0.3.5
+pytest-socket==0.4.0
     # via -r requirements-dev.in
 pytest-testinfra==6.2.0
     # via -r requirements-dev.in
