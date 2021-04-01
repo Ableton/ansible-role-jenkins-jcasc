@@ -4,13 +4,13 @@
 #
 #    pip-compile --output-file=requirements-dev.txt requirements-dev.in
 #
-ansible-base==2.10.6
+ansible-base==2.10.7
     # via ansible
 ansible-lint==5.0.6
     # via
     #   -r requirements-dev.in
     #   molecule
-ansible==3.1.0
+ansible==3.2.0
     # via -r requirements-dev.in
 arrow==0.15.8
     # via jinja2-time
