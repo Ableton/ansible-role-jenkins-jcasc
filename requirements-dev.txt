@@ -6,7 +6,7 @@
 #
 ansible-base==2.10.7
     # via ansible
-ansible-lint==5.0.6
+ansible-lint==5.0.7
     # via
     #   -r requirements-dev.in
     #   molecule
@@ -164,9 +164,12 @@ six==1.15.0
     #   pynacl
     #   python-dateutil
     #   python-jenkins
+    #   tenacity
     #   websocket-client
 subprocess-tee==0.2.0
     # via molecule
+tenacity==7.0.0
+    # via ansible-lint
 text-unidecode==1.3
     # via python-slugify
 toml==0.10.1
