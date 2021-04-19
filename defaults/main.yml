@@ -84,15 +84,39 @@ jenkins_user: "jenkins"
 # Directory containing static web content to be served by Jenkins.
 jenkins_user_content: ""
 
+# A dictionary containing Jenkins users to create, and optionally, passwords or API tokens
+# for them. The dictionary's keys are the user names, and may contain a key/value pairs
+# for the password and api_token. For example:
+#
+# jenkins_users:
+#   - alice:
+#       password: "notsecure"
+#   - bob:
+#       api_token: "112a1dfb4ac8209130c4b630efe824f589"
+#   - carol:
+#       password: "changeme"
+#       api_token: "11c8f304eb91ab249386a2d929f28804e5"
+#
+# IMPORTANT: Note that omitting a password will create a user without a password! This may
+# be necessary for Jenkins installations which use Active Directory for their security
+# realm, but dangerous for those which rely on the internal Jenkins user database. You've
+# been warned!
+#
+# Also note that configuring Jenkins users is done with the Jenkins Groovy script API.
+# This will use jenkins_web_user and jenkins_web_password for authentication, which means
+# that this user must also have permission to create users.
+jenkins_users: {}
+
 # Version of Jenkins to install.
 # NOTE: This variable must be defined!
-jenkins_version: "2.263.3"
+jenkins_version: "2.277.2"
 
 # If the Jenkins instance requires authentication, then this variable should contain a
-# username which has permission to view the Jenkins homepage. This is used to determine
-# when Jenkins has finished starting up and is ready for requests.
+# username for an administrator. This is used to determine when Jenkins has finished
+# starting up and is ready for requests, as well as adding user accounts.
 jenkins_web_user: ""
 
-# If the Jenkins instance requires authentication, then this variable should contain the
-# password for the `jenkins_web_user`.
+# If the Jenkins instance requires authentication, then this variable should contain a
+# password for an administrator. This is used to determine when Jenkins has finished
+# starting up and is ready for requests, as well as adding user accounts.
 jenkins_web_password: ""

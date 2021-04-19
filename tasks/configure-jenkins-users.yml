@@ -1,0 +1,34 @@
+---
+- name: Ensure Jenkins users exist
+  jenkins_script:
+    script: |
+      def userName = '{{ item.key }}'
+      def userPassword = '{{ item.value.password | default("") }}'
+      jenkins.model.Jenkins.instance.securityRealm.createAccount(userName, userPassword)
+    url: "http://localhost:{{ jenkins_port }}"
+    user: "{{ jenkins_web_user }}"
+    password: "{{ jenkins_web_password }}"
+  changed_when: false
+  with_dict: "{{ jenkins_users }}"
+
+- name: Set API tokens for Jenkins users
+  jenkins_script:
+    script: |
+      import hudson.model.*
+      import jenkins.model.*
+      import jenkins.security.*
+      import jenkins.security.apitoken.*
+
+      def userName = '{{ item.key }}'
+      def tokenName = '{{ jenkins_token_name }}'
+      def tokenValue = '{{ item.value.api_token | default("") }}'
+      def user = User.get(userName, false)
+      def apiTokenProperty = user.getProperty(ApiTokenProperty.class)
+      apiTokenProperty.tokenStore.addFixedNewToken(tokenName, tokenValue)
+
+      user.save()
+    url: "http://localhost:{{ jenkins_port }}"
+    user: "{{ jenkins_web_user }}"
+    password: "{{ jenkins_web_password }}"
+  changed_when: false
+  with_dict: "{{ jenkins_users }}"

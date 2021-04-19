@@ -22,3 +22,6 @@
 - include: "configure-jobs.yml"
 
 - include: "start-service.yml"
+
+# Configuring tokens is done with jenkins_script, which requires that Jenkins is running
+- include: "configure-jenkins-users.yml"

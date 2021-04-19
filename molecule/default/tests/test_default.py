@@ -61,7 +61,7 @@ def test_jenkins_java_process(host):
         '-server',
         '-Djenkins.install.runSetupWizard=false',
         '-jar',
-        '/jenkins/lib/jenkins-2.235.2.war',
+        '/jenkins/lib/jenkins-2.277.2.war',
         '--webroot=/jenkins/caches/war',
         '--httpPort=8100',
         '--sessionTimeout=1',
@@ -72,7 +72,7 @@ def test_jenkins_version():
     controller = Jenkins('http://localhost:8100')
     version = controller.get_version()
 
-    assert version == '2.235.2'
+    assert version == '2.277.2'
 
 
 def test_jenkins_plugins():
@@ -94,6 +94,32 @@ def test_jenkins_jobs():
 
     assert test_job['name'] == 'test_job'
     assert test_job['buildable']
+
+
+def test_jenkins_users(host):
+    expected_users = {
+        'alice': {'api_token': False, 'found': False},
+        'bob': {'api_token': True, 'found': False},
+        'carol': {'api_token': True, 'found': False},
+    }
+    users_dir = '/jenkins/home/users'
+    test_users_dir = host.file(users_dir)
+    token_attribute = 'jenkins.security.apitoken.ApiTokenStore_-HashedToken'
+
+    assert test_users_dir.is_directory
+    for dir_item in test_users_dir.listdir():
+        test_dir_item = host.file(os.path.join(users_dir, dir_item))
+        if test_dir_item.is_directory:
+            user_config_file = host.file(os.path.join(users_dir, dir_item, 'config.xml'))
+
+            assert user_config_file.is_file
+            for user in expected_users:
+                if dir_item.startswith(user):
+                    expected_users[user]['found'] = True
+                    assert (token_attribute in user_config_file.content_string) == expected_users[user]['api_token']
+
+    for user_state in expected_users.values():
+        assert user_state['found']
 
 
 def test_secret_files(host):
