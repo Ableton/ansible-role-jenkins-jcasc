@@ -19,6 +19,6 @@
       - "{{ playbook_dir }}/files/secret.txt"
     jenkins_user: "juser"
     jenkins_user_content: "{{ playbook_dir }}/files/userContent"
-    jenkins_version: "2.235.2"
+    jenkins_version: "2.277.2"
   roles:
     - ansible-role-jenkins-jcasc

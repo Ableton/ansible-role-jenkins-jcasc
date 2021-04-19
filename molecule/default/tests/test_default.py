@@ -61,7 +61,7 @@ def test_jenkins_java_process(host):
         '-server',
         '-Djenkins.install.runSetupWizard=false',
         '-jar',
-        '/jenkins/lib/jenkins-2.235.2.war',
+        '/jenkins/lib/jenkins-2.277.2.war',
         '--webroot=/jenkins/caches/war',
         '--httpPort=8100',
         '--sessionTimeout=1',
@@ -72,7 +72,7 @@ def test_jenkins_version():
     controller = Jenkins('http://localhost:8100')
     version = controller.get_version()
 
-    assert version == '2.235.2'
+    assert version == '2.277.2'
 
 
 def test_jenkins_plugins():
