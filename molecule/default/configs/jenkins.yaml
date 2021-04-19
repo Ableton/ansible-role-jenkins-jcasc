@@ -1,2 +1,6 @@
 ---
 jenkins:
+  securityRealm:
+    local:
+      allowsSignup: true
+      enableCaptcha: false

@@ -38,6 +38,9 @@ jenkins_plugins_dir: "{{ jenkins_home }}/plugins"
 # Directory for secret files (credentials, etc)
 jenkins_secrets_dir: "{{ jenkins_root }}/secrets"
 
+# Name to give tokens added by this role (see jenkins_users in defaults/main.yml)
+jenkins_token_name: "Added by Ansible"
+
 # Directory for Jenkins static web content
 jenkins_userContent_dir: "{{ jenkins_home }}/userContent"
 

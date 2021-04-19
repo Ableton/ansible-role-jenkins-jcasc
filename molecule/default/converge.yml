@@ -18,6 +18,14 @@
     jenkins_secret_files:
       - "{{ playbook_dir }}/files/secret.txt"
     jenkins_user: "juser"
+    jenkins_users:
+      - alice:
+          password: "notsecure"
+      - bob:
+          api_token: "112a1dfb4ac8209130c4b630efe824f589"
+      - carol:
+          password: "changeme"
+          api_token: "11c8f304eb91ab249386a2d929f28804e5"
     jenkins_user_content: "{{ playbook_dir }}/files/userContent"
     jenkins_version: "2.277.2"
   roles:
