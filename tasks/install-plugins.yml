@@ -64,7 +64,7 @@
   loop_control:
     loop_var: plugin_file
 
-- name: Fetch plugin dependencies with Gradle
+- name: Fetch plugin dependencies with Gradle on Ansible control node
   become: false
   delegate_to: localhost
   command: "./gradlew getDeps"
@@ -72,7 +72,7 @@
     chdir: "{{ role_path }}/plugins"
   changed_when: false
 
-- name: Find all plugins downloaded by Gradle
+- name: Find all plugins downloaded by Gradle on Ansible control node
   become: false
   delegate_to: localhost
   find:
