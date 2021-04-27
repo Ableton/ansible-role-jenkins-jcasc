@@ -4,11 +4,19 @@
     script: |
       def userName = '{{ item.key }}'
       def userPassword = '{{ item.value.password | default("") }}'
-      jenkins.model.Jenkins.instance.securityRealm.createAccount(userName, userPassword)
+
+      try {
+        jenkins.model.Jenkins.instance.securityRealm.createAccount(userName, userPassword)
+      } catch (error) {
+        println 'Script failed!'
+        println error
+      }
     url: "http://localhost:{{ jenkins_port }}"
     user: "{{ jenkins_web_user }}"
     password: "{{ jenkins_web_password }}"
+  register: jenkins_script_result
   changed_when: false
+  failed_when: "'Script failed!' in jenkins_script_result.output"
   with_dict: "{{ jenkins_users }}"
 
 - name: Set API tokens for Jenkins users
@@ -19,17 +27,24 @@
       import jenkins.security.*
       import jenkins.security.apitoken.*
 
-      def userName = '{{ item.key }}'
-      def tokenName = '{{ jenkins_token_name }}'
-      def tokenValue = '{{ item.value.api_token }}'
-      def user = User.get(userName, false)
-      def apiTokenProperty = user.getProperty(ApiTokenProperty.class)
-      apiTokenProperty.tokenStore.addFixedNewToken(tokenName, tokenValue)
+      try {
+        def userName = '{{ item.key }}'
+        def tokenName = '{{ jenkins_token_name }}'
+        def tokenValue = '{{ item.value.api_token }}'
+        def user = User.get(userName, false)
+        def apiTokenProperty = user.getProperty(ApiTokenProperty.class)
+        apiTokenProperty.tokenStore.addFixedNewToken(tokenName, tokenValue)
 
-      user.save()
+        user.save()
+      } catch (error) {
+        println 'Script failed!'
+        println error
+      }
     url: "http://localhost:{{ jenkins_port }}"
     user: "{{ jenkins_web_user }}"
     password: "{{ jenkins_web_password }}"
+  register: jenkins_script_result
   changed_when: false
+  failed_when: "'Script failed!' in jenkins_script_result.output"
   when: item.value.api_token is defined and item.value.api_token != ""
   with_dict: "{{ jenkins_users }}"
