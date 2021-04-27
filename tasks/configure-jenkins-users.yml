@@ -21,7 +21,7 @@
 
       def userName = '{{ item.key }}'
       def tokenName = '{{ jenkins_token_name }}'
-      def tokenValue = '{{ item.value.api_token | default("") }}'
+      def tokenValue = '{{ item.value.api_token }}'
       def user = User.get(userName, false)
       def apiTokenProperty = user.getProperty(ApiTokenProperty.class)
       apiTokenProperty.tokenStore.addFixedNewToken(tokenName, tokenValue)
@@ -31,4 +31,5 @@
     user: "{{ jenkins_web_user }}"
     password: "{{ jenkins_web_password }}"
   changed_when: false
+  when: item.value.api_token is defined and item.value.api_token != ""
   with_dict: "{{ jenkins_users }}"
