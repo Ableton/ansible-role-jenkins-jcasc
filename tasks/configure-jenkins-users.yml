@@ -6,7 +6,16 @@
       def userPassword = '{{ item.value.password | default("") }}'
 
       try {
-        jenkins.model.Jenkins.instance.securityRealm.createAccount(userName, userPassword)
+        def securityRealm = jenkins.model.Jenkins.instance.securityRealm
+        if (securityRealm instanceof hudson.security.HudsonPrivateSecurityRealm) {
+          securityRealm.createAccount(userName, userPassword)
+        } else if (securityRealm.class.simpleName == 'ActiveDirectorySecurityRealm') {
+          // Looking up the user will add a local configuration file for them
+          securityRealm.loadUserByUsername(userName)
+        } else {
+          println 'Unable to add user to security realm of type ' +
+            securityRealm.class.simpleName
+        }
       } catch (error) {
         println 'Script failed!'
         println error
