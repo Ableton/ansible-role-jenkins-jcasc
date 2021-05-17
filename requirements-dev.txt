@@ -37,7 +37,7 @@ chardet==3.0.4
     #   requests
 click-completion==0.5.2
     # via molecule
-click-help-colors==0.8
+click-help-colors==0.9
     # via molecule
 click==7.1.2
     # via
@@ -49,7 +49,7 @@ colorama==0.4.3
     # via rich
 commonmark==0.9.1
     # via rich
-cookiecutter==1.7.2
+cookiecutter==1.7.3
     # via molecule
 cryptography==3.0
     # via
@@ -77,12 +77,10 @@ jinja2==2.11.2
     #   jinja2-time
     #   molecule
 markupsafe==1.1.1
-    # via
-    #   cookiecutter
-    #   jinja2
+    # via jinja2
 molecule-docker==0.2.4
     # via -r requirements-dev.in
-molecule==3.3.0
+molecule==3.3.1
     # via
     #   -r requirements-dev.in
     #   molecule-docker
