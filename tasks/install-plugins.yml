@@ -64,6 +64,17 @@
   loop_control:
     loop_var: plugin_file
 
+# This should be done in order to ensure that older versions of JCasC and its dependencies
+# aren't installed to the controller.
+- name: Clean plugin dependencies directory
+  become: false
+  delegate_to: localhost
+  file:
+    path: "{{ role_path }}/plugins/target"
+    state: absent
+  # To satisfy Molecule, which would complain about this task being non-idempotent.
+  changed_when: false
+
 - name: Fetch plugin dependencies with Gradle on Ansible control node
   become: false
   delegate_to: localhost
