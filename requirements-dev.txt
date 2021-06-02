@@ -76,7 +76,7 @@ markupsafe==1.1.1
     # via jinja2
 molecule-docker==0.2.4
     # via -r requirements-dev.in
-molecule==3.3.2
+molecule==3.3.3
     # via
     #   -r requirements-dev.in
     #   molecule-docker
