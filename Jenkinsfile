@@ -1,6 +1,6 @@
 library 'ableton-utils@0.21'
 library 'groovylint@0.12'
-library 'python-utils@0.10'
+library 'python-utils@0.11'
 
 
 devToolsProject.run(
@@ -21,5 +21,4 @@ devToolsProject.run(
     String versionNumber = readFile('VERSION').trim()
     version.tag(versionNumber)
   },
-  cleanup: { data -> data.venv?.cleanup() },
 )
