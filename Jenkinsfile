@@ -1,4 +1,4 @@
-library 'ableton-utils@0.19'
+library 'ableton-utils@0.21'
 library 'groovylint@0.9'
 library 'python-utils@0.10'
 
