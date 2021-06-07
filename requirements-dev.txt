@@ -6,7 +6,7 @@
 #
 ansible-core==2.11.0
     # via ansible
-ansible-lint==5.0.11
+ansible-lint==5.0.12
     # via
     #   -r requirements-dev.in
     #   molecule
@@ -76,7 +76,7 @@ markupsafe==1.1.1
     # via jinja2
 molecule-docker==0.2.4
     # via -r requirements-dev.in
-molecule==3.3.3
+molecule==3.3.4
     # via
     #   -r requirements-dev.in
     #   molecule-docker
@@ -159,7 +159,7 @@ six==1.15.0
     #   python-jenkins
     #   tenacity
     #   websocket-client
-subprocess-tee==0.2.0
+subprocess-tee==0.3.2
     # via molecule
 tenacity==7.0.0
     # via ansible-lint
