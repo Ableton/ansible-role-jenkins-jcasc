@@ -4,14 +4,14 @@
 #
 #    pip-compile --output-file=requirements-dev.txt requirements-dev.in
 #
-ansible-core==2.11.1
+ansible==4.2.0
+    # via -r requirements-dev.in
+ansible-core==2.11.2
     # via ansible
 ansible-lint==5.0.12
     # via
     #   -r requirements-dev.in
     #   molecule
-ansible==4.1.0
-    # via -r requirements-dev.in
 arrow==0.15.8
     # via jinja2-time
 attrs==19.3.0
@@ -35,13 +35,13 @@ chardet==3.0.4
     # via
     #   binaryornot
     #   requests
-click-help-colors==0.9
-    # via molecule
 click==8.0.1
     # via
     #   click-help-colors
     #   cookiecutter
     #   molecule
+click-help-colors==0.9
+    # via molecule
 colorama==0.4.3
     # via rich
 commonmark==0.9.1
@@ -64,22 +64,22 @@ idna==2.10
     # via requests
 iniconfig==1.0.0
     # via pytest
-jinja2-time==0.2.0
-    # via cookiecutter
 jinja2==2.11.2
     # via
     #   ansible-core
     #   cookiecutter
     #   jinja2-time
     #   molecule
+jinja2-time==0.2.0
+    # via cookiecutter
 markupsafe==1.1.1
     # via jinja2
-molecule-docker==0.2.4
-    # via -r requirements-dev.in
 molecule==3.3.4
     # via
     #   -r requirements-dev.in
     #   molecule-docker
+molecule-docker==0.2.4
+    # via -r requirements-dev.in
 more-itertools==8.4.0
     # via pytest
 multi-key-dict==2.0.3
@@ -110,14 +110,14 @@ pynacl==1.4.0
     # via paramiko
 pyparsing==2.4.7
     # via packaging
-pytest-socket==0.4.0
-    # via -r requirements-dev.in
-pytest-testinfra==6.4.0
-    # via -r requirements-dev.in
 pytest==6.0.1
     # via
     #   pytest-socket
     #   pytest-testinfra
+pytest-socket==0.4.0
+    # via -r requirements-dev.in
+pytest-testinfra==6.4.0
+    # via -r requirements-dev.in
 python-dateutil==2.8.1
     # via arrow
 python-jenkins==1.7.0
