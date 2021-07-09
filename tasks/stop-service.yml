@@ -4,6 +4,10 @@
   service:
     name: "jenkins"
     state: stopped
+    # This normally isn't required, but we also test this role in Docker containers that
+    # resemble standalone hosts with SSH. Since OpenSSH has libsystemd as a dependency,
+    # it will fool the service module into selecting systemd as the service backend.
+    use: "{{ ansible_service_mgr }}"
   register: jenkins_service_stop
   # There are many normal reasons why this task may fail, such as Jenkins not actually
   # being installed yet.
