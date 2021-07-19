@@ -8,7 +8,7 @@ ansible==4.2.0
     # via -r requirements-dev.in
 ansible-core==2.11.2
     # via ansible
-ansible-lint==5.0.12
+ansible-lint==5.1.2
     # via
     #   -r requirements-dev.in
     #   molecule
