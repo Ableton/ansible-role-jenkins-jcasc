@@ -1,5 +1,5 @@
-ableton.jenkins_jcasc
-=====================
+Ansible role ableton.jenkins_jcasc
+==================================
 
 This role provisions the [Jenkins CI Service][jenkins] on a Unix host. It uses [JCasC
 (Jenkins Configuration as Code)][jcasc] to configure the instance, and the [Jenkins Plugin
@@ -87,6 +87,14 @@ License
 -------
 
 MIT
+
+Maintainers
+-----------
+
+This project is maintained by the following GitHub users:
+
+- [@ala-ableton](https://github.com/ala-ableton)
+- [@nre-ableton](https://github.com/nre-ableton)
 
 
 [jcasc]: https://github.com/jenkinsci/configuration-as-code-plugin
