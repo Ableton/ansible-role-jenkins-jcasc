@@ -1,6 +1,6 @@
-library 'ableton-utils@0.21'
-library 'groovylint@0.12'
-library 'python-utils@0.11'
+library(identifier: 'ableton-utils@0.21', changelog: false)
+library(identifier: 'groovylint@0.12', changelog: false)
+library(identifier: 'python-utils@0.11', changelog: false)
 
 
 devToolsProject.run(
