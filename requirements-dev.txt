@@ -124,7 +124,7 @@ python-jenkins==1.7.0
     # via -r requirements-dev.in
 python-slugify==4.0.1
     # via cookiecutter
-pyyaml==5.3.1
+pyyaml==5.4
     # via
     #   ansible-core
     #   ansible-lint
