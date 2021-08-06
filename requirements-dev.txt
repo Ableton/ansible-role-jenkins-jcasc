@@ -48,7 +48,7 @@ commonmark==0.9.1
     # via rich
 cookiecutter==1.7.3
     # via molecule
-cryptography==3.0
+cryptography==3.3.2
     # via
     #   ansible-core
     #   paramiko
