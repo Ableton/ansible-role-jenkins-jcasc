@@ -129,7 +129,7 @@ pyyaml==5.4
     #   ansible-core
     #   ansible-lint
     #   molecule
-requests==2.24.0
+requests==2.25.1
     # via
     #   cookiecutter
     #   docker
@@ -169,7 +169,7 @@ toml==0.10.1
     # via pytest
 typing-extensions==3.7.4.3
     # via rich
-urllib3==1.25.10
+urllib3==1.26.5
     # via requests
 wcmatch==8.1.1
     # via ansible-lint
