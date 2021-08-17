@@ -41,7 +41,7 @@
 - name: Copy userContent
   copy:
     src: "{{ jenkins_user_content }}/"
-    dest: "{{ jenkins_userContent_dir }}/"
+    dest: "{{ jenkins_user_content_dir }}/"
     owner: "{{ jenkins_user }}"
     group: "{{ jenkins_group }}"
     mode: "0644"

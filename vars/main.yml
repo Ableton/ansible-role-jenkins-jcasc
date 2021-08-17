@@ -42,7 +42,7 @@ jenkins_secrets_dir: "{{ jenkins_root }}/secrets"
 jenkins_token_name: "Added by Ansible"
 
 # Directory for Jenkins static web content
-jenkins_userContent_dir: "{{ jenkins_home }}/userContent"
+jenkins_user_content_dir: "{{ jenkins_home }}/userContent"
 
 # Destination Jenkins WAR file
 jenkins_war: "{{ jenkins_lib_dir }}/jenkins-{{ jenkins_version }}.war"
