@@ -26,6 +26,7 @@ devToolsProject.run(
           error 'ansible-lint exited with warnings, check the output of the previous step'
         }
       },
+      black: { data.venv.run('black --check .') },
       groovylint: { groovylint.check('./Jenkinsfile') },
       molecule: { data.venv.run('molecule --debug test') },
     )
