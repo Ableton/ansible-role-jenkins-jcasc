@@ -83,7 +83,7 @@ molecule==3.4.0
     # via
     #   -r requirements-dev.in
     #   molecule-docker
-molecule-docker==0.2.4
+molecule-docker==1.0.1
     # via -r requirements-dev.in
 more-itertools==8.4.0
     # via pytest
@@ -144,6 +144,7 @@ requests==2.25.1
     # via
     #   cookiecutter
     #   docker
+    #   molecule-docker
     #   python-jenkins
 resolvelib==0.5.4
     # via ansible-core
@@ -154,8 +155,6 @@ rich==9.11.1
     #   molecule
 ruamel.yaml==0.16.10
     # via ansible-lint
-ruamel.yaml.clib==0.2.6
-    # via ruamel.yaml
 selinux==0.2.1
     # via
     #   molecule
