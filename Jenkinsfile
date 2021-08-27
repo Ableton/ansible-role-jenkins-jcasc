@@ -27,7 +27,7 @@ devToolsProject.run(
         }
       },
       black: { data.venv.run('black --check .') },
-      groovylint: { groovylint.check('./Jenkinsfile') },
+      groovylint: { groovylint.checkSingleFile(path: './Jenkinsfile') },
       molecule: { data.venv.run('molecule --debug test') },
     )
   },
