@@ -27,11 +27,11 @@ devToolsProject.run(
         }
       },
       black: { data.venv.run('black --check .') },
-      groovylint: { groovylint.check('./Jenkinsfile') },
+      groovylint: { groovylint.checkSingleFile(path: './Jenkinsfile') },
       molecule: { data.venv.run('molecule --debug test') },
     )
   },
-  deployWhen: { runTheBuilds.isPushTo(['main']) && env.PRODUCTION == 'true' },
+  deployWhen: { devToolsProject.shouldDeploy(defaultBranch: 'main') },
   deploy: { data ->
     String versionNumber = readFile('VERSION').trim()
     version.tag(versionNumber)
