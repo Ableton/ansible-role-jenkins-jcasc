@@ -1,0 +1,12 @@
+---
+# By creating a separate fact, users can call this specific task file to install PIMT and
+# use this variable to access the tool directly.
+- name: Set fact for PIMT installation path
+  set_fact:
+    jenkins_pimt_path: "{{ jenkins_lib_dir }}/{{ jenkins_pimt_jar }}"
+
+- name: Ensure that Jenkins Plugin Installation Manager Tool is installed
+  get_url:
+    url: "{{ jenkins_pimt_url }}"
+    dest: "{{ jenkins_pimt_path }}"
+    mode: "0644"
