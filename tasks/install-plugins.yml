@@ -1,10 +1,4 @@
 ---
-- name: Ensure that Jenkins Plugin Installation Manager Tool is installed
-  get_url:
-    url: "{{ jenkins_pimt_url }}"
-    dest: "{{ jenkins_lib_dir }}/{{ jenkins_pimt_jar }}"
-    mode: "0644"
-
 - name: Copy plugins file
   template:
     src: "{{ jenkins_plugins_file }}"
@@ -22,7 +16,7 @@
   become_user: "{{ jenkins_user }}"
   command: >
     java -jar
-      {{ jenkins_lib_dir }}/{{ jenkins_pimt_jar }}
+      {{ jenkins_pimt_path }}
       --plugin-download-directory /tmp/plugins
       --plugin-file {{ jenkins_config_dir }}/plugins.yaml
       --war {{ jenkins_war }}
