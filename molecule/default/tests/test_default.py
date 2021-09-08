@@ -1,3 +1,5 @@
+"""Molecule tests for the default scenario."""
+
 import os
 
 import testinfra.utils.ansible_runner
@@ -11,11 +13,13 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
 
 
 def test_jenkins_user(host):
+    """Test that the Jenkins user was created."""
     assert host.user("juser").group == "jgroup"
     assert host.user("juser").home == "/jenkins"
 
 
 def test_jenkins_dir(host):
+    """Test that the Jenkins directory was created."""
     assert host.file("/jenkins").is_directory
     assert host.file("/jenkins").mode == 0o0755
     assert host.file("/jenkins").user == "juser"
@@ -23,6 +27,7 @@ def test_jenkins_dir(host):
 
 
 def test_jenkins_job_files(host):
+    """Test that Jenkins job files were copied."""
     test_job_dir = host.file("/jenkins/home/jobs/test_job")
     test_job_config_file = host.file("/jenkins/home/jobs/test_job/config.xml")
     test_jobs_dir = host.file("/jenkins/home/jobs")
@@ -39,6 +44,7 @@ def test_jenkins_job_files(host):
 
 
 def test_jenkins_custom_files(host):
+    """Test that static web content files were copied."""
     jenkins_icon_file = host.file("/jenkins/home/userContent/jenkins.png")
     sidebar_link_config_file = host.file("/jenkins/home/sidebar-link.xml")
     user_content_dir = host.file("/jenkins/home/userContent")
@@ -55,6 +61,7 @@ def test_jenkins_custom_files(host):
 
 
 def test_jenkins_java_process(host):
+    """Test that the Jenkins service is running."""
     process = host.process.get(comm="java")
 
     assert process.args == " ".join(
@@ -72,6 +79,7 @@ def test_jenkins_java_process(host):
 
 
 def test_jenkins_version():
+    """Test that the correct version of Jenkins was installed."""
     controller = Jenkins("http://localhost:8100")
     version = controller.get_version()
 
@@ -79,6 +87,7 @@ def test_jenkins_version():
 
 
 def test_jenkins_plugins():
+    """Test that Jenkins plugins were installed."""
     controller = Jenkins("http://localhost:8100")
     plugins = controller.get_plugins()
 
@@ -92,6 +101,7 @@ def test_jenkins_plugins():
 
 
 def test_jenkins_jobs():
+    """Test that Jenkins jobs are present."""
     controller = Jenkins("http://localhost:8100")
     test_job = controller.get_job_info("test_job")
 
@@ -100,6 +110,7 @@ def test_jenkins_jobs():
 
 
 def test_jenkins_users(host):
+    """Test that Jenkins service users were created."""
     expected_users = {
         "alice": {"api_token": False, "found": False},
         "bob": {"api_token": True, "found": False},
@@ -130,6 +141,7 @@ def test_jenkins_users(host):
 
 
 def test_secret_files(host):
+    """Test that secret files were copied."""
     test_secrets_dir = host.file("/jenkins/secrets")
     test_secrets_file = host.file("/jenkins/secrets/secret.txt")
 
