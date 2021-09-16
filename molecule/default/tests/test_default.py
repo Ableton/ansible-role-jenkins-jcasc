@@ -91,6 +91,11 @@ def test_jenkins_plugins():
     controller = Jenkins("http://localhost:8100")
     plugins = controller.get_plugins()
 
+    # Assert that JCasC itself could be loaded. It is possible that other plugins could
+    # load, but if something is wrong with JCasC itself, we're in trouble.
+    assert plugins["configuration-as-code"]["active"]
+    assert plugins["configuration-as-code"]["enabled"]
+    # Assert that our custom plugin was also installed and is running.
     assert plugins["sidebar-link"]["active"]
     assert plugins["sidebar-link"]["enabled"]
     # The sidebar-link plugin has an implied dependency on structs, which is not specified
