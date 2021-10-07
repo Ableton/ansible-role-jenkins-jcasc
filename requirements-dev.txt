@@ -92,7 +92,7 @@ markupsafe==1.1.1
     # via jinja2
 mccabe==0.6.1
     # via flake8
-molecule==3.5.1
+molecule==3.5.2
     # via
     #   -r requirements-dev.in
     #   molecule-docker
@@ -195,7 +195,7 @@ six==1.15.0
     #   websocket-client
 snowballstemmer==2.1.0
     # via pydocstyle
-subprocess-tee==0.3.2
+subprocess-tee==0.3.5
     # via molecule
 tenacity==7.0.0
     # via ansible-lint
