@@ -146,7 +146,7 @@ pytest==6.0.1
     #   pytest-testinfra
 pytest-socket==0.4.1
     # via -r requirements-dev.in
-pytest-testinfra==6.4.0
+pytest-testinfra==6.5.0
     # via -r requirements-dev.in
 python-dateutil==2.8.1
     # via arrow
