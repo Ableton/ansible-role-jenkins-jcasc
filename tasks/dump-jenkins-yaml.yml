@@ -46,8 +46,7 @@
   # use another task to "ping" the Jenkins service first.
   failed_when: >
     (jenkins_script_result is failed and
-     "HTTP error -1 Request failed: <urlopen error [Errno 111] Connection refused>" not in
-       jenkins_script_result.msg) or
+     "HTTP error -1 Request failed: <urlopen error" not in jenkins_script_result.msg) or
     "Script failed!" in jenkins_script_result.output
 
 - name: Write Jenkins config to target file
