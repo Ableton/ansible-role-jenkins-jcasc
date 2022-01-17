@@ -140,7 +140,7 @@ pynacl==1.4.0
     # via paramiko
 pyparsing==2.4.7
     # via packaging
-pytest==6.0.1
+pytest==6.2.5
     # via
     #   pytest-socket
     #   pytest-testinfra
