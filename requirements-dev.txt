@@ -98,8 +98,6 @@ molecule==3.5.2
     #   molecule-docker
 molecule-docker==1.1.0
     # via -r requirements-dev.in
-more-itertools==8.4.0
-    # via pytest
 multi-key-dict==2.0.3
     # via python-jenkins
 mypy-extensions==0.4.3
@@ -144,7 +142,7 @@ pytest==6.2.5
     # via
     #   pytest-socket
     #   pytest-testinfra
-pytest-socket==0.5.0
+pytest-socket==0.5.1
     # via -r requirements-dev.in
 pytest-testinfra==6.5.0
     # via -r requirements-dev.in
