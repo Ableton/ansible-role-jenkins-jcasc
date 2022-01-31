@@ -22,7 +22,7 @@ bcrypt==3.1.7
     # via paramiko
 binaryornot==0.4.4
     # via cookiecutter
-black==21.12b0
+black==22.1.0
     # via -r requirements-dev.in
 bracex==2.1.1
     # via wcmatch
@@ -204,9 +204,7 @@ toml==0.10.1
 tomli==1.2.1
     # via black
 typing-extensions==3.10.0.2
-    # via
-    #   black
-    #   rich
+    # via rich
 urllib3==1.26.5
     # via requests
 wcmatch==8.1.1
