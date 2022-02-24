@@ -14,7 +14,6 @@
         # dependency, it will fool the service module into selecting systemd as the
         # service backend.
         use: "{{ ansible_service_mgr }}"
-      register: jenkins_service_stop
       # This is required or else molecule's idempotency test will fail. See:
       # https://github.com/ansible-community/molecule/issues/2765
       changed_when: false
@@ -22,5 +21,5 @@
     - name: Wait for Jenkins to stop  # noqa: no-handler
       wait_for:
         timeout: 5
-      when: jenkins_service_stop is changed
+      when: "ansible_facts.services['jenkins.service']['state'] != 'stopped'"
   when: "'jenkins.service' in ansible_facts.services"
