@@ -34,6 +34,12 @@
       until: jenkins_service_running is failed
       retries: 60
       delay: 1
+
+    # Again, a paranoid measure aimed at preventing potential errors when immediately
+    # accessing files in the Jenkins home folder.
+    - name: Sync filesystems
+      command: "sync"
+      changed_when: false
   when:
     - "'jenkins.service' in ansible_facts.services"
     - "ansible_facts.services['jenkins.service']['state'] != 'stopped'"
