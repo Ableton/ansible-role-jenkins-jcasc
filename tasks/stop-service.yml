@@ -21,5 +21,6 @@
     - name: Wait for Jenkins to stop  # noqa: no-handler
       wait_for:
         timeout: 5
-      when: "ansible_facts.services['jenkins.service']['state'] != 'stopped'"
-  when: "'jenkins.service' in ansible_facts.services"
+  when:
+    - "'jenkins.service' in ansible_facts.services"
+    - "ansible_facts.services['jenkins.service']['state'] != 'stopped'"
