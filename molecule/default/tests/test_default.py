@@ -157,4 +157,4 @@ def test_secret_files(host):
     assert test_secrets_file.is_file
     assert test_secrets_file.user == "juser"
     assert test_secrets_file.group == "jgroup"
-    assert test_secrets_file.content_string == "super secret stuff"
+    assert test_secrets_file.content_string == "super secret stuff\n"
