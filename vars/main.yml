@@ -30,7 +30,7 @@ jenkins_pimt_url: "https://github.com/jenkinsci/plugin-installation-manager-tool
 # Version of the Jenkins Plugin Installation Manager Tool to use.
 # WARNING: Changing the version of this tool may cause failures in install-plugins.yml if
 # API of this tool has changed.
-jenkins_pimt_version: "2.12.3"
+jenkins_pimt_version: "2.12.6"
 
 # Directory for Jenkins plugins
 jenkins_plugins_dir: "{{ jenkins_home }}/plugins"
