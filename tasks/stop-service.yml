@@ -28,6 +28,8 @@
     # clean shut-down. If subsequent tasks must do something with files in the Jenkins
     # home folder, this may cause problems.
     - name: Wait for Jenkins service to stop
+      # TODO: Remove this suppression when ansible-lint learns to parse block conditions
+      # See: https://github.com/ansible/ansible-lint/issues/1894
       command: "ps -p {{ jenkins_pid['content'] | b64decode }}"  # noqa no-changed-when
       register: jenkins_service_running
       ignore_errors: true
