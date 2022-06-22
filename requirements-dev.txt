@@ -4,14 +4,14 @@
 #
 #    pip-compile --output-file=requirements-dev.txt requirements-dev.in
 #
-ansible==5.9.0
+ansible==6.0.0
     # via -r requirements-dev.in
 ansible-compat==2.1.0
     # via
     #   ansible-lint
     #   molecule
     #   molecule-docker
-ansible-core==2.12.6
+ansible-core==2.13.1
     # via
     #   ansible
     #   ansible-lint
@@ -78,7 +78,7 @@ iniconfig==1.0.0
     # via pytest
 isort==5.9.3
     # via flake8-isort
-jinja2==2.11.3
+jinja2==3.1.2
     # via
     #   ansible-core
     #   cookiecutter
@@ -90,7 +90,7 @@ jsonschema==4.6.0
     # via
     #   ansible-compat
     #   ansible-lint
-markupsafe==1.1.1
+markupsafe==2.1.1
     # via jinja2
 mccabe==0.6.1
     # via flake8
