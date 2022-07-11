@@ -9,7 +9,7 @@ repositories {
 }
 
 dependencies {
-  implementation 'io.jenkins:configuration-as-code:1464.vd8507b_82e41a_'
+  implementation 'io.jenkins:configuration-as-code:1466.v2d4119502006'
 }
 
 task getDeps(type: Copy) {
