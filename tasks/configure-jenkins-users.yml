@@ -1,6 +1,6 @@
 ---
 - name: Ensure Jenkins users exist
-  jenkins_script:
+  community.general.jenkins_script:
     script: |
       def userName = '{{ item.key }}'
       def userPassword = '{{ item.value.password | default("") }}'
@@ -29,7 +29,7 @@
   with_dict: "{{ jenkins_users }}"
 
 - name: Set API tokens for Jenkins users
-  jenkins_script:
+  community.general.jenkins_script:
     script: |
       import hudson.model.*
       import jenkins.model.*

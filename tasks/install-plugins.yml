@@ -1,6 +1,6 @@
 ---
 - name: Copy plugins file
-  template:
+  ansible.builtin.template:
     src: "{{ jenkins_plugins_file }}"
     dest: "{{ jenkins_config_dir }}/plugins.yaml"
     owner: "{{ jenkins_user }}"
@@ -14,7 +14,7 @@
 - name: Install plugins to temporary directory
   become: true
   become_user: "{{ jenkins_user }}"
-  command: >
+  ansible.builtin.command: >
     java -jar
       {{ jenkins_pimt_path }}
       --plugin-download-directory /tmp/plugins
@@ -34,7 +34,7 @@
   until: plugin_installation_result is success
 
 - name: Find all plugins downloaded by Plugin Installation Manager Tool
-  find:
+  ansible.builtin.find:
     paths:
       - "/tmp/plugins"
     patterns:
@@ -47,7 +47,7 @@
 # The cost of this is a bit of extra runtime, but it's worth it to see which plugins have
 # been updated.
 - name: Copy plugins to Jenkins plugin directory
-  copy:
+  ansible.builtin.copy:
     src: "{{ plugin_file }}"
     dest: "{{ jenkins_plugins_dir }}"
     remote_src: true
@@ -63,7 +63,7 @@
 - name: Clean plugin dependencies directory
   become: false
   delegate_to: localhost
-  file:
+  ansible.builtin.file:
     path: "{{ role_path }}/plugins/target"
     state: absent
   # To satisfy Molecule, which would complain about this task being non-idempotent.
@@ -72,7 +72,7 @@
 - name: Fetch plugin dependencies with Gradle on Ansible control node
   become: false
   delegate_to: localhost
-  command: "./gradlew getDeps"
+  ansible.builtin.command: "./gradlew getDeps"
   args:
     chdir: "{{ role_path }}/plugins"
   changed_when: false
@@ -80,7 +80,7 @@
 - name: Find all plugins downloaded by Gradle on Ansible control node
   become: false
   delegate_to: localhost
-  find:
+  ansible.builtin.find:
     paths:
       - "{{ role_path }}/plugins/target"
     patterns:
@@ -89,7 +89,7 @@
   register: role_custom_plugins
 
 - name: Collect JCasC plugins in jenkins_jcasc_plugins list
-  set_fact:
+  ansible.builtin.set_fact:
     jenkins_jcasc_plugins: >
       {{ role_custom_plugins.files | map(attribute='path') | list }}
 
@@ -97,7 +97,7 @@
 # manager tool. This allows us to ensure that these plugins are not overridden by a
 # different and possibly conflicting version.
 - name: Install custom Jenkins plugins
-  copy:
+  ansible.builtin.copy:
     src: "{{ plugin_file }}"
     dest: "{{ jenkins_plugins_dir }}"
     owner: "{{ jenkins_user }}"

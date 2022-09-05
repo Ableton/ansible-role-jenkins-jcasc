@@ -1,6 +1,6 @@
 ---
 - name: Start Jenkins service
-  service:
+  ansible.builtin.service:
     name: jenkins
     state: started
     # This normally isn't required, but we also test this role in Docker containers that
@@ -12,16 +12,16 @@
   changed_when: false
 
 - name: Initialize jenkins_web_force_basic_auth parameter
-  set_fact:
+  ansible.builtin.set_fact:
     jenkins_web_force_basic_auth: false
 
 - name: Set jenkins_web_force_basic_auth parameter
-  set_fact:
+  ansible.builtin.set_fact:
     jenkins_web_force_basic_auth: true
   when: jenkins_web_user != "" and jenkins_web_password != ""
 
 - name: Wait for Jenkins to start
-  uri:
+  ansible.builtin.uri:
     url: "http://localhost:{{ jenkins_port }}"
     url_username: "{{ jenkins_web_user | default(omit) }}"
     url_password: "{{ jenkins_web_password | default(omit) }}"

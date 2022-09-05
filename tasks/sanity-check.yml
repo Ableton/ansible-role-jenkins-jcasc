@@ -1,6 +1,6 @@
 ---
 - name: Ensure that required role variables are defined
-  fail:
+  ansible.builtin.fail:
     msg: "Undefined required role variable (s)"
   when: required_variable == ""
   loop_control:
@@ -18,6 +18,6 @@
     - "{{ jenkins_version }}"
 
 - name: Ensure that jobs directory is defined if necessary
-  fail:
+  ansible.builtin.fail:
     msg: "jenkins_jobs is not empty, but jenkins_jobs_dir is undefined"
   when: (jenkins_jobs | length > 0) and jenkins_jobs_dir == ""

@@ -1,11 +1,11 @@
 ---
 - name: Create Jenkins group
-  group:
+  ansible.builtin.group:
     name: "{{ jenkins_group }}"
     state: present
 
 - name: Create Jenkins user
-  user:
+  ansible.builtin.user:
     name: "{{ jenkins_user }}"
     group: "{{ jenkins_group }}"
     home: "{{ jenkins_root }}"
