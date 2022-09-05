@@ -1,6 +1,6 @@
 ---
 - name: Ensure that Jenkins directories exist
-  file:
+  ansible.builtin.file:
     path: "{{ jenkins_dir }}"
     owner: "{{ jenkins_user }}"
     group: "{{ jenkins_group }}"
@@ -19,7 +19,7 @@
     loop_var: jenkins_dir
 
 - name: Ensure that Jenkins secrets directory exists
-  file:
+  ansible.builtin.file:
     path: "{{ jenkins_secrets_dir }}"
     owner: "{{ jenkins_user }}"
     group: "{{ jenkins_group }}"

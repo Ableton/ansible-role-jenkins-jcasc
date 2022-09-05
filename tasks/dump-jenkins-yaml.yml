@@ -9,7 +9,7 @@
 
 ---
 - name: Assert that required variables are defined
-  assert:
+  ansible.builtin.assert:
     that:
       - jenkins_api_token is defined
       - jenkins_api_token != ""
@@ -50,7 +50,7 @@
     "Script failed!" in jenkins_script_result.output
 
 - name: Write Jenkins config to target file
-  copy:
+  ansible.builtin.copy:
     content: "{{ jenkins_script_result.output }}"
     dest: "{{ jenkins_target_yaml_file }}"
     mode: "0644"

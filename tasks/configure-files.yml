@@ -1,12 +1,12 @@
 ---
 - name: Configure JCasC configuration file
-  template:
+  ansible.builtin.template:
     src: "{{ jenkins_jcasc_config_file }}"
     dest: "{{ jenkins_config_dir }}/jenkins.yaml"
     mode: "0644"
 
 - name: Create intermediate dirs for custom files
-  file:
+  ansible.builtin.file:
     path: "{{ jenkins_home }}/{{ custom_file.dest | dirname }}"
     owner: "{{ jenkins_user }}"
     group: "{{ jenkins_group }}"
@@ -17,7 +17,7 @@
     loop_var: custom_file
 
 - name: Configure custom files
-  template:
+  ansible.builtin.template:
     src: "{{ custom_file.src }}"
     dest: "{{ jenkins_home }}/{{ custom_file.dest }}"
     owner: "{{ jenkins_user }}"
@@ -28,7 +28,7 @@
     loop_var: custom_file
 
 - name: Copy secrets
-  copy:
+  ansible.builtin.copy:
     src: "{{ secret_file }}"
     dest: "{{ jenkins_secrets_dir }}"
     owner: "{{ jenkins_user }}"
@@ -39,7 +39,7 @@
     loop_var: secret_file
 
 - name: Copy userContent
-  copy:
+  ansible.builtin.copy:
     src: "{{ jenkins_user_content }}/"
     dest: "{{ jenkins_user_content_dir }}/"
     owner: "{{ jenkins_user }}"
