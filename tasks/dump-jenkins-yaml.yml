@@ -20,7 +20,7 @@
     quiet: true
 
 - name: Read existing Jenkins config
-  jenkins_script:
+  community.general.jenkins_script:
     script: |
       import io.jenkins.plugins.casc.ConfigurationAsCode
       import java.nio.charset.StandardCharsets
