@@ -22,7 +22,7 @@
 
 - name: Wait for Jenkins to start
   ansible.builtin.uri:
-    url: "http://localhost:{{ jenkins_port }}"
+    url: "http://localhost:{{ jenkins_port }}{{ jenkins_prefix }}"
     url_username: "{{ jenkins_web_user | default(omit) }}"
     url_password: "{{ jenkins_web_password | default(omit) }}"
     force_basic_auth: "{{ jenkins_web_force_basic_auth }}"
