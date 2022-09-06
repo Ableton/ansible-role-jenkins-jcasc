@@ -80,14 +80,14 @@
     - name: Assert that the test job was loaded successfully
       community.general.jenkins_script:
         script: "print(Jenkins.instance.getItem('test_job')?.name)"
-        url: "http://localhost:8100"
+        url: "http://localhost:8100/j"
       register: jenkins_test_job
       failed_when: jenkins_test_job.output != 'test_job'
 
     - name: Assert that the job is buildable
       community.general.jenkins_script:
         script: "print(Jenkins.instance.getItem('test_job')?.buildable)"
-        url: "http://localhost:8100"
+        url: "http://localhost:8100/j"
       register: jenkins_test_job
       failed_when: jenkins_test_job.output != 'true'
 
@@ -176,6 +176,7 @@
           - "/jenkins/lib/jenkins-2.319.2.war"
           - "--webroot=/jenkins/caches/war"
           - "--httpPort=8100"
+          - "--prefix=/j"
           - "--sessionTimeout=1"
 
     - name: Set fact for java_cmdline_expected
@@ -189,7 +190,7 @@
     - name: Assert that the correct version of Jenkins was installed
       community.general.jenkins_script:
         script: "print(Jenkins.instance.version)"
-        url: "http://localhost:8100"
+        url: "http://localhost:8100/j"
       register: jenkins_version
       failed_when: jenkins_version.output != '2.319.2'
 
@@ -200,7 +201,7 @@
             plugin.shortName == "{{ item }}"
           }
           print(foundPlugin?.active)
-        url: "http://localhost:8100"
+        url: "http://localhost:8100/j"
       loop:
         # Assert that JCasC itself could be loaded. It is possible that other plugins
         # could load, but if something is wrong with JCasC itself, we're in trouble.
@@ -221,7 +222,7 @@
     - name: Get Jenkins users
       community.general.jenkins_script:
         script: "print(Jenkins.instance.getUser('{{ item }}'))"
-        url: "http://localhost:8100"
+        url: "http://localhost:8100/j"
       loop: "{{ test_users | flatten(1) }}"
       register: jenkins_users
 
@@ -238,7 +239,7 @@
           Object tokenInfo = Jenkins.instance.getUser('{{ item.key }}')
             .getProperty(jenkins.security.ApiTokenProperty).getTokenList()
           print(tokenInfo[0]?.name)
-        url: "http://localhost:8100"
+        url: "http://localhost:8100/j"
         user: "{{ item.key }}"
         password: "{{ item.value }}"
       loop: "{{ test_users | dict2items }}"

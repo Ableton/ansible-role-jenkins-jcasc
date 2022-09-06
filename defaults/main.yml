@@ -68,6 +68,11 @@ jenkins_plugins_file: ""
 # NOTE: This variable must be defined!
 jenkins_port: "8080"
 
+# Jenkins URL prefix, which will be added to all Jenkins URLs (for example,
+# http://localhost:8080/prefix/resource). If not given, the default value of "/" is used.
+# NOTE: This variable must be defined, and must start with "/"!
+jenkins_prefix: "/"
+
 # Root directory to install Jenkins content underneath. See vars/main.yml to customize
 # specific locations for various Jenkins directories.
 # NOTE: This variable must be defined!
