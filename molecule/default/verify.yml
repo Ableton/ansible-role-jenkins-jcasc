@@ -1,0 +1,240 @@
+---
+- name: Verify
+  hosts: all
+  vars:
+    test_users:
+      alice: "notsecure"
+      bob: ""
+      carol: "changeme"
+  tasks:
+    - name: Get Jenkins group account
+      ansible.builtin.group:
+        name: "jgroup"
+      register: jenkins_group
+
+    - name: Assert Jenkins group was created
+      ansible.builtin.assert:
+        that:
+          - jenkins_group is not changed
+          - jenkins_group.name == "jgroup"
+
+    - name: Get Jenkins user account
+      ansible.builtin.user:
+        name: "juser"
+      register: jenkins_user
+
+    - name: Assert Jenkins user was created
+      ansible.builtin.assert:
+        that:
+          - jenkins_user is not changed
+          - jenkins_user.name == "juser"
+          - jenkins_user.group == jenkins_group.gid
+          - jenkins_user.home == "/jenkins"
+
+    - name: Stat Jenkins directory
+      ansible.builtin.stat:
+        path: "/jenkins"
+      register: jenkins_dir
+
+    - name: Assert that Jenkins directory was created
+      ansible.builtin.assert:
+        that:
+          - jenkins_dir.stat.exists
+          - jenkins_dir.stat.isdir
+          - jenkins_dir.stat.uid == jenkins_user.uid
+          - jenkins_dir.stat.gid == jenkins_group.gid
+          - jenkins_dir.stat.mode == "0755"
+
+    - name: Stat Jenkins job files
+      ansible.builtin.stat:
+        path: "/jenkins/home/{{ item }}"
+      loop:
+        - "jobs"
+        - "jobs/test_job"
+        - "jobs/test_job/config.xml"
+      register: jenkins_job_files
+
+    - name: Assert that Jenkins job files were copied correctly
+      ansible.builtin.assert:
+        that:
+          - item.stat.exists
+          - item.stat.uid == jenkins_user.uid
+          - item.stat.gid == jenkins_group.gid
+      loop: "{{ jenkins_job_files.results }}"
+
+    # There should only be one job on the instance
+    - name: Assert that the test job was loaded successfully
+      community.general.jenkins_script:
+        script: "print(Jenkins.instance.getItem('test_job')?.name)"
+        url: "http://localhost:8100"
+      register: jenkins_test_job
+      failed_when: jenkins_test_job.output != 'test_job'
+
+    - name: Assert that the job is buildable
+      community.general.jenkins_script:
+        script: "print(Jenkins.instance.getItem('test_job')?.buildable)"
+        url: "http://localhost:8100"
+      register: jenkins_test_job
+      failed_when: jenkins_test_job.output != 'true'
+
+    - name: Stat custom files
+      ansible.builtin.stat:
+        path: "/jenkins/home/{{ item }}"
+      loop:
+        - "sidebar-link.xml"
+        - "userContent"
+        - "userContent/jenkins.png"
+      register: custom_files
+
+    - name: Assert that custom files were copied correctly
+      ansible.builtin.assert:
+        that:
+          - item.stat.exists
+          - item.stat.uid == jenkins_user.uid
+          - item.stat.gid == jenkins_group.gid
+      loop: "{{ custom_files.results }}"
+
+    - name: Assert that the custom files are regular files
+      ansible.builtin.assert:
+        that:
+          - custom_files.results[0].stat.isreg
+          - custom_files.results[2].stat.isreg
+
+    - name: Stat secrets directory
+      ansible.builtin.stat:
+        path: "/jenkins/secrets"
+      register: jenkins_secrets_dir
+
+    - name: Assert correct permissions on secrets directory
+      ansible.builtin.assert:
+        that:
+          - jenkins_secrets_dir.stat.exists
+          - jenkins_secrets_dir.stat.uid == jenkins_user.uid
+          - jenkins_secrets_dir.stat.gid == jenkins_group.gid
+          - jenkins_secrets_dir.stat.mode == "0700"
+
+    - name: Stat secret file
+      ansible.builtin.stat:
+        path: "/jenkins/secrets/secret.txt"
+      register: jenkins_secrets_file
+
+    - name: Assert that secret file was copied correctly
+      ansible.builtin.assert:
+        that:
+          - jenkins_secrets_file.stat.exists
+          - jenkins_secrets_file.stat.uid == jenkins_user.uid
+          - jenkins_secrets_file.stat.gid == jenkins_group.gid
+          - jenkins_secrets_file.stat.mode == "0600"
+
+    - name: Slurp secret file
+      ansible.builtin.slurp:
+        src: "/jenkins/secrets/secret.txt"
+      register: jenkins_secrets_file_contents
+
+    - name: Assert secret file contents
+      ansible.builtin.assert:
+        that: jenkins_secrets_file_contents.content | b64decode == "super secret stuff\n"
+
+    # We can't use community.general.pids because we don't want to deal with installing
+    # the psutil Python package.
+    - name: Get PIDs for Java
+      ansible.builtin.command: "pgrep java"
+      changed_when: false
+      register: java_pid
+
+    - name: Assert that only one Java process is running
+      ansible.builtin.assert:
+        that: java_pid.stdout_lines | length == 1
+
+    - name: Get full Java process command line
+      ansible.builtin.command: "pgrep -a java"
+      changed_when: false
+      register: java_cmdline
+
+    - name: Set fact for java_cmdline_expected_list
+      ansible.builtin.set_fact:
+        java_cmdline_expected_list:
+          - "{{ java_pid.stdout }}"
+          - "/usr/bin/java"
+          - "-server"
+          - "-Djenkins.install.runSetupWizard=false"
+          - "-jar"
+          - "/jenkins/lib/jenkins-2.319.2.war"
+          - "--webroot=/jenkins/caches/war"
+          - "--httpPort=8100"
+          - "--sessionTimeout=1"
+
+    - name: Set fact for java_cmdline_expected
+      ansible.builtin.set_fact:
+        java_cmdline_expected: "{{ java_cmdline_expected_list | join(' ') }}"
+
+    - name: Assert that Jenkins service is running with expected arguments
+      ansible.builtin.assert:
+        that: java_cmdline.stdout == java_cmdline_expected
+
+    - name: Assert that the correct version of Jenkins was installed
+      community.general.jenkins_script:
+        script: "print(Jenkins.instance.version)"
+        url: "http://localhost:8100"
+      register: jenkins_version
+      failed_when: jenkins_version.output != '2.319.2'
+
+    - name: See if plugins were installed
+      community.general.jenkins_script:
+        script: |
+          Object foundPlugin = Jenkins.instance.pluginManager.plugins.find { plugin ->
+            plugin.shortName == "{{ item }}"
+          }
+          print(foundPlugin?.active)
+        url: "http://localhost:8100"
+      loop:
+        # Assert that JCasC itself could be loaded. It is possible that other plugins
+        # could load, but if something is wrong with JCasC itself, we're in trouble.
+        - "configuration-as-code"
+        # Assert that our custom plugin was also installed and is running.
+        - "sidebar-link"
+        # The sidebar-link plugin has an implied dependency on structs, which is not
+        # specified in the plugins.yaml file. Jenkins should automatically install this
+        # plugin when it starts up.
+        - "structs"
+      register: jenkins_plugins
+
+    - name: Assert that all plugins are active
+      ansible.builtin.assert:
+        that: item.output == 'true'
+      loop: "{{ jenkins_plugins.results }}"
+
+    - name: Get Jenkins users
+      community.general.jenkins_script:
+        script: "print(Jenkins.instance.getUser('{{ item }}'))"
+        url: "http://localhost:8100"
+      loop: "{{ test_users | flatten(1) }}"
+      register: jenkins_users
+
+    - name: Assert that users are present
+      ansible.builtin.assert:
+        # If the user isn't found, the script will output "null", otherwise it will print
+        # the user's name.
+        that: item.output == item.item
+      loop: "{{ jenkins_users.results }}"
+
+    - name: Get API tokens for users
+      community.general.jenkins_script:
+        script: |
+          Object tokenInfo = Jenkins.instance.getUser('{{ item.key }}')
+            .getProperty(jenkins.security.ApiTokenProperty).getTokenList()
+          print(tokenInfo[0]?.name)
+        url: "http://localhost:8100"
+        user: "{{ item.key }}"
+        password: "{{ item.value }}"
+      loop: "{{ test_users | dict2items }}"
+      register: jenkins_user_tokens
+
+    - name: Validate user tokens
+      ansible.builtin.assert:
+        that:
+          # No API token was added for alice, so the script should print null
+          - jenkins_user_tokens.results[0].output == "null"
+          # However, both bob and carol had tokens added by the role
+          - jenkins_user_tokens.results[1].output == "Added by Ansible"
+          - jenkins_user_tokens.results[2].output == "Added by Ansible"
