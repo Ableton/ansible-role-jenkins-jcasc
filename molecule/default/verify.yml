@@ -45,6 +45,20 @@
           - jenkins_dir.stat.gid == jenkins_group.gid
           - jenkins_dir.stat.mode == "0755"
 
+    - name: Stat Jenkins config file
+      ansible.builtin.stat:
+        path: "/jenkins/config/jenkins.yaml"
+      register: jenkins_config_file
+
+    - name: Assert that Jenkins config was created correctly
+      ansible.builtin.assert:
+        that:
+          - jenkins_config_file.stat.exists
+          - jenkins_config_file.stat.isreg
+          - jenkins_config_file.stat.uid == jenkins_user.uid
+          - jenkins_config_file.stat.gid == jenkins_group.gid
+          - jenkins_config_file.stat.mode == "0644"
+
     - name: Stat Jenkins job files
       ansible.builtin.stat:
         path: "/jenkins/home/{{ item }}"
