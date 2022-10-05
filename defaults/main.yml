@@ -109,7 +109,7 @@ jenkins_users: {}
 
 # Version of Jenkins to install.
 # NOTE: This variable must be defined!
-jenkins_version: "2.277.2"
+jenkins_version: "2.346.3"
 
 # If the Jenkins instance requires authentication, then this variable should contain a
 # username for an administrator. This is used to determine when Jenkins has finished
