@@ -9,6 +9,7 @@ jenkins_config_dir: "{{ jenkins_root }}/config"
 jenkins_command: "/usr/bin/java {{ jenkins_java_args }} \
   -Djenkins.install.runSetupWizard=false -jar {{ jenkins_war }} \
   --webroot={{ jenkins_caches_dir }}/war --httpPort={{ jenkins_port }} \
+  --prefix={{ jenkins_prefix | quote }} \
   {{ jenkins_extra_args }}"
 
 # Value to use for `JENKINS_HOME`. This will also be used as the home directory of the

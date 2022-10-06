@@ -34,7 +34,7 @@
         println "Script failed!"
         println error
       }
-    url: "http://localhost:{{ jenkins_port }}"
+    url: "http://localhost:{{ jenkins_port }}{{ jenkins_prefix }}"
     user: "{{ jenkins_api_user }}"
     password: "{{ jenkins_api_token }}"
   register: jenkins_script_result

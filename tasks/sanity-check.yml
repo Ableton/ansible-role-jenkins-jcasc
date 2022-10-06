@@ -13,6 +13,7 @@
     - "{{ jenkins_pimt_version }}"
     - "{{ jenkins_plugins_file }}"
     - "{{ jenkins_port }}"
+    - "{{ jenkins_prefix }}"
     - "{{ jenkins_root }}"
     - "{{ jenkins_user }}"
     - "{{ jenkins_version }}"
@@ -21,3 +22,8 @@
   ansible.builtin.fail:
     msg: "jenkins_jobs is not empty, but jenkins_jobs_dir is undefined"
   when: (jenkins_jobs | length > 0) and jenkins_jobs_dir == ""
+
+- name: Ensure prefix starts with slash
+  ansible.builtin.fail:
+    msg: "jenkins_prefix needs to start with slash (/)"
+  when: not jenkins_prefix.startswith("/")
