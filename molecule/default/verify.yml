@@ -2,7 +2,7 @@
 - name: Verify
   hosts: all
   vars:
-    jenkins_version_expected: "2.319.2"
+    jenkins_version_expected: "2.346.3"
     test_users:
       alice: "notsecure"
       bob: ""
