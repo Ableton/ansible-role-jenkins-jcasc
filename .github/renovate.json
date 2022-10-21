@@ -3,5 +3,11 @@
   "constraints": {"python": "3.10.6"},
   "extends": ["config:base"],
   "enabledManagers": ["ansible-galaxy", "gradle", "pip-compile"],
+  "packageRules": [
+    {
+      "matchPackageNames": ["io.jenkins:configuration-as-code"],
+      "versioning": "loose"
+    }
+  ],
   "pip-compile": {"fileMatch": ["^requirements-dev\\.in$"]}
 }
