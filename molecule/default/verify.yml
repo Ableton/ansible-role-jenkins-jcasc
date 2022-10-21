@@ -2,6 +2,7 @@
 - name: Verify
   hosts: all
   vars:
+    jenkins_version_expected: "2.319.2"
     test_users:
       alice: "notsecure"
       bob: ""
@@ -173,7 +174,7 @@
           - "-server"
           - "-Djenkins.install.runSetupWizard=false"
           - "-jar"
-          - "/jenkins/lib/jenkins-2.319.2.war"
+          - "/jenkins/lib/jenkins-{{ jenkins_version_expected }}.war"
           - "--webroot=/jenkins/caches/war"
           - "--httpPort=8100"
           - "--prefix=/j"
@@ -192,7 +193,7 @@
         script: "print(Jenkins.instance.version)"
         url: "http://localhost:8100/j"
       register: jenkins_version
-      failed_when: jenkins_version.output != '2.319.2'
+      failed_when: jenkins_version.output != jenkins_version_expected
 
     - name: See if plugins were installed
       community.general.jenkins_script:
