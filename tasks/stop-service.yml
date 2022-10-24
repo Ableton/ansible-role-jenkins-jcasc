@@ -3,6 +3,9 @@
   ansible.builtin.service_facts:
 
 - name: Stop Jenkins service
+  when:
+    - "'jenkins.service' in ansible_facts.services"
+    - "ansible_facts.services['jenkins.service']['state'] != 'stopped'"
   block:
     - name: Slurp Jenkins service PID
       ansible.builtin.slurp:
@@ -44,6 +47,3 @@
     - name: Sync filesystems
       ansible.builtin.command: "sync"
       changed_when: false
-  when:
-    - "'jenkins.service' in ansible_facts.services"
-    - "ansible_facts.services['jenkins.service']['state'] != 'stopped'"

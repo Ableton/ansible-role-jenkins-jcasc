@@ -1,29 +1,43 @@
 ---
-- include: "sanity-check.yml"
+- name: Include tasks for sanity checks
+  ansible.builtin.include_tasks: "sanity-check.yml"
 
-- include: "stop-service.yml"
+- name: Include tasks to stop service
+  ansible.builtin.include_tasks: "stop-service.yml"
 
-- include: "configure-user.yml"
+- name: Include tasks to configure Jenkins (system) user
+  ansible.builtin.include_tasks: "configure-user.yml"
 
-- include: "configure-dirs.yml"
+- name: Include tasks to configure Jenkins directories
+  ansible.builtin.include_tasks: "configure-dirs.yml"
 
-- include: "install-java-{{ ansible_pkg_mgr }}.yml"
+- name: Include tasks to install Java
+  ansible.builtin.include_tasks: "install-java-{{ ansible_pkg_mgr }}.yml"
 
-- include: "install-jenkins.yml"
+- name: Include tasks to install Jenkins
+  ansible.builtin.include_tasks: "install-jenkins.yml"
 
-- include: "configure-service-{{ ansible_service_mgr }}.yml"
+- name: Include tasks to configure Jenkins service
+  ansible.builtin.include_tasks: "configure-service-{{ ansible_service_mgr }}.yml"
 
-- include: "stop-service.yml"
+- name: Include tasks to stoop service
+  ansible.builtin.include_tasks: "stop-service.yml"
 
-- include: "install-pimt.yml"
+- name: Include tasks to install plugin installation manager CLI tool (PIMT)
+  ansible.builtin.include_tasks: "install-pimt.yml"
 
-- include: "install-plugins.yml"
+- name: Include tasks to install Jenkins plugins
+  ansible.builtin.include_tasks: "install-plugins.yml"
 
-- include: "configure-files.yml"
+- name: Include tasks to configure custom files
+  ansible.builtin.include_tasks: "configure-files.yml"
 
-- include: "configure-jobs.yml"
+- name: Include tasks to configure custom jobs
+  ansible.builtin.include_tasks: "configure-jobs.yml"
 
-- include: "start-service.yml"
+- name: Include tasks to start service
+  ansible.builtin.include_tasks: "start-service.yml"
 
 # Configuring tokens is done with jenkins_script, which requires that Jenkins is running
-- include: "configure-jenkins-users.yml"
+- name: Include tasks to configure Jenkins users
+  ansible.builtin.include_tasks: "configure-jenkins-users.yml"
