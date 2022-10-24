@@ -1,43 +1,43 @@
 ---
 - name: Include tasks for sanity checks
-  include: "sanity-check.yml"
+  include_tasks: "sanity-check.yml"
 
 - name: Include tasks to stop service
-  include: "stop-service.yml"
+  include_tasks: "stop-service.yml"
 
 - name: Include tasks to configure Jenkins (system) user
-  include: "configure-user.yml"
+  include_tasks: "configure-user.yml"
 
 - name: Include tasks to configure Jenkins directories
-  include: "configure-dirs.yml"
+  include_tasks: "configure-dirs.yml"
 
 - name: Include tasks to install Java
-  include: "install-java-{{ ansible_pkg_mgr }}.yml"
+  include_tasks: "install-java-{{ ansible_pkg_mgr }}.yml"
 
 - name: Include tasks to install Jenkins
-  include: "install-jenkins.yml"
+  include_tasks: "install-jenkins.yml"
 
 - name: Include tasks to configure Jenkins service
-  include: "configure-service-{{ ansible_service_mgr }}.yml"
+  include_tasks: "configure-service-{{ ansible_service_mgr }}.yml"
 
 - name: Include tasks to stoop service
-  include: "stop-service.yml"
+  include_tasks: "stop-service.yml"
 
 - name: Include tasks to install plugin installation manager CLI tool (PIMT)
-  include: "install-pimt.yml"
+  include_tasks: "install-pimt.yml"
 
 - name: Include tasks to install Jenkins plugins
-  include: "install-plugins.yml"
+  include_tasks: "install-plugins.yml"
 
 - name: Include tasks to configure custom files
-  include: "configure-files.yml"
+  include_tasks: "configure-files.yml"
 
 - name: Include tasks to configure custom jobs
-  include: "configure-jobs.yml"
+  include_tasks: "configure-jobs.yml"
 
 - name: Include tasks to start service
-  include: "start-service.yml"
+  include_tasks: "start-service.yml"
 
 # Configuring tokens is done with jenkins_script, which requires that Jenkins is running
 - name: Include tasks to configure Jenkins users
-  include: "configure-jenkins-users.yml"
+  include_tasks: "configure-jenkins-users.yml"
