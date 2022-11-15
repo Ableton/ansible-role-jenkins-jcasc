@@ -8,6 +8,8 @@
 # Short-Description: Jenkins CI Service
 ### END INIT INFO
 
+. /lib/lsb/init-functions
+
 RETVAL=0
 
 start() {
@@ -33,7 +35,7 @@ case "$1" in
     stop
     ;;
   status)
-    [ -f {{ jenkins_pid_file }} ]
+    status_of_proc -p {{ jenkins_pid_file }} /usr/bin/java java && exit 0 || exit $?
     RETVAL=$?
     ;;
   restart)
