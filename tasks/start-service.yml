@@ -1,7 +1,7 @@
 ---
 - name: Start Jenkins service
   ansible.builtin.service:
-    name: jenkins
+    name: "jenkins"
     state: started
     # This normally isn't required, but we also test this role in Docker containers that
     # resemble standalone hosts with SSH. Since OpenSSH has libsystemd as a dependency,
