@@ -8,6 +8,6 @@
     mode: "0755"
 
 - name: Install Jenkins service
-  ansible.builtin.service:
+  ansible.builtin.sysvinit:
     name: "jenkins"
     enabled: true
