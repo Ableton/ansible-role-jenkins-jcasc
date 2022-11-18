@@ -2,10 +2,28 @@
 - name: Gather service facts
   ansible.builtin.service_facts:
 
-- name: Stop Jenkins service
+- name: Initialize jenkins_service_running fact
+  ansible.builtin.set_fact:
+    jenkins_service_running: false
+
+- name: Set jenkins_service_running for systemd hosts
+  ansible.builtin.set_fact:
+    jenkins_service_running: true
   when:
+    - "ansible_service_mgr == 'systemd'"
     - "'jenkins.service' in ansible_facts.services"
     - "ansible_facts.services['jenkins.service']['state'] != 'stopped'"
+
+- name: Set jenkins_service_running for SysV init hosts
+  ansible.builtin.set_fact:
+    jenkins_service_running: true
+  when:
+    - "ansible_service_mgr == 'sysvinit'"
+    - "'jenkins' in ansible_facts.services"
+    - "ansible_facts.services['jenkins']['state'] != 'stopped'"
+
+- name: Stop Jenkins service
+  when: jenkins_service_running
   block:
     - name: Slurp Jenkins service PID
       ansible.builtin.slurp:
@@ -34,13 +52,15 @@
       # TODO: Remove this suppression when ansible-lint learns to parse block conditions
       # See: https://github.com/ansible/ansible-lint/issues/1894
       # noqa no-changed-when
-      ansible.builtin.command: >
-        ps -p {{ jenkins_pid['content'] | b64decode }}
+      ansible.builtin.command: "ps -p {{ jenkins_pid['content'] | b64decode }}"
       register: jenkins_service_running
       ignore_errors: true
       until: jenkins_service_running is failed
       retries: 60
       delay: 1
+      # This is required or else molecule's idempotency test will fail. See:
+      # https://github.com/ansible-community/molecule/issues/2765
+      changed_when: false
 
     # Again, a paranoid measure aimed at preventing potential errors when immediately
     # accessing files in the Jenkins home folder.
