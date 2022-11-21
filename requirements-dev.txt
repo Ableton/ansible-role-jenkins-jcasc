@@ -4,15 +4,15 @@
 #
 #    pip-compile --output-file=requirements-dev.txt requirements-dev.in
 #
-ansible-compat==2.2.4
+ansible-compat==2.2.5
     # via
     #   ansible-lint
     #   molecule
-ansible-core==2.13.5
+ansible-core==2.14.0
     # via
     #   -r requirements-dev.in
     #   ansible-lint
-ansible-lint==6.8.6
+ansible-lint==6.8.7
     # via -r requirements-dev.in
 arrow==1.2.3
     # via jinja2-time
@@ -86,11 +86,11 @@ packaging==21.3
     #   ansible-lint
     #   docker
     #   molecule
-pathspec==0.10.1
+pathspec==0.10.2
     # via
     #   black
     #   yamllint
-platformdirs==2.5.3
+platformdirs==2.5.4
     # via black
 pluggy==1.0.0
     # via molecule
@@ -104,7 +104,7 @@ pyrsistent==0.19.2
     # via jsonschema
 python-dateutil==2.8.2
     # via arrow
-python-slugify==6.1.2
+python-slugify==7.0.0
     # via cookiecutter
 pyyaml==6.0
     # via
