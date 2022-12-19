@@ -39,7 +39,9 @@
         # that resemble standalone hosts with SSH. Since OpenSSH has libsystemd as a
         # dependency, it will fool the service module into selecting systemd as the
         # service backend.
-        use: "{{ ansible_service_mgr }}"
+        # TODO: Remove this suppression when the module arguments verification is fixed
+        # See: https://github.com/ansible/ansible-lint/issues/2824
+        use: "{{ ansible_service_mgr }}"  # noqa args[module]
       # This is required or else molecule's idempotency test will fail. See:
       # https://github.com/ansible-community/molecule/issues/2765
       changed_when: false
