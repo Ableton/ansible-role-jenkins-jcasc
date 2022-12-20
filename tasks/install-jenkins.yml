@@ -9,3 +9,5 @@
     timeout: 30
     mode: "0644"
   retries: 3
+  register: download_jenkins_war_result
+  until: download_jenkins_war_result is succeeded
