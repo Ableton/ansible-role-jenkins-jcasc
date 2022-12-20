@@ -10,3 +10,8 @@
     url: "{{ jenkins_pimt_url }}"
     dest: "{{ jenkins_pimt_path }}"
     mode: "0644"
+    timeout: "{{ jenkins_download_timeout }}"
+  register: pimt_download_result
+  retries: "{{ jenkins_download_retries }}"
+  delay: "{{ jenkins_download_delay }}"
+  until: pimt_download_result is succeeded
