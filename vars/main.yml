@@ -1,5 +1,5 @@
 ---
-# Directory for temparory Jenkins data
+# Directory for temporary Jenkins data
 jenkins_caches_dir: "{{ jenkins_root }}/caches"
 
 # Directory for Jenkins configuration files
