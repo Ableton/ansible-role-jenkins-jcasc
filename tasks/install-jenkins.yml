@@ -6,8 +6,8 @@
       https://mirrors.jenkins.io/war-stable/{{ jenkins_version }}/jenkins.war.sha256"
     dest: "{{ jenkins_war }}"
     # Sometimes the main Jenkins repository has network stability issues
-    timeout: 30
+    timeout: "{{ jenkins_download_timeout }}"
     mode: "0644"
-  retries: 3
+  retries: "{{ jenkins_download_retries }}"
   register: download_jenkins_war_result
   until: download_jenkins_war_result is succeeded
