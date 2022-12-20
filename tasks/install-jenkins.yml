@@ -9,5 +9,6 @@
     timeout: "{{ jenkins_download_timeout }}"
     mode: "0644"
   retries: "{{ jenkins_download_retries }}"
+  delay: "{{ jenkins_download_delay }}"
   register: download_jenkins_war_result
   until: download_jenkins_war_result is succeeded
