@@ -1,5 +1,5 @@
 ---
-# Directory for temparory Jenkins data
+# Directory for temporary Jenkins data
 jenkins_caches_dir: "{{ jenkins_root }}/caches"
 
 # Directory for Jenkins configuration files
@@ -11,6 +11,15 @@ jenkins_command: "/usr/bin/java {{ jenkins_java_args }} \
   --webroot={{ jenkins_caches_dir }}/war --httpPort={{ jenkins_port }} \
   --prefix={{ jenkins_prefix | quote }} \
   {{ jenkins_extra_args }}"
+
+# Delay (in seconds) to wait between retries when downloading Jenkins and related assets
+jenkins_download_delay: 3
+
+# Number of retries to attempt when downloading Jenkins and related assets
+jenkins_download_retries: 3
+
+# Timeout (in seconds) to use when downloading Jenkins and related assets
+jenkins_download_timeout: 30
 
 # Value to use for `JENKINS_HOME`. This will also be used as the home directory of the
 # Jenkins user.

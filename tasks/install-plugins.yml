@@ -28,10 +28,10 @@
   # we take the coward's way out and just define changed_when to false. The next task will
   # report an accurate changed status, however.
   changed_when: false
-  retries: 3
-  delay: 5
+  retries: "{{ jenkins_download_retries }}"
+  delay: "{{ jenkins_download_delay }}"
   register: plugin_installation_result
-  until: plugin_installation_result is success
+  until: plugin_installation_result is succeeded
 
 - name: Find all plugins downloaded by Plugin Installation Manager Tool
   ansible.builtin.find:
