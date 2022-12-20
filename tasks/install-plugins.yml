@@ -31,7 +31,7 @@
   retries: 3
   delay: 5
   register: plugin_installation_result
-  until: plugin_installation_result is success
+  until: plugin_installation_result is succeeded
 
 - name: Find all plugins downloaded by Plugin Installation Manager Tool
   ansible.builtin.find:
