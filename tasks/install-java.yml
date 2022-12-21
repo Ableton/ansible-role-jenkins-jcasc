@@ -1,0 +1,3 @@
+---
+- name: Include tasks to install Java
+  ansible.builtin.include_tasks: "install-java-{{ ansible_pkg_mgr }}.yml"
