@@ -13,7 +13,7 @@ jenkins_command: "/usr/bin/java {{ jenkins_java_args }} \
   {{ jenkins_extra_args }}"
 
 # Delay (in seconds) to wait between retries when downloading Jenkins and related assets
-jenkins_download_delay: 3
+jenkins_download_delay: 5
 
 # Number of retries to attempt when downloading Jenkins and related assets
 jenkins_download_retries: 3
