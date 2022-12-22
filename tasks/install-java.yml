@@ -1,0 +1,12 @@
+---
+- name: See if Java is present in the default PATH
+  ansible.builtin.command: "java -version"
+  changed_when: false
+  ignore_errors: true
+  register: java_version
+
+- name: Install Java
+  when: java_version is failed
+  block:
+    - name: Include tasks to install Java
+      ansible.builtin.include_tasks: "install-java-{{ ansible_pkg_mgr }}.yml"

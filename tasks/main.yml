@@ -12,7 +12,7 @@
   ansible.builtin.include_tasks: "configure-dirs.yml"
 
 - name: Include tasks to install Java
-  ansible.builtin.include_tasks: "install-java-{{ ansible_pkg_mgr }}.yml"
+  ansible.builtin.include_tasks: "install-java.yml"
 
 - name: Include tasks to install Jenkins
   ansible.builtin.include_tasks: "install-jenkins.yml"

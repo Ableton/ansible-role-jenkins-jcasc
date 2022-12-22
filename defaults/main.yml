@@ -36,6 +36,10 @@ jenkins_group: "jenkins"
 # starting Jenkins, it is not necessary to add this option to `jenkins_java_args`.
 jenkins_java_args: ""
 
+# Java package to install. You may override this value in order to provide a package pin,
+# for example.
+jenkins_java_package: "openjdk-11-jre-headless"
+
 # Location of the JCasC configuration file. Please see the README or JCasC homepage for
 # information about how to generate this file.
 # NOTE: This variable must be defined!

@@ -1,7 +1,7 @@
 ---
 - name: Ensure Java is installed
   ansible.builtin.apt:
-    name: "openjdk-11-jre-headless"
+    name: "{{ jenkins_java_package }}"
     state: present
     update_cache: true
 
