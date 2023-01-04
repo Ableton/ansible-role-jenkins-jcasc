@@ -20,7 +20,6 @@
       --plugin-download-directory /tmp/plugins
       --plugin-file {{ jenkins_config_dir }}/plugins.yaml
       --war {{ jenkins_war }}
-      --latest false
       --verbose
   environment:
     CACHE_DIR: "{{ jenkins_caches_dir }}"
