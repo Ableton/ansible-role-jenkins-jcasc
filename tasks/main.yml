@@ -20,7 +20,7 @@
 - name: Include tasks to configure Jenkins service
   ansible.builtin.include_tasks: "configure-service-{{ ansible_service_mgr }}.yml"
 
-- name: Include tasks to stoop service
+- name: Include tasks to stop service
   ansible.builtin.include_tasks: "stop-service.yml"
 
 - name: Include tasks to install plugin installation manager CLI tool (PIMT)
