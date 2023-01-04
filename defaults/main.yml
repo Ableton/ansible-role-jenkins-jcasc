@@ -60,6 +60,9 @@ jenkins_jobs: []
 # NOTE: This variable must be defined if you want to use `jenkins_jobs`!
 jenkins_jobs_dir: ""
 
+# Extra arguments to pass to the Jenkins Plugin Installation Manager Tool (PIMT).
+jenkins_pimt_args: ""
+
 # File containing the list of plugins to install. Please refer to the README or to the
 # Jenkins Plugin Installation Manager Tool homepage for information about this file
 # format. The `plugins.yaml` file may also be used if it contains a `plugins` section. If

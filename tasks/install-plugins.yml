@@ -21,6 +21,7 @@
       --plugin-file {{ jenkins_config_dir }}/plugins.yaml
       --war {{ jenkins_war }}
       --verbose
+      {{ jenkins_pimt_args }}
   environment:
     CACHE_DIR: "{{ jenkins_caches_dir }}"
   # We don't have a good way to know when this command changed anything on the system, so
