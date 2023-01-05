@@ -63,6 +63,7 @@ either to the playbook, or to the individual role (as shown below).
   vars:
     jenkins_java_args: "-server -Xmx2g -Xms512m"
     jenkins_jcasc_config_file: "jenkins.yaml.j2"
+    jenkins_pimt_args: "--latest false"
     jenkins_plugins_file: "plugins.yaml"
     jenkins_jobs:
       - "example_job"
