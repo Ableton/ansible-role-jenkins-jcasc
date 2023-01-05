@@ -60,7 +60,9 @@ jenkins_jobs: []
 # NOTE: This variable must be defined if you want to use `jenkins_jobs`!
 jenkins_jobs_dir: ""
 
-# Extra arguments to pass to the Jenkins Plugin Installation Manager Tool (PIMT).
+# Extra arguments to pass to the Jenkins Plugin Installation Manager Tool (PIMT). For
+# supported options, see:
+# https://github.com/jenkinsci/plugin-installation-manager-tool#cli-options
 jenkins_pimt_args: ""
 
 # File containing the list of plugins to install. Please refer to the README or to the
