@@ -6,57 +6,35 @@
     owner: "{{ jenkins_user }}"
     group: "{{ jenkins_group }}"
     mode: "0644"
+  register: copy_plugins_yaml_file
 
-# Plugins are installed to a temporary directory because otherwise the permissions on the
-# real plugin directory get screwed up, and adding another task to fix that would be
-# idempotent. Also, if the plugins are copied to the real directory after downloading,
-# we'll get useful information in the Ansible logs about which ones have changed.
-- name: Install plugins to temporary directory
+# If the template file changed, then nuke the plugins directory before installing plugins.
+# We want to make sure to avoid any potential problems with conflicting dependencies, and
+# also to correctly handle the case when plugins are removed from the plugins.yaml file.
+- name: Clean plugins directory
+  ansible.builtin.file:
+    path: "{{ jenkins_plugins_dir }}"
+    state: absent
+  when: copy_plugins_yaml_file is changed  # noqa no-handler
+
+- name: Install plugins
   become: true
   become_user: "{{ jenkins_user }}"
   ansible.builtin.command: >
     java -jar
       {{ jenkins_pimt_path }}
-      --plugin-download-directory /tmp/plugins
+      --plugin-download-directory {{ jenkins_plugins_dir }}
       --plugin-file {{ jenkins_config_dir }}/plugins.yaml
       --war {{ jenkins_war }}
       --verbose
       {{ jenkins_pimt_args }}
   environment:
     CACHE_DIR: "{{ jenkins_caches_dir }}"
-  # We don't have a good way to know when this command changed anything on the system, so
-  # we take the coward's way out and just define changed_when to false. The next task will
-  # report an accurate changed status, however.
-  changed_when: false
+  when: copy_plugins_yaml_file is changed  # noqa no-handler
   retries: "{{ jenkins_download_retries }}"
   delay: "{{ jenkins_download_delay }}"
   register: plugin_installation_result
   until: plugin_installation_result is succeeded
-
-- name: Find all plugins downloaded by Plugin Installation Manager Tool
-  ansible.builtin.find:
-    paths:
-      - "/tmp/plugins"
-    patterns:
-      - "*.hpi"
-      - "*.jpi"
-  register: downloaded_plugins
-
-# We could copy the entire directory where we downloaded the plugins by setting the src to
-# be "/tmp/plugins/", but then we miss out on seeing which plugins were actually changed.
-# The cost of this is a bit of extra runtime, but it's worth it to see which plugins have
-# been updated.
-- name: Copy plugins to Jenkins plugin directory
-  ansible.builtin.copy:
-    src: "{{ plugin_file }}"
-    dest: "{{ jenkins_plugins_dir }}"
-    remote_src: true
-    owner: "{{ jenkins_user }}"
-    group: "{{ jenkins_group }}"
-    mode: "0644"
-  with_items: "{{ downloaded_plugins.files | map(attribute='path') | list }}"
-  loop_control:
-    loop_var: plugin_file
 
 # This should be done in order to ensure that older versions of JCasC and its dependencies
 # aren't installed to the controller.

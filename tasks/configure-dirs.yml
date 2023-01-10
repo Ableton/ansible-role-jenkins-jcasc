@@ -13,7 +13,6 @@
     - "{{ jenkins_config_dir }}"
     - "{{ jenkins_home }}"
     - "{{ jenkins_lib_dir }}"
-    - "{{ jenkins_plugins_dir }}"
     - "{{ jenkins_user_content_dir }}"
   loop_control:
     loop_var: jenkins_dir
