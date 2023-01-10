@@ -6,6 +6,7 @@
     owner: "{{ jenkins_user }}"
     group: "{{ jenkins_group }}"
     mode: "0644"
+  diff: "{{ jenkins_show_plugins_yaml_changes }}"
   register: copy_plugins_yaml_file
 
 # If the template file changed, then nuke the plugins directory before installing plugins.
