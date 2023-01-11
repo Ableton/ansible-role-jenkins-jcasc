@@ -23,12 +23,12 @@
   become_user: "{{ jenkins_user }}"
   ansible.builtin.command: >
     java -jar
-      {{ jenkins_pimt_path }}
-      --plugin-download-directory {{ jenkins_plugins_dir }}
-      --plugin-file {{ jenkins_config_dir }}/plugins.yaml
-      --war {{ jenkins_war }}
-      --verbose
-      {{ jenkins_pimt_args }}
+    {{ jenkins_pimt_path }}
+    --plugin-download-directory {{ jenkins_plugins_dir }}
+    --plugin-file {{ jenkins_config_dir }}/plugins.yaml
+    --war {{ jenkins_war }}
+    --verbose
+    {{ jenkins_pimt_args }}
   environment:
     CACHE_DIR: "{{ jenkins_caches_dir }}"
   when: copy_plugins_yaml_file is changed  # noqa no-handler
