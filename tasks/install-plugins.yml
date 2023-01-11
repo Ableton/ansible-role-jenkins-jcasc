@@ -19,23 +19,45 @@
   when: copy_plugins_yaml_file is changed  # noqa no-handler
 
 - name: Install plugins
-  become: true
-  become_user: "{{ jenkins_user }}"
-  ansible.builtin.command: >
-    java -jar
-      {{ jenkins_pimt_path }}
-      --plugin-download-directory {{ jenkins_plugins_dir }}
-      --plugin-file {{ jenkins_config_dir }}/plugins.yaml
-      --war {{ jenkins_war }}
-      --verbose
-      {{ jenkins_pimt_args }}
-  environment:
-    CACHE_DIR: "{{ jenkins_caches_dir }}"
   when: copy_plugins_yaml_file is changed  # noqa no-handler
-  retries: "{{ jenkins_download_retries }}"
-  delay: "{{ jenkins_download_delay }}"
-  register: plugin_installation_result
-  until: plugin_installation_result is succeeded
+  block:
+    - name: Use PIMT to install plugins
+      become: true
+      become_user: "{{ jenkins_user }}"
+      # TODO: Remove this suppression when ansible-lint learns to parse block conditions
+      # See: https://github.com/ansible/ansible-lint/issues/1894
+      # noqa no-changed-when
+      ansible.builtin.command: >
+        java -jar
+        {{ jenkins_pimt_path }}
+        --plugin-download-directory {{ jenkins_plugins_dir }}
+        --plugin-file {{ jenkins_config_dir }}/plugins.yaml
+        --war {{ jenkins_war }}
+        --verbose
+        {{ jenkins_pimt_args }}
+      environment:
+        CACHE_DIR: "{{ jenkins_caches_dir }}"
+      retries: "{{ jenkins_download_retries }}"
+      delay: "{{ jenkins_download_delay }}"
+      register: plugin_installation_result
+      until: plugin_installation_result is succeeded
+  rescue:
+    # Because we only run PIMT when the template file changed, we can end up in a bad
+    # situation if PIMT fails for other reasons (for instance, a network glitch). This
+    # will leave the Jenkins controller in a partially deployed state, and when this role
+    # is run again, we need to ensure that PIMT will also be re-run. To do so, we alter
+    # the plugins.yaml file, which will ensure that the template task wil change it.
+    - name: Write failure comment to plugins.yaml file
+      ansible.builtin.lineinfile:
+        path: "{{ jenkins_config_dir }}/plugins.yaml"
+        line: "# Added by Ansible: PIMT failed on last run!"
+        insertbefore: BOF
+
+    - name: Force the play to fail
+      ansible.builtin.fail:
+        msg: >
+          Plugin Installation Manager Tool failed with code
+          {{ plugin_installation_result.rc }}: {{ plugin_installation_result.msg }}
 
 # This should be done in order to ensure that older versions of JCasC and its dependencies
 # aren't installed to the controller.

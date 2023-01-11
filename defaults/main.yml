@@ -92,7 +92,7 @@ jenkins_root: "/opt/jenkins"
 jenkins_secret_files: []
 
 # If true, show the diff output when copying the plugins.yaml file to the controller. This
-# can be useful to see which plugins during a deployment.
+# can be useful to see which plugins changed during a deployment.
 jenkins_show_plugins_yaml_changes: true
 
 # User to run the Jenkins service as. This user will be created if it does not exist.
