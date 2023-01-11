@@ -12,6 +12,7 @@
     jenkins_jobs:
       - "test_job"
     jenkins_jobs_dir: "{{ playbook_dir }}/jobs"
+    jenkins_pimt_logfile: "/tmp/pimt.log"
     jenkins_plugins_file: "{{ playbook_dir }}/configs/plugins.yaml"
     jenkins_port: "8100"
     jenkins_prefix: "/j"

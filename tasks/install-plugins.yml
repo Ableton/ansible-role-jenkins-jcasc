@@ -21,6 +21,11 @@
 - name: Install plugins
   when: copy_plugins_yaml_file is changed  # noqa no-handler
   block:
+    - name: Determine if PIMT output should be logged to a separate file
+      ansible.builtin.set_fact:
+        jenkins_pimt_log_output_to_file: true
+      when: jenkins_pimt_logfile != ''
+
     - name: Use PIMT to install plugins
       become: true
       become_user: "{{ jenkins_user }}"
@@ -37,10 +42,19 @@
         {{ jenkins_pimt_args }}
       environment:
         CACHE_DIR: "{{ jenkins_caches_dir }}"
+      no_log: "{{ jenkins_pimt_log_output_to_file }}"
       retries: "{{ jenkins_download_retries }}"
       delay: "{{ jenkins_download_delay }}"
       register: plugin_installation_result
       until: plugin_installation_result is succeeded
+
+    - name: Write the PIMT logfile data to the desired filename
+      delegate_to: localhost
+      ansible.builtin.copy:
+        dest: "{{ jenkins_pimt_logfile }}"
+        content: "{{ plugin_installation_result.stderr }}"
+        mode: "0644"
+      when: jenkins_pimt_log_output_to_file
   rescue:
     # Because we only run PIMT when the template file changed, we can end up in a bad
     # situation if PIMT fails for other reasons (for instance, a network glitch). This

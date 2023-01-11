@@ -33,6 +33,9 @@ jenkins_pid_file: "{{ jenkins_caches_dir }}/jenkins.pid"
 
 jenkins_pimt_jar: "jenkins-plugin-manager-{{ jenkins_pimt_version }}.jar"
 
+# For internal use only, do not override. Set jenkins_pimt_logfile instead.
+jenkins_pimt_log_output_to_file: false
+
 # URL to download PIMT from
 jenkins_pimt_url: "https://github.com/jenkinsci/plugin-installation-manager-tool/releases\
   /download/{{ jenkins_pimt_version }}/{{ jenkins_pimt_jar }}"

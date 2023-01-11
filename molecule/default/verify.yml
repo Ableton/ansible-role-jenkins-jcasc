@@ -220,6 +220,26 @@
         that: item.output == 'true'
       loop: "{{ jenkins_plugins.results }}"
 
+    - name: Stat the PIMT logfile
+      delegate_to: localhost
+      ansible.builtin.stat:
+        path: "/tmp/pimt.log"
+      register: pimt_logfile
+
+    - name: Assert that the PIMT logfile exists and is a non-empty text file
+      ansible.builtin.assert:
+        that:
+          - pimt_logfile is succeeded
+          - pimt_logfile.stat.exists
+          - pimt_logfile.stat.mimetype == "text/plain"
+          - pimt_logfile.stat.size > 0
+
+    - name: Remove PIMT logfile
+      delegate_to: localhost
+      ansible.builtin.file:
+        path: "/tmp/pimt.log"
+        state: absent
+
     - name: Get Jenkins users
       community.general.jenkins_script:
         script: "print(Jenkins.instance.getUser('{{ item }}'))"
