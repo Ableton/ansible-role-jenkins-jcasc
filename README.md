@@ -33,8 +33,7 @@ installation by performing the following steps:
 Please see the [JCasC homepage][jcasc] for more details on this YAML file format.
 
 As for the `plugins.yaml` file, please refer to the [tool's homepage][pimt] for
-information on this file's format. Alternately, the plugin data can be present in the
-`jenkins.yaml` file under the `plugins` section.
+information on this file's format.
 
 Both the `jenkins.yaml` and `plugins.yaml` files are treated as templates, so Jinja2
 syntax can be used to customize them during provisioning.
