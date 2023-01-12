@@ -33,15 +33,11 @@ installation by performing the following steps:
 Please see the [JCasC homepage][jcasc] for more details on this YAML file format.
 
 As for the `plugins.yaml` file, please refer to the [tool's homepage][pimt] for
-information on this file's format.
+information on this file's format. **Important**: the `plugins.yaml` file must at least
+contain the `configuration-as-code` (JCasC) plugin.
 
 Both the `jenkins.yaml` and `plugins.yaml` files are treated as templates, so Jinja2
 syntax can be used to customize them during provisioning.
-
-**Important**: The plugins specified in [the Gradle `build.gradle`](plugins/build.gradle)
-file should be excluded from your `plugins.yaml` file to avoid potential conflicting
-versions. Please see the [`README.md`](plugins/README.md) file in the `plugins` directory
-for more information.
 
 Role Variables
 --------------

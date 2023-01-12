@@ -27,3 +27,19 @@
   ansible.builtin.fail:
     msg: "jenkins_prefix needs to start with slash (/)"
   when: not jenkins_prefix.startswith("/")
+
+- name: Read plugins.yaml file
+  ansible.builtin.set_fact:
+    jenkins_plugins_file_data: >-
+      {{ lookup('ansible.builtin.file', jenkins_plugins_file) | from_yaml }}
+
+- name: Check if configuration-as-code plugin is defined in plugins.yaml data
+  ansible.builtin.set_fact:
+    jenkins_jcasc_plugin_found: true
+  when: item.artifactId == "configuration-as-code"
+  loop: "{{ jenkins_plugins_file_data.plugins }}"
+
+- name: Fail if configuration-as-code plugin was not found in plugins.yaml
+  ansible.builtin.fail:
+    msg: "The configuration-as-code (JCasC) plugin was not found in plugins.yaml"
+  when: jenkins_jcasc_plugin_found is not defined
