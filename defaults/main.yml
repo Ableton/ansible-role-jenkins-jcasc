@@ -65,6 +65,11 @@ jenkins_jobs_dir: ""
 # https://github.com/jenkinsci/plugin-installation-manager-tool#cli-options
 jenkins_pimt_args: ""
 
+# When defined, log output from the Jenkins Plugin Installation Manager Tool (PIMT) to
+# this file on the Ansible control machine instead of in Ansible's output. Since PIMT can
+# generate a lot of output, this can improve the readability of deployment logs.
+jenkins_pimt_logfile: ""
+
 # File containing the list of plugins to install. Please refer to the README or to the
 # Jenkins Plugin Installation Manager Tool homepage for information about this file
 # format. The `plugins.yaml` file may also be used if it contains a `plugins` section. If
