@@ -50,6 +50,7 @@
 
     - name: Write the PIMT logfile data to the desired filename
       delegate_to: localhost
+      become: false
       ansible.builtin.copy:
         dest: "{{ jenkins_pimt_logfile }}"
         content: "{{ plugin_installation_result.stderr }}"
