@@ -66,8 +66,9 @@ jenkins_jobs_dir: ""
 jenkins_pimt_args: ""
 
 # When defined, log output from the Jenkins Plugin Installation Manager Tool (PIMT) to
-# this file on the Ansible control machine instead of in Ansible's output. Since PIMT can
-# generate a lot of output, this can improve the readability of deployment logs.
+# this file on the Ansible control machine instead of in Ansible's output as the non-root
+# ansible_user, even if this role is called with `become: true`. Since PIMT can generate a
+# lot of output, this can improve the readability of deployment logs.
 jenkins_pimt_logfile: ""
 
 # File containing the list of plugins to install. Please refer to the README or to the
