@@ -55,6 +55,8 @@
         dest: "{{ jenkins_pimt_logfile }}"
         content: "{{ plugin_installation_result.stderr }}"
         mode: "0644"
+        # We are writing to localhost, so atomic writes shouldn't be an issue.
+        unsafe_writes: true
       when: jenkins_pimt_log_output_to_file
   rescue:
     # Because we only run PIMT when the template file changed, we can end up in a bad
