@@ -9,9 +9,10 @@
   diff: "{{ jenkins_show_plugins_yaml_changes }}"
   register: copy_plugins_yaml_file
 
-# If the template file changed, then nuke the plugins directory before installing plugins.
-# We want to make sure to avoid any potential problems with conflicting dependencies, and
-# also to correctly handle the case when plugins are removed from the plugins.yaml file.
+# Remove the plugins directory before installing plugins to avoid potential problems with
+# conflicting dependencies, and also to correctly handle the case when plugins are removed
+# from the plugins.yaml file. PIMT has a `--clean-download-directory` argument, but we
+# can't use it because it'll fail to remove the directory.
 - name: Clean plugins directory
   ansible.builtin.file:
     path: "{{ jenkins_plugins_dir }}"
