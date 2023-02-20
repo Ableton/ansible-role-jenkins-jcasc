@@ -1,5 +1,6 @@
 ---
 - name: Download Jenkins WAR file
+  become: true
   ansible.builtin.get_url:
     url: "https://mirrors.jenkins.io/war-stable/{{ jenkins_version }}/jenkins.war"
     checksum: "sha256:\

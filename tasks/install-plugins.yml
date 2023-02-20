@@ -1,5 +1,6 @@
 ---
 - name: Copy plugins file
+  become: true
   ansible.builtin.template:
     src: "{{ jenkins_plugins_file }}"
     dest: "{{ jenkins_config_dir }}/plugins.yaml"
@@ -22,6 +23,7 @@
     # are removed from the plugins.yaml file. PIMT has a `--clean-download-directory`
     # argument, but we can't use it because it'll fail to remove the directory.
     - name: Clean plugins directory
+      become: true
       ansible.builtin.file:
         path: "{{ jenkins_plugins_dir }}"
         state: absent
@@ -63,6 +65,7 @@
     # is run again, we need to ensure that PIMT will also be re-run. To do so, we alter
     # the plugins.yaml file, which will ensure that the template task will change it.
     - name: Write failure comment to plugins.yaml file
+      become: true
       ansible.builtin.lineinfile:
         path: "{{ jenkins_config_dir }}/plugins.yaml"
         line: "# Added by Ansible: PIMT failed on last run!"
@@ -81,6 +84,7 @@
 # manager tool. This allows us to ensure that these plugins are not overridden by a
 # different and possibly conflicting version.
 - name: Install custom Jenkins plugins
+  become: true
   ansible.builtin.copy:
     src: "{{ plugin_file }}"
     dest: "{{ jenkins_plugins_dir }}"
