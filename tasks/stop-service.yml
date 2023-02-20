@@ -39,9 +39,7 @@
         # that resemble standalone hosts with SSH. Since OpenSSH has libsystemd as a
         # dependency, it will fool the service module into selecting systemd as the
         # service backend.
-        # TODO: Remove this suppression when the module arguments verification is fixed
-        # See: https://github.com/ansible/ansible-lint/issues/2824
-        use: "{{ ansible_service_mgr }}"  # noqa args[module]
+        use: "{{ ansible_service_mgr }}"
       # This is required or else molecule's idempotency test will fail. See:
       # https://github.com/ansible-community/molecule/issues/2765
       changed_when: false
@@ -51,9 +49,6 @@
     # clean shut-down. If subsequent tasks must do something with files in the Jenkins
     # home folder, this may cause problems.
     - name: Wait for Jenkins service to stop
-      # TODO: Remove this suppression when ansible-lint learns to parse block conditions
-      # See: https://github.com/ansible/ansible-lint/issues/1894
-      # noqa no-changed-when
       ansible.builtin.command: "ps -p {{ jenkins_pid['content'] | b64decode }}"
       register: jenkins_service_running
       ignore_errors: true

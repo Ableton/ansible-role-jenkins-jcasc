@@ -29,9 +29,6 @@
     - name: Use PIMT to install plugins
       become: true
       become_user: "{{ jenkins_user }}"
-      # TODO: Remove this suppression when ansible-lint learns to parse block conditions
-      # See: https://github.com/ansible/ansible-lint/issues/1894
-      # noqa no-changed-when
       ansible.builtin.command: >
         java -jar
         {{ jenkins_pimt_path }}
@@ -40,6 +37,7 @@
         --war {{ jenkins_war }}
         --verbose
         {{ jenkins_pimt_args }}
+      changed_when: true
       environment:
         CACHE_DIR: "{{ jenkins_caches_dir }}"
       no_log: "{{ jenkins_pimt_log_output_to_file }}"
