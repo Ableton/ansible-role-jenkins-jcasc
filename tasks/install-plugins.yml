@@ -9,16 +9,6 @@
   diff: "{{ jenkins_show_plugins_yaml_changes }}"
   register: copy_plugins_yaml_file
 
-# Remove the plugins directory before installing plugins to avoid potential problems with
-# conflicting dependencies, and also to correctly handle the case when plugins are removed
-# from the plugins.yaml file. PIMT has a `--clean-download-directory` argument, but we
-# can't use it because it'll fail to remove the directory.
-- name: Clean plugins directory
-  ansible.builtin.file:
-    path: "{{ jenkins_plugins_dir }}"
-    state: absent
-  when: copy_plugins_yaml_file is changed  # noqa no-handler
-
 - name: Install plugins
   when: copy_plugins_yaml_file is changed  # noqa no-handler
   block:
@@ -26,6 +16,15 @@
       ansible.builtin.set_fact:
         jenkins_pimt_log_output_to_file: true
       when: jenkins_pimt_logfile != ''
+
+    # Remove the plugins directory before installing plugins to avoid potential problems
+    # with conflicting dependencies, and also to correctly handle the case when plugins
+    # are removed from the plugins.yaml file. PIMT has a `--clean-download-directory`
+    # argument, but we can't use it because it'll fail to remove the directory.
+    - name: Clean plugins directory
+      ansible.builtin.file:
+        path: "{{ jenkins_plugins_dir }}"
+        state: absent
 
     - name: Use PIMT to install plugins
       become: true
