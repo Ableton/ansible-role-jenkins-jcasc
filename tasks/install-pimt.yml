@@ -9,6 +9,8 @@
   ansible.builtin.get_url:
     url: "{{ jenkins_pimt_url }}"
     dest: "{{ jenkins_pimt_path }}"
+    owner: "{{ jenkins_user }}"
+    group: "{{ jenkins_group }}"
     mode: "0644"
     timeout: "{{ jenkins_download_timeout }}"
   register: pimt_download_result

@@ -67,6 +67,9 @@
         path: "{{ jenkins_config_dir }}/plugins.yaml"
         line: "# Added by Ansible: PIMT failed on last run!"
         insertbefore: BOF
+        owner: "{{ jenkins_user }}"
+        group: "{{ jenkins_group }}"
+        mode: "0644"
 
     - name: Force the play to fail
       ansible.builtin.fail:
