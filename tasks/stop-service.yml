@@ -43,6 +43,7 @@
       # This is required or else molecule's idempotency test will fail. See:
       # https://github.com/ansible-community/molecule/issues/2765
       changed_when: false
+      when: not ansible_check_mode
 
     # Just to be safe, wait until Jenkins finally stops. Stopping services can be
     # asynchronous and so the process itself may continue to run for a bit to ensure a
@@ -58,6 +59,7 @@
       # This is required or else molecule's idempotency test will fail. See:
       # https://github.com/ansible-community/molecule/issues/2765
       changed_when: false
+      when: not ansible_check_mode
 
     # Again, a paranoid measure aimed at preventing potential errors when immediately
     # accessing files in the Jenkins home folder.

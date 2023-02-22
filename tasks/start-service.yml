@@ -10,6 +10,7 @@
   # This is required or else molecule's idempotency test will fail. See:
   # https://github.com/ansible-community/molecule/issues/2765
   changed_when: false
+  when: not ansible_check_mode
 
 - name: Initialize jenkins_web_force_basic_auth parameter
   ansible.builtin.set_fact:
@@ -35,3 +36,4 @@
     - jenkins_home_content.status == 200
   retries: 30
   delay: 5
+  when: not ansible_check_mode
