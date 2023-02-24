@@ -2,6 +2,7 @@
 - name: Converge
   hosts: all
   vars:
+    ansible_user: "molecule"
     jenkins_custom_files:
       - src: "{{ playbook_dir }}/files/sidebar-link.xml"
         dest: "sidebar-link.xml"

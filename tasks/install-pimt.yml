@@ -6,9 +6,12 @@
     jenkins_pimt_path: "{{ jenkins_lib_dir }}/{{ jenkins_pimt_jar }}"
 
 - name: Ensure that Jenkins Plugin Installation Manager Tool is installed
+  become: true
   ansible.builtin.get_url:
     url: "{{ jenkins_pimt_url }}"
     dest: "{{ jenkins_pimt_path }}"
+    owner: "{{ jenkins_user }}"
+    group: "{{ jenkins_group }}"
     mode: "0644"
     timeout: "{{ jenkins_download_timeout }}"
   register: pimt_download_result

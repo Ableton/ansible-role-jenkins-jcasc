@@ -48,9 +48,6 @@ and optional role variables.
 Example Playbook
 ----------------
 
-This role requires `root` permissions for several tasks, so `become: true` must be applied
-either to the playbook, or to the individual role (as shown below).
-
 ```yaml
 ---
 - name: Provision Jenkins
@@ -65,7 +62,7 @@ either to the playbook, or to the individual role (as shown below).
     jenkins_jobs_dir: "{{ playbook_dir }}/files/jenkins/jobs"
 
   roles:
-    - {role: ableton.jenkins_jcasc, become: true}
+    - ableton.jenkins_jcasc
 ```
 
 HTTPS

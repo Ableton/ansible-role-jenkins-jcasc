@@ -1,11 +1,13 @@
 ---
 - name: Ensure Java is installed
+  become: true
   ansible.builtin.apt:
     name: "{{ jenkins_java_package }}"
     state: present
     update_cache: true
 
 - name: Ensure daemon is installed
+  become: true
   ansible.builtin.apt:
     name: "daemon"
     state: present

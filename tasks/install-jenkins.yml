@@ -1,5 +1,6 @@
 ---
 - name: Download Jenkins WAR file
+  become: true
   ansible.builtin.get_url:
     url: "https://mirrors.jenkins.io/war-stable/{{ jenkins_version }}/jenkins.war"
     checksum: "sha256:\
@@ -7,6 +8,8 @@
     dest: "{{ jenkins_war }}"
     # Sometimes the main Jenkins repository has network stability issues
     timeout: "{{ jenkins_download_timeout }}"
+    owner: "{{ jenkins_user }}"
+    group: "{{ jenkins_group }}"
     mode: "0644"
   retries: "{{ jenkins_download_retries }}"
   delay: "{{ jenkins_download_delay }}"

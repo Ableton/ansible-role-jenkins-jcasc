@@ -1,5 +1,6 @@
 ---
 - name: Copy plugins file
+  become: true
   ansible.builtin.template:
     src: "{{ jenkins_plugins_file }}"
     dest: "{{ jenkins_config_dir }}/plugins.yaml"
@@ -9,15 +10,6 @@
   diff: "{{ jenkins_show_plugins_yaml_changes }}"
   register: copy_plugins_yaml_file
 
-# If the template file changed, then nuke the plugins directory before installing plugins.
-# We want to make sure to avoid any potential problems with conflicting dependencies, and
-# also to correctly handle the case when plugins are removed from the plugins.yaml file.
-- name: Clean plugins directory
-  ansible.builtin.file:
-    path: "{{ jenkins_plugins_dir }}"
-    state: absent
-  when: copy_plugins_yaml_file is changed  # noqa no-handler
-
 - name: Install plugins
   when: copy_plugins_yaml_file is changed  # noqa no-handler
   block:
@@ -25,6 +17,16 @@
       ansible.builtin.set_fact:
         jenkins_pimt_log_output_to_file: true
       when: jenkins_pimt_logfile != ''
+
+    # Remove the plugins directory before installing plugins to avoid potential problems
+    # with conflicting dependencies, and also to correctly handle the case when plugins
+    # are removed from the plugins.yaml file. PIMT has a `--clean-download-directory`
+    # argument, but we can't use it because it'll fail to remove the directory.
+    - name: Clean plugins directory
+      become: true
+      ansible.builtin.file:
+        path: "{{ jenkins_plugins_dir }}"
+        state: absent
 
     - name: Use PIMT to install plugins
       become: true
@@ -63,10 +65,14 @@
     # is run again, we need to ensure that PIMT will also be re-run. To do so, we alter
     # the plugins.yaml file, which will ensure that the template task will change it.
     - name: Write failure comment to plugins.yaml file
+      become: true
       ansible.builtin.lineinfile:
         path: "{{ jenkins_config_dir }}/plugins.yaml"
         line: "# Added by Ansible: PIMT failed on last run!"
         insertbefore: BOF
+        owner: "{{ jenkins_user }}"
+        group: "{{ jenkins_group }}"
+        mode: "0644"
 
     - name: Force the play to fail
       ansible.builtin.fail:
@@ -78,6 +84,7 @@
 # manager tool. This allows us to ensure that these plugins are not overridden by a
 # different and possibly conflicting version.
 - name: Install custom Jenkins plugins
+  become: true
   ansible.builtin.copy:
     src: "{{ plugin_file }}"
     dest: "{{ jenkins_plugins_dir }}"
