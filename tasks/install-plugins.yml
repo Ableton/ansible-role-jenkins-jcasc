@@ -18,6 +18,11 @@
         jenkins_pimt_log_output_to_file: true
       when: jenkins_pimt_logfile != ''
 
+    - name: Add verbosity argument for PIMT command
+      ansible.builtin.set_fact:
+        jenkins_pimt_args: "{{ jenkins_pimt_args }} --verbose"
+      when: ansible_verbosity > 0 or jenkins_pimt_log_output_to_file
+
     # Remove the plugins directory before installing plugins to avoid potential problems
     # with conflicting dependencies, and also to correctly handle the case when plugins
     # are removed from the plugins.yaml file. PIMT has a `--clean-download-directory`
@@ -37,7 +42,6 @@
         --plugin-download-directory {{ jenkins_plugins_dir }}
         --plugin-file {{ jenkins_config_dir }}/plugins.yaml
         --war {{ jenkins_war }}
-        --verbose
         {{ jenkins_pimt_args }}
       changed_when: true
       environment:
