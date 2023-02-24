@@ -18,6 +18,17 @@
         jenkins_pimt_log_output_to_file: true
       when: jenkins_pimt_logfile != ''
 
+    - name: Add verbosity argument for PIMT command
+      ansible.builtin.set_fact:
+        jenkins_pimt_args: "{{ jenkins_pimt_args }} --verbose"
+      when: ansible_verbosity > 0 or jenkins_pimt_log_output_to_file
+
+    - name: Add logfile argument for PIMT command
+      ansible.builtin.set_fact:
+        jenkins_pimt_args: >-
+          {{ jenkins_pimt_args }} 2> /tmp/{{ jenkins_pimt_logfile | basename }}
+      when: jenkins_pimt_log_output_to_file
+
     # Remove the plugins directory before installing plugins to avoid potential problems
     # with conflicting dependencies, and also to correctly handle the case when plugins
     # are removed from the plugins.yaml file. PIMT has a `--clean-download-directory`
@@ -31,13 +42,12 @@
     - name: Use PIMT to install plugins
       become: true
       become_user: "{{ jenkins_user }}"
-      ansible.builtin.command: >
+      ansible.builtin.shell: >
         java -jar
         {{ jenkins_pimt_path }}
         --plugin-download-directory {{ jenkins_plugins_dir }}
         --plugin-file {{ jenkins_config_dir }}/plugins.yaml
         --war {{ jenkins_war }}
-        --verbose
         {{ jenkins_pimt_args }}
       changed_when: true
       environment:
@@ -48,15 +58,11 @@
       register: plugin_installation_result
       until: plugin_installation_result is succeeded
 
-    - name: Write the PIMT logfile data to the desired filename
-      delegate_to: localhost
-      become: false
-      ansible.builtin.copy:
-        dest: "{{ jenkins_pimt_logfile }}"
-        content: "{{ plugin_installation_result.stderr }}"
-        mode: "0644"
-        # We are writing to localhost, so atomic writes shouldn't be an issue.
-        unsafe_writes: true
+    - name: Fetch the PIMT logfile
+      ansible.builtin.fetch:
+        src: "/tmp/{{ jenkins_pimt_logfile | basename }}"
+        dest: "{{ jenkins_pimt_logfile | dirname }}/"
+        flat: true
       when: jenkins_pimt_log_output_to_file
   rescue:
     # Because we only run PIMT when the template file changed, we can end up in a bad
