@@ -39,7 +39,7 @@
     password: "{{ jenkins_api_token }}"
   register: jenkins_script_result
   changed_when: false
-  # If Jenkins is not running, the we'll get a "Connection refused" error. We don't want
+  # If Jenkins is not running, then we'll get a "Connection refused" error. We don't want
   # this case to cause a failure, because this task may be called to backup the Jenkins
   # configuration, but if the main role tasks haven't been run yet, then Jenkins wouldn't
   # be installed. If users want to fail in such cases, it is recommended that they instead
