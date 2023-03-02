@@ -24,6 +24,7 @@
     user: "{{ jenkins_web_user }}"
     password: "{{ jenkins_web_password }}"
   register: jenkins_script_result
+  no_log: true
   changed_when: false
   failed_when: "'Script failed!' in jenkins_script_result.output"
   with_dict: "{{ jenkins_users }}"
@@ -53,6 +54,7 @@
     user: "{{ jenkins_web_user }}"
     password: "{{ jenkins_web_password }}"
   register: jenkins_script_result
+  no_log: true
   changed_when: false
   failed_when: "'Script failed!' in jenkins_script_result.output"
   when: item.value.api_token is defined and item.value.api_token != ""
