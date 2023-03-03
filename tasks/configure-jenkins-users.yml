@@ -1,4 +1,27 @@
 ---
+- name: Check if Jenkins users exist
+  community.general.jenkins_script:
+    script: |
+      try {
+        Jenkins.getInstance().getSecurityRealm().loadUserByUsername('{{ item.key }}')
+        println 'User exists'
+      } catch (error) {
+        println 'User does not exist'
+      }
+    url: "http://localhost:{{ jenkins_port }}{{ jenkins_prefix }}"
+  register: jenkins_script_result
+  changed_when: false
+  failed_when: jenkins_script_result.output != "User exists"
+  with_dict: "{{ jenkins_users }}"
+
+- name: Show value of jenkins_script_result
+  debug:
+    var: jenkins_script_result
+- name: Abort execution
+  fail:
+    msg: "YOU SHALL NOT PASS!"
+
+
 - name: Ensure Jenkins users exist
   community.general.jenkins_script:
     script: |
