@@ -35,6 +35,6 @@
   until:
     - jenkins_home_content is succeeded
     - jenkins_home_content.status == 200
-  retries: 30
+  retries: "{{ (jenkins_startup_timeout_sec / 5) | int }}"
   delay: 5
   when: not ansible_check_mode

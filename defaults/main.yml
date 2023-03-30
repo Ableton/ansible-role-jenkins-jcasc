@@ -102,6 +102,10 @@ jenkins_secret_files: []
 # can be useful to see which plugins changed during a deployment.
 jenkins_show_plugins_yaml_changes: true
 
+# How long to wait for Jenkins to start before failing. Use a higher value if your Jenkins
+# instance has a lot of jobs and builds.
+jenkins_startup_timeout_sec: 120
+
 # User to run the Jenkins service as. This user will be created if it does not exist.
 # NOTE: This variable must be defined!
 jenkins_user: "jenkins"

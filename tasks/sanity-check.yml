@@ -18,6 +18,11 @@
     - "{{ jenkins_user }}"
     - "{{ jenkins_version }}"
 
+- name: Ensure that startup timeout is valid
+  ansible.builtin.assert:
+    that: jenkins_startup_timeout_sec > 0
+    quiet: true
+
 - name: Ensure that jobs directory is defined if necessary
   ansible.builtin.fail:
     msg: "jenkins_jobs is not empty, but jenkins_jobs_dir is undefined"
