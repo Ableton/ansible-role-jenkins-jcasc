@@ -17,12 +17,6 @@
 - name: Include tasks to install Jenkins
   ansible.builtin.include_tasks: "install-jenkins.yml"
 
-- name: Include tasks to configure Jenkins service
-  ansible.builtin.include_tasks: "configure-service-{{ ansible_service_mgr }}.yml"
-
-- name: Include tasks to stop service
-  ansible.builtin.include_tasks: "stop-service.yml"
-
 - name: Include tasks to install plugin installation manager CLI tool (PIMT)
   ansible.builtin.include_tasks: "install-pimt.yml"
 
@@ -35,8 +29,8 @@
 - name: Include tasks to configure custom jobs
   ansible.builtin.include_tasks: "configure-jobs.yml"
 
-- name: Include tasks to start service
-  ansible.builtin.include_tasks: "start-service.yml"
+- name: Include tasks to configure Jenkins service
+  ansible.builtin.include_tasks: "configure-service-{{ ansible_service_mgr }}.yml"
 
 # Configuring tokens is done with jenkins_script, which requires that Jenkins is running
 - name: Include tasks to configure Jenkins users
