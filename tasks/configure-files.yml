@@ -16,7 +16,7 @@
     group: "{{ jenkins_group }}"
     mode: "0755"
     state: directory
-  with_items: "{{ jenkins_custom_files }}"
+  loop: "{{ jenkins_custom_files }}"
   loop_control:
     loop_var: custom_file
 
@@ -28,7 +28,7 @@
     owner: "{{ jenkins_user }}"
     group: "{{ jenkins_group }}"
     mode: "0644"
-  with_items: "{{ jenkins_custom_files }}"
+  loop: "{{ jenkins_custom_files }}"
   loop_control:
     loop_var: custom_file
 
@@ -40,7 +40,7 @@
     owner: "{{ jenkins_user }}"
     group: "{{ jenkins_group }}"
     mode: "0600"
-  with_items: "{{ jenkins_secret_files }}"
+  loop: "{{ jenkins_secret_files }}"
   loop_control:
     loop_var: secret_file
 

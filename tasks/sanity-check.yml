@@ -5,7 +5,7 @@
   when: required_variable == ""
   loop_control:
     loop_var: required_variable
-  with_items:
+  loop:
     - "{{ jenkins_group }}"
     - "{{ jenkins_home }}"
     - "{{ jenkins_jcasc_config_file }}"
