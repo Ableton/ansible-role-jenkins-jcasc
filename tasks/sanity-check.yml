@@ -8,7 +8,6 @@
   loop:
     - "{{ jenkins_group }}"
     - "{{ jenkins_home }}"
-    - "{{ jenkins_jcasc_config_file }}"
     - "{{ jenkins_jcasc_version }}"
     - "{{ jenkins_pimt_version }}"
     - "{{ jenkins_plugins_file }}"
@@ -17,6 +16,44 @@
     - "{{ jenkins_root }}"
     - "{{ jenkins_user }}"
     - "{{ jenkins_version }}"
+
+- name: Assert that both JCasC configuration file variables aren't conflicting
+  ansible.builtin.fail:
+    msg: "jenkins_jcasc_config_file and jenkins_jcasc_config_files are mutually exclusive"
+  when:
+    - jenkins_jcasc_config_file != ""
+    - jenkins_jcasc_config_files | length > 0
+
+- name: Set jenkins_jcasc_config_files if necessary
+  ansible.builtin.set_fact:
+    jenkins_jcasc_config_files:
+      - "{{ jenkins_jcasc_config_file }}"
+  when: jenkins_jcasc_config_file != ""
+
+- name: Ensure that configuration files are defined
+  ansible.builtin.assert:
+    that: jenkins_jcasc_config_files | length > 0
+    quiet: true
+
+- name: Ensure that configuration files have unique names
+  block:
+    - name: Initialize jenkins_jcasc_config_filenames fact
+      ansible.builtin.set_fact:
+        jenkins_jcasc_config_filenames: []
+
+    - name: Assemble list of configuration filenames
+      ansible.builtin.set_fact:
+        jenkins_jcasc_config_filenames: "{{ jenkins_jcasc_config_filenames + \
+            [filename | basename | regex_replace('\\.j2$', '')] }}"
+      loop: "{{ jenkins_jcasc_config_files }}"
+      loop_control:
+        loop_var: filename
+
+    - name: Assert that configuration filenames are unique
+      ansible.builtin.assert:
+        that: >
+          jenkins_jcasc_config_filenames | unique | length ==
+          jenkins_jcasc_config_files | length
 
 - name: Ensure that startup timeout is valid
   ansible.builtin.assert:

@@ -48,7 +48,7 @@
 
     - name: Stat Jenkins config file
       ansible.builtin.stat:
-        path: "/jenkins/config/jenkins.yaml"
+        path: "/jenkins/config/jcasc/jenkins.yaml"
       register: jenkins_config_file
 
     - name: Assert that Jenkins config was created correctly
