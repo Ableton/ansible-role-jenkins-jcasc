@@ -7,7 +7,7 @@
     group: "{{ jenkins_group }}"
     mode: "0777"
     state: directory
-  with_items: "{{ jenkins_jobs }}"
+  loop: "{{ jenkins_jobs }}"
   loop_control:
     loop_var: job_name
 
@@ -19,6 +19,6 @@
     owner: "{{ jenkins_user }}"
     group: "{{ jenkins_group }}"
     mode: "0777"
-  with_items: "{{ jenkins_jobs }}"
+  loop: "{{ jenkins_jobs }}"
   loop_control:
     loop_var: job_name

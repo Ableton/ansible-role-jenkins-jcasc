@@ -14,7 +14,7 @@ RETVAL=0
 
 start() {
   /usr/bin/daemon --name=jenkins --inherit --output=/var/log/jenkins.log \
-    --env=CASC_JENKINS_CONFIG={{ jenkins_config_dir }}/jenkins.yaml \
+    --env=CASC_JENKINS_CONFIG={{ jenkins_config_dir }}/jcasc \
     --env=JENKINS_HOME={{ jenkins_home }} --pidfile={{ jenkins_pid_file }} -- \
     {{ jenkins_command }}
   RETVAL=$?

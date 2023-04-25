@@ -97,6 +97,6 @@
     owner: "{{ jenkins_user }}"
     group: "{{ jenkins_group }}"
     mode: "0644"
-  with_items: "{{ jenkins_custom_plugins }}"
+  loop: "{{ jenkins_custom_plugins }}"
   loop_control:
     loop_var: plugin_file

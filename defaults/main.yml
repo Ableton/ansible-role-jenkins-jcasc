@@ -40,10 +40,20 @@ jenkins_java_args: ""
 # for example.
 jenkins_java_package: "openjdk-11-jre-headless"
 
-# Location of the JCasC configuration file. Please see the README or JCasC homepage for
+# Location of a single JCasC configuration file. For multiple files, use
+# jenkins_jcasc_config_files instead. Please see the README or JCasC homepage for
 # information about how to generate this file.
-# NOTE: This variable must be defined!
+# NOTE: This variable (or jenkins_jcasc_config_files) must be defined!
 jenkins_jcasc_config_file: ""
+
+# List of JCasC configuration files. Each of these files will be copied to a special
+# directory outside of JENKINS_HOME, so all files must have distinct filenames. According
+# to JCasC rules, the files also may not define conflicting configuration directives. Each
+# file may be a template, in which case the `*.j2` extension will be removed after
+# copying. Please see the README or JCasC homepage for information about how to generate
+# this file.
+# NOTE: This variable (or jenkins_jcasc_config_file) must be defined!
+jenkins_jcasc_config_files: []
 
 # Version of the JCasC plugin to use. Your `jenkins.yaml` file must be compatible with
 # this version of the JCasC plugin.

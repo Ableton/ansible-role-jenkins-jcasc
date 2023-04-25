@@ -3,7 +3,7 @@ Description=Jenkins CI Service
 After=network.target
 
 [Service]
-Environment="CASC_JENKINS_CONFIG={{ jenkins_config_dir }}/jenkins.yaml"
+Environment="CASC_JENKINS_CONFIG={{ jenkins_config_dir }}/jcasc"
 Environment="JENKINS_HOME={{ jenkins_home }}"
 ExecStart={{ jenkins_command }}
 # So systemd won't generate a PID file for non-forking services, so we need to make one.

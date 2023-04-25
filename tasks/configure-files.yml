@@ -1,12 +1,28 @@
 ---
-- name: Configure JCasC configuration file
+# We need to make a subdirectory for JCasC configuration files, since the JCasC plugin
+# examines all YAML files in this directory and we'll also put the plugins.yaml file here,
+# which isn't meant for JCasC.
+- name: Ensure JCasC configuration subdirectory exists
+  become: true
+  ansible.builtin.file:
+    path: "{{ jenkins_config_dir }}/jcasc/"
+    owner: "{{ jenkins_user }}"
+    group: "{{ jenkins_group }}"
+    mode: "0755"
+    state: directory
+
+- name: Configure JCasC configuration files
   become: true
   ansible.builtin.template:
-    src: "{{ jenkins_jcasc_config_file }}"
-    dest: "{{ jenkins_config_dir }}/jenkins.yaml"
+    src: "{{ config_file }}"
+    dest: "{{ jenkins_config_dir }}/jcasc/\
+      {{ config_file | basename | regex_replace('\\.j2$', '') }}"
     owner: "{{ jenkins_user }}"
     group: "{{ jenkins_group }}"
     mode: "0644"
+  loop: "{{ jenkins_jcasc_config_files }}"
+  loop_control:
+    loop_var: config_file
 
 - name: Create intermediate dirs for custom files
   become: true
@@ -16,7 +32,7 @@
     group: "{{ jenkins_group }}"
     mode: "0755"
     state: directory
-  with_items: "{{ jenkins_custom_files }}"
+  loop: "{{ jenkins_custom_files }}"
   loop_control:
     loop_var: custom_file
 
@@ -28,7 +44,7 @@
     owner: "{{ jenkins_user }}"
     group: "{{ jenkins_group }}"
     mode: "0644"
-  with_items: "{{ jenkins_custom_files }}"
+  loop: "{{ jenkins_custom_files }}"
   loop_control:
     loop_var: custom_file
 
@@ -40,7 +56,7 @@
     owner: "{{ jenkins_user }}"
     group: "{{ jenkins_group }}"
     mode: "0600"
-  with_items: "{{ jenkins_secret_files }}"
+  loop: "{{ jenkins_secret_files }}"
   loop_control:
     loop_var: secret_file
 
