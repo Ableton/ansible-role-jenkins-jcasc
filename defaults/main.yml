@@ -112,6 +112,16 @@ jenkins_secret_files: []
 # can be useful to see which plugins changed during a deployment.
 jenkins_show_plugins_yaml_changes: true
 
+# When false, don't start the service at the end of this role. This can be useful if when
+# extra work must be done on the host before Jenkins starts up and is ready to accept
+# jobs. To start Jenkins, manually call this role's `start-service.yml` tasks file:
+#
+# - name: Start Jenkins service
+#   ansible.builtin.include_role:
+#     name: "ableton.jenkins_jcasc"
+#     tasks_from: "start-service.yml"
+jenkins_start_service: true
+
 # How long to wait for Jenkins to start before failing. Use a higher value if your Jenkins
 # instance has a lot of jobs and builds.
 jenkins_startup_timeout_sec: 120

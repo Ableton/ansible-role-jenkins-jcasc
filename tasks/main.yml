@@ -37,6 +37,7 @@
 
 - name: Include tasks to start service
   ansible.builtin.include_tasks: "start-service.yml"
+  when: jenkins_start_service
 
 # Configuring tokens is done with jenkins_script, which requires that Jenkins is running
 - name: Include tasks to configure Jenkins users

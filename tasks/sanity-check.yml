@@ -85,3 +85,10 @@
   ansible.builtin.fail:
     msg: "The configuration-as-code (JCasC) plugin was not found in plugins.yaml"
   when: jenkins_jcasc_plugin_found is not defined
+
+- name: Fail if user requested both delayed service start and Jenkins user configurations
+  ansible.builtin.fail:
+    msg: "jenkins_start_service is false but jenkins_users was specified"
+  when:
+    - not jenkins_start_service
+    - jenkins_users | length > 0
