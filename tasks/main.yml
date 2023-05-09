@@ -41,3 +41,4 @@
 # Configuring tokens is done with jenkins_script, which requires that Jenkins is running
 - name: Include tasks to configure Jenkins users
   ansible.builtin.include_tasks: "configure-jenkins-users.yml"
+  when: jenkins_users | length > 0
