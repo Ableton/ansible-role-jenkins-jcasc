@@ -36,6 +36,9 @@ jenkins_group: "jenkins"
 # starting Jenkins, it is not necessary to add this option to `jenkins_java_args`.
 jenkins_java_args: ""
 
+# Path to Java executable.
+jenkins_java_exe: "/usr/bin/java"
+
 # Java package to install. You may override this value in order to provide a package pin,
 # for example.
 jenkins_java_package: "openjdk-11-jre-headless"

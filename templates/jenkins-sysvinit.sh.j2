@@ -35,7 +35,8 @@ case "$1" in
     stop
     ;;
   status)
-    status_of_proc -p {{ jenkins_pid_file }} /usr/bin/java java && exit 0 || exit $?
+    status_of_proc -p {{ jenkins_pid_file }} {{ jenkins_java_exe }} java && \
+      exit 0 || exit $?
     RETVAL=$?
     ;;
   restart)
