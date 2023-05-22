@@ -31,10 +31,17 @@ jenkins_extra_args: ""
 # NOTE: This variable must be defined!
 jenkins_group: "jenkins"
 
+# If true, then install Java in this role from the system package manager. If you want to
+# provide your own Java, then set this to false.
+jenkins_install_java: true
+
 # Java arguments to use when starting the Jenkins service.
 # NOTE: The `-Djenkins.install.runSetupWizard=false` argument is always passed when
 # starting Jenkins, it is not necessary to add this option to `jenkins_java_args`.
 jenkins_java_args: ""
+
+# Path to Java executable.
+jenkins_java_exe: "/usr/bin/java"
 
 # Java package to install. You may override this value in order to provide a package pin,
 # for example.

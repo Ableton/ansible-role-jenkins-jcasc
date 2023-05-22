@@ -6,7 +6,7 @@ jenkins_caches_dir: "{{ jenkins_root }}/caches"
 jenkins_config_dir: "{{ jenkins_root }}/config"
 
 # Command used by service wrappers to launch Jenkins
-jenkins_command: "/usr/bin/java {{ jenkins_java_args }} \
+jenkins_command: "{{ jenkins_java_exe }} {{ jenkins_java_args }} \
   -Djenkins.install.runSetupWizard=false -jar {{ jenkins_war }} \
   --webroot={{ jenkins_caches_dir }}/war --httpPort={{ jenkins_port }} \
   --prefix={{ jenkins_prefix | quote }} \
