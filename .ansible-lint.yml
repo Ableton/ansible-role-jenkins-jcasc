@@ -3,7 +3,6 @@ exclude_paths:
   - .ansible
   - .direnv
   - .venv
-  - molecule
 parseable: true
 skip_list:
   - "empty-string-compare"
