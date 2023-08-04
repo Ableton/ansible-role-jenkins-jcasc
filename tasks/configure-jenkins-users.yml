@@ -55,5 +55,7 @@
   register: jenkins_script_result
   changed_when: false
   failed_when: "'Script failed!' in jenkins_script_result.output"
-  when: item.value.api_token is defined and item.value.api_token != ""
+  when:
+    - item.value.api_token is defined
+    - item.value.api_token != ""
   with_dict: "{{ jenkins_users }}"
