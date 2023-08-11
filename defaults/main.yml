@@ -145,13 +145,13 @@ jenkins_user_content: ""
 # for the password and api_token. For example:
 #
 # jenkins_users:
-#   - alice:
-#       password: "notsecure"
-#   - bob:
-#       api_token: "112a1dfb4ac8209130c4b630efe824f589"
-#   - carol:
-#       password: "changeme"
-#       api_token: "11c8f304eb91ab249386a2d929f28804e5"
+#   alice:
+#     password: "notsecure"
+#   bob:
+#     api_token: "112a1dfb4ac8209130c4b630efe824f589"
+#   carol:
+#     password: "changeme"
+#     api_token: "11c8f304eb91ab249386a2d929f28804e5"
 #
 # IMPORTANT: Note that omitting a password will create a user without a password! This may
 # be necessary for Jenkins installations which use Active Directory for their security
