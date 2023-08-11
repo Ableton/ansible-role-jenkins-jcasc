@@ -30,6 +30,6 @@
           password: "changeme"
           api_token: "11c8f304eb91ab249386a2d929f28804e5"
     jenkins_user_content: "{{ playbook_dir }}/files/userContent"
-    jenkins_version: "2.346.3"
+    jenkins_version: "2.401.3"
   roles:
     - ableton.jenkins_jcasc
