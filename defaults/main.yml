@@ -45,7 +45,7 @@ jenkins_java_exe: "/usr/bin/java"
 
 # Java package to install. You may override this value in order to provide a package pin,
 # for example.
-jenkins_java_package: "openjdk-11-jre-headless"
+jenkins_java_package: "openjdk-17-jre-headless"
 
 # Location of a single JCasC configuration file. For multiple files, use
 # jenkins_jcasc_config_files instead. Please see the README or JCasC homepage for
