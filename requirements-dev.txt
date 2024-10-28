@@ -114,7 +114,7 @@ requests==2.31.0
     #   molecule-plugins
 resolvelib==1.0.1
     # via ansible-core
-rich==13.9.2
+rich==13.9.3
     # via
     #   ansible-lint
     #   enrich
