@@ -1,0 +1,4 @@
+---
+expected_java_ps_name: "/usr/bin/java"
+
+jenkins_port: 8100

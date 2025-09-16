@@ -81,14 +81,14 @@
     - name: Assert that the test job was loaded successfully
       community.general.jenkins_script:
         script: "print(Jenkins.instance.getItem('test_job')?.name)"
-        url: "http://localhost:8100/j"
+        url: "http://localhost:{{ jenkins_port }}/j"
       register: jenkins_test_job
       failed_when: jenkins_test_job.output != 'test_job'
 
     - name: Assert that the job is buildable
       community.general.jenkins_script:
         script: "print(Jenkins.instance.getItem('test_job')?.buildable)"
-        url: "http://localhost:8100/j"
+        url: "http://localhost:{{ jenkins_port }}/j"
       register: jenkins_test_job
       failed_when: jenkins_test_job.output != 'true'
 
@@ -170,13 +170,13 @@
       ansible.builtin.set_fact:
         java_cmdline_expected_list:
           - "{{ java_pid.stdout }}"
-          - "/usr/bin/java"
+          - "{{ expected_java_ps_name }}"
           - "-server"
           - "-Djenkins.install.runSetupWizard=false"
           - "-jar"
           - "/jenkins/lib/jenkins-{{ jenkins_version_expected }}.war"
           - "--webroot=/jenkins/caches/war"
-          - "--httpPort=8100"
+          - "--httpPort={{ jenkins_port }}"
           - "--prefix=/j"
           - "--sessionTimeout=1"
 
@@ -191,7 +191,7 @@
     - name: Assert that the correct version of Jenkins was installed
       community.general.jenkins_script:
         script: "print(Jenkins.instance.version)"
-        url: "http://localhost:8100/j"
+        url: "http://localhost:{{ jenkins_port }}/j"
       register: jenkins_version
       failed_when: jenkins_version.output != jenkins_version_expected
 
@@ -202,7 +202,7 @@
             plugin.shortName == "{{ item }}"
           }
           print(foundPlugin?.active)
-        url: "http://localhost:8100/j"
+        url: "http://localhost:{{ jenkins_port }}/j"
       loop:
         # Assert that JCasC itself could be loaded. It is possible that other plugins
         # could load, but if something is wrong with JCasC itself, we're in trouble.
@@ -243,7 +243,7 @@
     - name: Get Jenkins users
       community.general.jenkins_script:
         script: "print(Jenkins.instance.getUser('{{ item }}'))"
-        url: "http://localhost:8100/j"
+        url: "http://localhost:{{ jenkins_port }}/j"
       loop: "{{ test_users | flatten(1) }}"
       register: jenkins_users
 
@@ -260,7 +260,7 @@
           Object tokenInfo = Jenkins.instance.getUser('{{ item.key }}')
             .getProperty(jenkins.security.ApiTokenProperty).getTokenList()
           print(tokenInfo[0]?.name)
-        url: "http://localhost:8100/j"
+        url: "http://localhost:{{ jenkins_port }}/j"
         user: "{{ item.key }}"
         password: "{{ item.value }}"
       loop: "{{ test_users | dict2items }}"
