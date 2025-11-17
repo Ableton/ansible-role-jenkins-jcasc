@@ -4,15 +4,15 @@ dependency:
 driver:
   name: docker
 platforms:
-  - name: ansible-role-jenkins-jcasc-focal
-    image: ubuntu:20.04
+  - name: ansible-role-jenkins-jcasc-jammy
+    image: ubuntu:22.04
     privileged: true
     exposed_ports:
       - 8100/tcp
     published_ports:
       - 0.0.0.0:8100:8100/tcp
     groups:
-      - focal
+      - jammy
   - name: ansible-role-jenkins-jcasc-noble
     image: ubuntu:24.04
     privileged: true
