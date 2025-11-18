@@ -1,6 +1,7 @@
 ---
 - name: See if Java is present
-  ansible.builtin.command: "{{ jenkins_java_exe }} -version"
+  ansible.builtin.command:
+    cmd: "{{ jenkins_java_exe }} -version"
   changed_when: false
   ignore_errors: "{{ jenkins_install_java }}"
   register: java_version

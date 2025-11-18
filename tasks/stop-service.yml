@@ -50,7 +50,8 @@
     # clean shut-down. If subsequent tasks must do something with files in the Jenkins
     # home folder, this may cause problems.
     - name: Wait for Jenkins service to stop
-      ansible.builtin.command: "ps -p {{ jenkins_pid['content'] | b64decode }}"
+      ansible.builtin.command:
+        cmd: "ps -p {{ jenkins_pid['content'] | b64decode }}"
       register: jenkins_service_running
       ignore_errors: true
       until: jenkins_service_running is failed
@@ -64,5 +65,6 @@
     # Again, a paranoid measure aimed at preventing potential errors when immediately
     # accessing files in the Jenkins home folder.
     - name: Sync filesystems
-      ansible.builtin.command: "sync"
+      ansible.builtin.command:
+        cmd: "sync"
       changed_when: false
