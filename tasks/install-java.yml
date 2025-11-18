@@ -5,10 +5,9 @@
   ignore_errors: "{{ jenkins_install_java }}"
   register: java_version
 
-- name: Install Java
+- name: Include tasks to install Java
   when:
     - java_version is failed
     - jenkins_install_java
-  block:
-    - name: Include tasks to install Java
-      ansible.builtin.include_tasks: "install-java-{{ ansible_pkg_mgr }}.yml"
+  ansible.builtin.include_tasks:
+    file: "install-java-{{ ansible_pkg_mgr }}.yml"
