@@ -170,7 +170,7 @@
       ansible.builtin.set_fact:
         java_cmdline_expected_list:
           - "{{ java_pid.stdout }}"
-          - "{{ expected_java_ps_name }}"
+          - "jenkins: /usr/bin/java"
           - "-server"
           - "-Djenkins.install.runSetupWizard=false"
           - "-jar"
