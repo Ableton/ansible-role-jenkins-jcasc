@@ -1,45 +1,59 @@
 ---
 - name: Include tasks for sanity checks
-  ansible.builtin.include_tasks: "sanity-check.yml"
+  ansible.builtin.include_tasks:
+    file: "sanity-check.yml"
 
 - name: Include tasks to stop service
-  ansible.builtin.include_tasks: "stop-service.yml"
+  ansible.builtin.include_tasks:
+    file: "stop-service.yml"
 
 - name: Include tasks to configure Jenkins (system) user
-  ansible.builtin.include_tasks: "configure-user.yml"
+  ansible.builtin.include_tasks:
+    file: "configure-user.yml"
 
 - name: Include tasks to configure Jenkins directories
-  ansible.builtin.include_tasks: "configure-dirs.yml"
+  ansible.builtin.include_tasks:
+    file: "configure-dirs.yml"
 
 - name: Include tasks to install Java
-  ansible.builtin.include_tasks: "install-java.yml"
+  ansible.builtin.include_tasks:
+    file: "install-java.yml"
 
 - name: Include tasks to install Jenkins
-  ansible.builtin.include_tasks: "install-jenkins.yml"
+  ansible.builtin.include_tasks:
+    file: "install-jenkins.yml"
 
 - name: Include tasks to configure Jenkins service
-  ansible.builtin.include_tasks: "configure-service-{{ ansible_service_mgr }}.yml"
+  ansible.builtin.include_tasks:
+    file: "configure-service-{{ ansible_facts['service_mgr'] }}.yml"
 
 - name: Include tasks to stop service
-  ansible.builtin.include_tasks: "stop-service.yml"
+  ansible.builtin.include_tasks:
+    file: "stop-service.yml"
 
 - name: Include tasks to install plugin installation manager CLI tool (PIMT)
-  ansible.builtin.include_tasks: "install-pimt.yml"
+  ansible.builtin.include_tasks:
+    file: "install-pimt.yml"
 
 - name: Include tasks to install Jenkins plugins
-  ansible.builtin.include_tasks: "install-plugins.yml"
+  ansible.builtin.include_tasks:
+    file: "install-plugins.yml"
 
 - name: Include tasks to configure custom files
-  ansible.builtin.include_tasks: "configure-files.yml"
+  ansible.builtin.include_tasks:
+    file: "configure-files.yml"
 
 - name: Include tasks to configure custom jobs
-  ansible.builtin.include_tasks: "configure-jobs.yml"
+  ansible.builtin.include_tasks:
+    file: "configure-jobs.yml"
 
 - name: Include tasks to start service
-  ansible.builtin.include_tasks: "start-service.yml"
+  ansible.builtin.include_tasks:
+    file: "start-service.yml"
   when: jenkins_start_service
 
 # Configuring tokens is done with jenkins_script, which requires that Jenkins is running
 - name: Include tasks to configure Jenkins users
-  ansible.builtin.include_tasks: "configure-jenkins-users.yml"
+  ansible.builtin.include_tasks:
+    file: "configure-jenkins-users.yml"
   when: jenkins_users | length > 0

@@ -1,14 +1,14 @@
 ---
 - name: See if Java is present
-  ansible.builtin.command: "{{ jenkins_java_exe }} -version"
+  ansible.builtin.command:
+    cmd: "{{ jenkins_java_exe }} -version"
   changed_when: false
   ignore_errors: "{{ jenkins_install_java }}"
   register: java_version
 
-- name: Install Java
+- name: Include tasks to install Java
   when:
     - java_version is failed
     - jenkins_install_java
-  block:
-    - name: Include tasks to install Java
-      ansible.builtin.include_tasks: "install-java-{{ ansible_pkg_mgr }}.yml"
+  ansible.builtin.include_tasks:
+    file: "install-java-{{ ansible_facts['pkg_mgr'] }}.yml"

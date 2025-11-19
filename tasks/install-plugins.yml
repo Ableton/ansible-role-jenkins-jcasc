@@ -42,13 +42,14 @@
     - name: Use PIMT to install plugins
       become: true
       become_user: "{{ jenkins_user }}"
-      ansible.builtin.shell: >
-        java -jar
-        {{ jenkins_pimt_path }}
-        --plugin-download-directory {{ jenkins_plugins_dir }}
-        --plugin-file {{ jenkins_config_dir }}/plugins.yaml
-        --war {{ jenkins_war }}
-        {{ jenkins_pimt_args }}
+      ansible.builtin.shell:
+        cmd: >
+          java -jar
+          {{ jenkins_pimt_path }}
+          --plugin-download-directory {{ jenkins_plugins_dir }}
+          --plugin-file {{ jenkins_config_dir }}/plugins.yaml
+          --war {{ jenkins_war }}
+          {{ jenkins_pimt_args }}
       changed_when: true
       environment:
         CACHE_DIR: "{{ jenkins_caches_dir }}"
