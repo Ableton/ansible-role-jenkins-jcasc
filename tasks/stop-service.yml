@@ -23,7 +23,7 @@
     - "ansible_facts.services['jenkins']['state'] != 'stopped'"
 
 - name: Stop Jenkins service
-  when: jenkins_service_running
+  when: jenkins_service_running | bool
   block:
     - name: Slurp Jenkins service PID
       ansible.builtin.slurp:
