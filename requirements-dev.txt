@@ -110,7 +110,6 @@ referencing==0.36.2
     #   jsonschema-specifications
 requests==2.32.5
     # via
-    #   -r requirements-dev.in
     #   docker
     #   molecule-plugins
 resolvelib==1.0.1
@@ -135,7 +134,7 @@ subprocess-tee==0.4.2
     #   ansible-lint
 typing-extensions==4.14.1
     # via referencing
-urllib3==2.5.0
+urllib3==2.6.0
     # via
     #   docker
     #   requests
