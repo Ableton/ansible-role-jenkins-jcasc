@@ -14,13 +14,13 @@ ansible-core==2.20.1
     #   ansible-compat
     #   ansible-lint
     #   molecule
-ansible-lint==26.1.0
+ansible-lint==26.1.1
     # via -r requirements-dev.in
 attrs==25.4.0
     # via
     #   jsonschema
     #   referencing
-black==25.12.0
+black==26.1.0
     # via ansible-lint
 bracex==2.6
     # via wcmatch
@@ -87,7 +87,7 @@ packaging==25.0
     #   ansible-lint
     #   black
     #   molecule
-pathspec==0.12.1
+pathspec==1.0.3
     # via
     #   ansible-lint
     #   black
@@ -148,5 +148,5 @@ wcmatch==10.1
     # via
     #   ansible-lint
     #   molecule
-yamllint==1.37.1
+yamllint==1.38.0
     # via ansible-lint
