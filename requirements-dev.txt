@@ -80,7 +80,7 @@ molecule-plugins[docker]==25.8.12
     # via -r requirements-dev.in
 mypy-extensions==1.1.0
     # via black
-packaging==25.0
+packaging==26.0
     # via
     #   ansible-compat
     #   ansible-core
@@ -96,11 +96,11 @@ platformdirs==4.5.1
     # via black
 pluggy==1.6.0
     # via molecule
-pycparser==2.23
+pycparser==3.0
     # via cffi
 pygments==2.19.2
     # via rich
-pytokens==0.3.0
+pytokens==0.4.0
     # via black
 pyyaml==6.0.3
     # via
@@ -120,7 +120,7 @@ requests==2.32.5
     #   molecule-plugins
 resolvelib==1.2.1
     # via ansible-core
-rich==14.2.0
+rich==14.3.1
     # via
     #   enrich
     #   molecule
