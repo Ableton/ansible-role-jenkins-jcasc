@@ -2,6 +2,7 @@
 - name: Start Jenkins service
   become: true
   ansible.builtin.service:
+    enabled: true
     name: "jenkins"
     state: started
     # This normally isn't required, but we also test this role in Docker containers that
