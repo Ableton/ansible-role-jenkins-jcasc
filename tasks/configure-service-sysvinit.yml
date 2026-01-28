@@ -1,6 +1,7 @@
 ---
 - name: Generate Jenkins launcher script
   become: true
+  register: generate_launcher_script
   ansible.builtin.template:
     src: "jenkins-sysvinit.sh.j2"
     dest: "/etc/init.d/jenkins"
@@ -10,6 +11,7 @@
 
 - name: Install Jenkins service
   become: true
+  when: generate_launcher_script is changed  # noqa no-handler
   ansible.builtin.sysvinit:
     name: "jenkins"
     enabled: true
