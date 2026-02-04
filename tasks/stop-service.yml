@@ -33,6 +33,7 @@
     - name: Ensure Jenkins service is stopped
       become: true
       ansible.builtin.service:
+        enabled: false
         name: "jenkins"
         state: stopped
         # This normally isn't required, but we also test this role in Docker containers
