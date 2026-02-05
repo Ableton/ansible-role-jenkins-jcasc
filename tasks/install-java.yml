@@ -11,4 +11,4 @@
     - java_version is failed
     - jenkins_install_java
   ansible.builtin.include_tasks:
-    file: "install-java-{{ ansible_facts['pkg_mgr'] }}.yml"
+    file: "install-java-{{ ansible_pkg_mgr }}.yml"

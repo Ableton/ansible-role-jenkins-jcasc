@@ -11,4 +11,4 @@
   ansible.builtin.apt:
     name: "daemon"
     state: present
-  when: ansible_facts["service_mgr"] == "sysvinit"
+  when: ansible_service_mgr == "sysvinit"
