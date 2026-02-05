@@ -25,7 +25,7 @@
 
 - name: Include tasks to configure Jenkins service
   ansible.builtin.include_tasks:
-    file: "configure-service-{{ ansible_facts['service_mgr'] }}.yml"
+    file: "configure-service-{{ ansible_service_mgr }}.yml"
 
 - name: Include tasks to stop service
   ansible.builtin.include_tasks:

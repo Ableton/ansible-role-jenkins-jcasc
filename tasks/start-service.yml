@@ -8,7 +8,7 @@
     # This normally isn't required, but we also test this role in Docker containers that
     # resemble standalone hosts with SSH. Since OpenSSH has libsystemd as a dependency,
     # it will fool the service module into selecting systemd as the service backend.
-    use: "{{ ansible_facts['service_mgr'] }}"
+    use: "{{ ansible_service_mgr }}"
   # This is required or else molecule's idempotency test will fail. See:
   # https://github.com/ansible-community/molecule/issues/2765
   changed_when: false
