@@ -42,7 +42,7 @@
         def tokenValue = '{{ item.value.api_token }}'
         def user = User.get(userName, false)
         def apiTokenProperty = user.getProperty(ApiTokenProperty.class)
-        apiTokenProperty.tokenStore.addFixedNewToken(tokenName, tokenValue)
+        apiTokenProperty.addFixedNewToken(tokenName, tokenValue)
 
         user.save()
       } catch (error) {
