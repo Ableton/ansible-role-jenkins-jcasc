@@ -1,7 +1,7 @@
 [Unit]
 Description=Jenkins CI Service
-After=network.target
-Requires=network.target
+After={{ jenkins_service_dependencies | join(' ') }}
+Requires={{ jenkins_service_dependencies | join(' ') }}
 
 [Service]
 Environment="CASC_JENKINS_CONFIG={{ jenkins_config_dir }}/jcasc"

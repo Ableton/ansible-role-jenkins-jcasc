@@ -115,6 +115,11 @@ jenkins_root: "/opt/jenkins"
 # Jenkins user.
 jenkins_secret_files: []
 
+# List of systemd services that Jenkins depends on and must wait for before starting.
+# Jenkins will fail to start if any service in this list fails to start.
+jenkins_service_dependencies:
+  - network.target
+
 # If true, show the diff output when copying the plugins.yaml file to the controller. This
 # can be useful to see which plugins changed during a deployment.
 jenkins_show_plugins_yaml_changes: true
