@@ -1,6 +1,7 @@
 [Unit]
 Description=Jenkins CI Service
 After=network.target
+Requires=network.target
 
 [Service]
 Environment="CASC_JENKINS_CONFIG={{ jenkins_config_dir }}/jcasc"
