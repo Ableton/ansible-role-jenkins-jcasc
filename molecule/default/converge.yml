@@ -13,6 +13,13 @@
     jenkins_jobs:
       - "test_job"
     jenkins_jobs_dir: "{{ playbook_dir }}/jobs"
+    jenkins_pimt_args: >-
+      --jenkins-update-center-download-url
+      {{ lookup(
+        "ansible.builtin.env",
+        "JENKINS_UC_DOWNLOAD_URL",
+        default="https://updates.jenkins.io/download/plugins"
+      ) }}
     jenkins_pimt_logfile: "/tmp/pimt.log"
     jenkins_plugins_file: "{{ playbook_dir }}/configs/plugins.yaml"
     jenkins_prefix: "/j"
