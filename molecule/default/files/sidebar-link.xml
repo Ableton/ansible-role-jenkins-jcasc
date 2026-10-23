@@ -1,5 +1,5 @@
 <?xml version='1.1' encoding='UTF-8'?>
-<hudson.plugins.sidebar__link.SidebarLinkPlugin plugin="sidebar-link@1.11.0">
+<hudson.plugins.sidebar__link.SidebarLinkPlugin plugin="sidebar-link@2.5.0">
   <links>
     <hudson.plugins.sidebar__link.LinkAction>
       <url>https://jenkins.io</url>

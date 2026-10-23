@@ -3,4 +3,4 @@ plugins:
   - artifactId: configuration-as-code
   - artifactId: sidebar-link
     source:
-      version: 1.11.0
+      version: 2.5.0
