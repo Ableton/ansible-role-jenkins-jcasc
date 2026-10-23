@@ -4,9 +4,9 @@
   vars:
     jenkins_version_expected: "2.516.3"
     test_users:
-      alice: "notsecure"
-      bob: ""
-      carol: "changeme"
+      - "alice"
+      - "bob"
+      - "carol"
   tasks:
     - name: Get Jenkins group account
       ansible.builtin.group:
@@ -244,7 +244,7 @@
       community.general.jenkins_script:
         script: "print(Jenkins.instance.getUser('{{ item }}'))"
         url: "http://localhost:{{ jenkins_port }}/j"
-      loop: "{{ test_users | flatten(1) }}"
+      loop: "{{ test_users }}"
       register: jenkins_users
 
     - name: Assert that users are present
@@ -257,13 +257,11 @@
     - name: Get API tokens for users
       community.general.jenkins_script:
         script: |
-          Object tokenInfo = Jenkins.instance.getUser('{{ item.key }}')
+          Object tokenInfo = Jenkins.instance.getUser('{{ item }}')
             .getProperty(jenkins.security.ApiTokenProperty).getTokenList()
           print(tokenInfo[0]?.name)
         url: "http://localhost:{{ jenkins_port }}/j"
-        user: "{{ item.key }}"
-        password: "{{ item.value }}"
-      loop: "{{ test_users | dict2items }}"
+      loop: "{{ test_users }}"
       register: jenkins_user_tokens
 
     - name: Validate user tokens
