@@ -26,6 +26,7 @@
   register: jenkins_script_result
   changed_when: false
   failed_when: "'Script failed!' in jenkins_script_result.output"
+  no_log: true
   loop: "{{ jenkins_users | dict2items }}"
 
 - name: Set API tokens for Jenkins users
@@ -55,6 +56,7 @@
   register: jenkins_script_result
   changed_when: false
   failed_when: "'Script failed!' in jenkins_script_result.output"
+  no_log: true
   when:
     - item.value.api_token is defined
     - item.value.api_token != ""
