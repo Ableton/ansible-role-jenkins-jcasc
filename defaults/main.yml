@@ -24,6 +24,9 @@ jenkins_custom_files: []
 # specified in jenkins_plugins_file.
 jenkins_custom_plugins: []
 
+# Base URL to use when downloading Jenkins.
+jenkins_download_url_base: "https://mirrors.jenkins.io"
+
 # Extra arguments to use when starting the Jenkins service.
 jenkins_extra_args: ""
 
