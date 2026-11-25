@@ -4,7 +4,7 @@
   ansible.builtin.get_url:
     url: "{{ jenkins_download_url_base }}/war-stable/{{ jenkins_version }}/jenkins.war"
     checksum: "sha256:\
-      {{ jenkins_download_url_base }}/war-stable/{{ jenkins_version }}/jenkins.war.sha256"
+      https://archives.jenkins.io/war-stable/{{ jenkins_version }}/jenkins.war.sha256"
     dest: "{{ jenkins_war }}"
     # Sometimes the main Jenkins repository has network stability issues
     timeout: "{{ jenkins_download_timeout }}"
