@@ -14,6 +14,18 @@
       - "test_job"
     jenkins_jobs_dir: "{{ playbook_dir }}/jobs"
     jenkins_pimt_args: >-
+      --jenkins-plugin-info
+      {{ lookup(
+        "ansible.builtin.env",
+        "JENKINS_UPDATES_MIRROR",
+        default="https://updates.jenkins.io"
+      ) }}/current/plugin-versions.json
+      --jenkins-update-center
+      {{ lookup(
+        "ansible.builtin.env",
+        "JENKINS_UPDATES_MIRROR",
+        default="https://updates.jenkins.io"
+      ) }}/dynamic-stable-{{ jenkins_version }}/update-center.json
       --jenkins-update-center-download-url
       {{ lookup(
         "ansible.builtin.env",
